@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Sara & Nacho | Nuestra boda</title>
 
   <style>
@@ -25,6 +26,46 @@
       line-height: 1.7;
     }
 
+    section {
+      padding: 100px 25px;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .subtitulo {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      color: #8c7657;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 7vw, 65px);
+      font-weight: 400;
+      margin-bottom: 25px;
+      color: #3e4937;
+    }
+
+    .texto {
+      max-width: 720px;
+      margin: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      color: #5c5c50;
+    }
+
+    .ramita {
+      font-size: 32px;
+      margin: 25px 0;
+      color: #738065;
+    }
+
     /* PORTADA */
 
     .hero {
@@ -35,10 +76,9 @@
       text-align: center;
       padding: 30px;
       position: relative;
-      overflow: hidden;
 
       background:
-        linear-gradient(rgba(35,45,32,.45), rgba(35,45,32,.55)),
+        linear-gradient(rgba(35,45,32,.43), rgba(35,45,32,.58)),
         url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85');
 
       background-size: cover;
@@ -48,7 +88,7 @@
     .hero-content {
       color: #fffdf7;
       max-width: 900px;
-      animation: aparecer 1.4s ease;
+      animation: aparecer 1.3s ease;
     }
 
     @keyframes aparecer {
@@ -56,6 +96,7 @@
         opacity: 0;
         transform: translateY(25px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -106,54 +147,6 @@
       color: white;
       font-size: 25px;
       text-decoration: none;
-      animation: bajar 1.8s infinite;
-    }
-
-    @keyframes bajar {
-      0%,100% { transform: translate(-50%,0); }
-      50% { transform: translate(-50%,8px); }
-    }
-
-    /* SECCIONES */
-
-    section {
-      padding: 100px 25px;
-    }
-
-    .contenedor {
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .subtitulo {
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 11px;
-      color: #8c7657;
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(42px, 7vw, 65px);
-      font-weight: 400;
-      margin-bottom: 25px;
-      color: #3e4937;
-    }
-
-    .texto {
-      max-width: 720px;
-      margin: auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 23px;
-      color: #5c5c50;
-    }
-
-    .ramita {
-      font-size: 32px;
-      margin: 25px 0;
-      color: #738065;
     }
 
     /* CUENTA ATRÁS */
@@ -224,10 +217,12 @@
       padding: 14px 30px;
       border: 1px solid #59644f;
       color: #46503f;
+      background: transparent;
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-size: 11px;
+      cursor: pointer;
       transition: .3s;
     }
 
@@ -276,16 +271,102 @@
       font-size: 14px;
     }
 
-    /* CONFIRMACIÓN */
+    /* REGALO */
+
+    .regalo {
+      background: #3e4937;
+      color: #f5f0e5;
+    }
+
+    .regalo h2 {
+      color: #f5f0e5;
+    }
+
+    .regalo .subtitulo {
+      color: #d5c6a7;
+    }
+
+    .regalo .texto {
+      color: #eee8dc;
+    }
+
+    .cuenta {
+      max-width: 650px;
+      margin: 40px auto 0;
+      padding: 35px 20px;
+      border: 1px solid rgba(255,255,255,.35);
+    }
+
+    .cuenta-titulo {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+
+    .iban {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(19px, 4vw, 28px);
+      letter-spacing: 2px;
+      word-break: break-word;
+    }
+
+    /* RSVP */
 
     .confirmar {
       background: #ddd5c4;
     }
 
-    .confirmar .boton {
+    .formulario {
+      max-width: 650px;
+      margin: 45px auto 0;
+      text-align: left;
+    }
+
+    .campo {
+      margin-bottom: 22px;
+    }
+
+    .campo label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #b7ad99;
+      background: rgba(255,255,255,.55);
+      color: #45493c;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #59644f;
+      background: white;
+    }
+
+    .boton-enviar {
+      display: block;
+      margin: 30px auto 0;
       background: #44503d;
       color: white;
       padding: 17px 40px;
+      border: 1px solid #44503d;
     }
 
     /* FINAL */
@@ -309,6 +390,7 @@
     }
 
     @media(max-width:600px) {
+
       section {
         padding: 75px 20px;
       }
@@ -333,30 +415,42 @@
   <!-- PORTADA -->
 
   <header class="hero">
+
     <div class="hero-content">
-      <div class="small-title">Nos casamos</div>
+
+      <div class="small-title">
+        Nos casamos
+      </div>
 
       <h1>
         Sara <span class="amp">&</span> Nacho
       </h1>
 
-      <div class="fecha">29 · 05 · 2028</div>
+      <div class="fecha">
+        29 · 05 · 2027
+      </div>
 
       <p class="frase">
-        Hay momentos que merecen ser compartidos con las personas que hacen nuestra vida especial.
+        Hay momentos que merecen ser compartidos
+        con las personas que hacen nuestra vida especial.
       </p>
+
     </div>
 
     <a class="scroll" href="#historia">↓</a>
+
   </header>
 
 
   <!-- INTRODUCCIÓN -->
 
   <section id="historia">
+
     <div class="contenedor">
 
-      <div class="subtitulo">Nuestra boda</div>
+      <div class="subtitulo">
+        Nuestra boda
+      </div>
 
       <h2>¡Nos casamos!</h2>
 
@@ -364,22 +458,26 @@
 
       <p class="texto">
         Y no imaginamos este día sin vosotros.
-        Queremos celebrar el comienzo de esta nueva aventura rodeados
-        de nuestra familia y nuestros amigos.
+        Queremos celebrar el comienzo de esta nueva aventura
+        rodeados de nuestra familia y nuestros amigos.
         <br><br>
         Nos haría muchísima ilusión que nos acompañarais.
       </p>
 
     </div>
+
   </section>
 
 
   <!-- CUENTA ATRÁS -->
 
   <section class="countdown-section">
+
     <div class="contenedor">
 
-      <div class="subtitulo">Cada vez queda menos</div>
+      <div class="subtitulo">
+        Cada vez queda menos
+      </div>
 
       <h2>Cuenta atrás</h2>
 
@@ -406,16 +504,21 @@
         </div>
 
       </div>
+
     </div>
+
   </section>
 
 
   <!-- LUGAR -->
 
   <section class="lugar">
+
     <div class="contenedor">
 
-      <div class="subtitulo">Dónde será</div>
+      <div class="subtitulo">
+        Dónde será
+      </div>
 
       <h2>El lugar</h2>
 
@@ -436,7 +539,7 @@
         </p>
 
         <div class="hora">
-          29 de mayo de 2028
+          29 de mayo de 2027
         </div>
 
         <p>
@@ -444,24 +547,29 @@
           en el propio Parador.
         </p>
 
-        <a class="boton"
-           href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
-           target="_blank">
-           Cómo llegar
+        <a
+          class="boton"
+          href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
+          target="_blank">
+          Cómo llegar
         </a>
 
       </div>
 
     </div>
+
   </section>
 
 
   <!-- PROGRAMA -->
 
   <section class="programa">
+
     <div class="contenedor">
 
-      <div class="subtitulo">Nuestro día</div>
+      <div class="subtitulo">
+        Nuestro día
+      </div>
 
       <h2>Programa</h2>
 
@@ -495,31 +603,181 @@
       </div>
 
     </div>
+
+  </section>
+
+
+  <!-- REGALO -->
+
+  <section class="regalo">
+
+    <div class="contenedor">
+
+      <div class="subtitulo">
+        El mejor regalo es compartirlo con vosotros
+      </div>
+
+      <h2>Si queréis ayudarnos</h2>
+
+      <div class="ramita">❦</div>
+
+      <p class="texto">
+        Vuestra presencia en nuestro día es lo más importante para nosotros.
+        Pero si además queréis ayudarnos a comenzar esta nueva etapa,
+        os dejamos por aquí una forma de hacerlo.
+        <br><br>
+        Gracias por formar parte de nuestra historia.
+      </p>
+
+      <div class="cuenta">
+
+        <div class="cuenta-titulo">
+          Número de cuenta
+        </div>
+
+        <div class="iban">
+          ES00 0000 0000 0000 0000 0000
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
 
 
   <!-- CONFIRMACIÓN -->
 
   <section class="confirmar" id="confirmar">
+
     <div class="contenedor">
 
-      <div class="subtitulo">Queremos contar contigo</div>
+      <div class="subtitulo">
+        Queremos contar contigo
+      </div>
 
       <h2>¿Nos acompañas?</h2>
 
       <div class="ramita">❦</div>
 
       <p class="texto">
-        Para nosotros será un regalo poder compartir este día contigo.
-        <br>
-        Confírmanos tu asistencia cuando puedas.
+        Nos hará muchísima ilusión compartir este día contigo.
+        Confírmanos tu asistencia rellenando este pequeño formulario.
       </p>
 
-      <a class="boton" href="#">
-        Confirmar asistencia
-      </a>
+
+      <form
+        class="formulario"
+        action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
+        method="POST">
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="Nueva confirmación - Boda Sara y Nacho">
+
+        <div class="campo">
+
+          <label for="name">
+            Nombre y apellidos
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Tu nombre y apellidos"
+            required>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="asistencia">
+            ¿Podrás acompañarnos?
+          </label>
+
+          <select
+            id="asistencia"
+            name="asistencia"
+            required>
+
+            <option value="">
+              Selecciona una opción
+            </option>
+
+            <option value="Sí, asistiré">
+              Sí, ¡allí estaré!
+            </option>
+
+            <option value="No podré asistir">
+              Lo siento, no podré asistir
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="acompanantes">
+            ¿Cuántas personas asistiréis?
+          </label>
+
+          <input
+            type="number"
+            id="acompanantes"
+            name="numero_personas"
+            min="1"
+            max="10"
+            placeholder="Ejemplo: 2">
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="alimentacion">
+            Alergias, intolerancias o alimentación especial
+          </label>
+
+          <input
+            type="text"
+            id="alimentacion"
+            name="alimentacion"
+            placeholder="Vegetariano, celíaco, alergias...">
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="message">
+            ¿Quieres contarnos algo?
+          </label>
+
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Déjanos un mensaje si quieres"></textarea>
+
+        </div>
+
+
+        <button
+          class="boton boton-enviar"
+          type="submit">
+
+          Confirmar asistencia
+
+        </button>
+
+      </form>
 
     </div>
+
   </section>
 
 
@@ -532,7 +790,7 @@
     </div>
 
     <p>
-      29 · MAYO · 2028 — CUENCA
+      29 · MAYO · 2027 — CUENCA
     </p>
 
   </footer>
@@ -540,47 +798,86 @@
 
   <script>
 
-    const fechaBoda = new Date("May 29, 2028 12:00:00").getTime();
+    const fechaBoda =
+      new Date("May 29, 2027 12:00:00").getTime();
+
 
     function actualizarCuenta() {
 
-      const ahora = new Date().getTime();
-      const distancia = fechaBoda - ahora;
+      const ahora =
+        new Date().getTime();
+
+      const distancia =
+        fechaBoda - ahora;
+
 
       if (distancia < 0) {
+
         document.querySelector(".countdown").innerHTML =
           "<span class='numero'>¡Hoy es el gran día!</span>";
+
         return;
       }
 
+
       const dias =
-        Math.floor(distancia / (1000 * 60 * 60 * 24));
+        Math.floor(
+          distancia /
+          (1000 * 60 * 60 * 24)
+        );
+
 
       const horas =
-        Math.floor((distancia % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60));
+        Math.floor(
+          (distancia %
+          (1000 * 60 * 60 * 24))
+          /
+          (1000 * 60 * 60)
+        );
+
 
       const minutos =
-        Math.floor((distancia % (1000 * 60 * 60))
-        / (1000 * 60));
+        Math.floor(
+          (distancia %
+          (1000 * 60 * 60))
+          /
+          (1000 * 60)
+        );
+
 
       const segundos =
-        Math.floor((distancia % (1000 * 60))
-        / 1000);
+        Math.floor(
+          (distancia %
+          (1000 * 60))
+          /
+          1000
+        );
 
-      document.getElementById("dias").innerHTML = dias;
+
+      document.getElementById("dias").innerHTML =
+        dias;
+
+
       document.getElementById("horas").innerHTML =
         String(horas).padStart(2,"0");
+
 
       document.getElementById("minutos").innerHTML =
         String(minutos).padStart(2,"0");
 
+
       document.getElementById("segundos").innerHTML =
         String(segundos).padStart(2,"0");
+
     }
 
+
     actualizarCuenta();
-    setInterval(actualizarCuenta,1000);
+
+    setInterval(
+      actualizarCuenta,
+      1000
+    );
 
   </script>
 
