@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sara & Nacho | Nuestra boda</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f4f0e7;
+      color: #45493c;
+      line-height: 1.7;
+    }
+
+    /* PORTADA */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(rgba(35,45,32,.45), rgba(35,45,32,.55)),
+        url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85');
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content {
+      color: #fffdf7;
+      max-width: 900px;
+      animation: aparecer 1.4s ease;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .small-title {
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(65px, 12vw, 135px);
+      font-weight: 400;
+      line-height: .85;
+      margin-bottom: 30px;
+    }
+
+    .amp {
+      font-style: italic;
+      font-size: .7em;
+      color: #d7c8a5;
+    }
+
+    .fecha {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+    }
+
+    .frase {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 23px;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 25px;
+      text-decoration: none;
+      animation: bajar 1.8s infinite;
+    }
+
+    @keyframes bajar {
+      0%,100% { transform: translate(-50%,0); }
+      50% { transform: translate(-50%,8px); }
+    }
+
+    /* SECCIONES */
+
+    section {
+      padding: 100px 25px;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .subtitulo {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      color: #8c7657;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 7vw, 65px);
+      font-weight: 400;
+      margin-bottom: 25px;
+      color: #3e4937;
+    }
+
+    .texto {
+      max-width: 720px;
+      margin: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      color: #5c5c50;
+    }
+
+    .ramita {
+      font-size: 32px;
+      margin: 25px 0;
+      color: #738065;
+    }
+
+    /* CUENTA ATRÁS */
+
+    .countdown-section {
+      background: #35402f;
+      color: white;
+    }
+
+    .countdown-section h2 {
+      color: #f6f1e6;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 45px;
+      flex-wrap: wrap;
+      margin-top: 45px;
+    }
+
+    .numero {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 55px;
+      display: block;
+      line-height: 1;
+    }
+
+    .unidad {
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #d3c7ae;
+    }
+
+    /* LUGAR */
+
+    .lugar {
+      background: #e7e0d1;
+    }
+
+    .tarjeta {
+      max-width: 780px;
+      margin: 45px auto 0;
+      background: #f8f5ed;
+      padding: 55px 30px;
+      border: 1px solid #c9bda6;
+    }
+
+    .tarjeta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .hora {
+      margin: 25px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+    }
+
+    /* BOTONES */
+
+    .boton {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 30px;
+      border: 1px solid #59644f;
+      color: #46503f;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      transition: .3s;
+    }
+
+    .boton:hover {
+      background: #46503f;
+      color: white;
+    }
+
+    /* PROGRAMA */
+
+    .programa {
+      background: #f4f0e7;
+    }
+
+    .timeline {
+      max-width: 550px;
+      margin: 50px auto 0;
+      text-align: left;
+    }
+
+    .evento {
+      border-left: 1px solid #9c927d;
+      padding: 0 0 45px 35px;
+      position: relative;
+    }
+
+    .evento:before {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      background: #64705a;
+      border-radius: 50%;
+      left: -5px;
+      top: 8px;
+    }
+
+    .evento h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+      font-weight: 500;
+    }
+
+    .evento p {
+      color: #777265;
+      font-size: 14px;
+    }
+
+    /* CONFIRMACIÓN */
+
+    .confirmar {
+      background: #ddd5c4;
+    }
+
+    .confirmar .boton {
+      background: #44503d;
+      color: white;
+      padding: 17px 40px;
+    }
+
+    /* FINAL */
+
+    footer {
+      background: #30392b;
+      color: #e9e3d6;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    footer .nombres {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    @media(max-width:600px) {
+      section {
+        padding: 75px 20px;
+      }
+
+      .countdown {
+        gap: 25px;
+      }
+
+      .numero {
+        font-size: 42px;
+      }
+
+      .tarjeta {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PORTADA -->
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="small-title">Nos casamos</div>
+
+      <h1>
+        Sara <span class="amp">&</span> Nacho
+      </h1>
+
+      <div class="fecha">29 · 05 · 2028</div>
+
+      <p class="frase">
+        Hay momentos que merecen ser compartidos con las personas que hacen nuestra vida especial.
+      </p>
+    </div>
+
+    <a class="scroll" href="#historia">↓</a>
+  </header>
+
+
+  <!-- INTRODUCCIÓN -->
+
+  <section id="historia">
+    <div class="contenedor">
+
+      <div class="subtitulo">Nuestra boda</div>
+
+      <h2>¡Nos casamos!</h2>
+
+      <div class="ramita">❦</div>
+
+      <p class="texto">
+        Y no imaginamos este día sin vosotros.
+        Queremos celebrar el comienzo de esta nueva aventura rodeados
+        de nuestra familia y nuestros amigos.
+        <br><br>
+        Nos haría muchísima ilusión que nos acompañarais.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- CUENTA ATRÁS -->
+
+  <section class="countdown-section">
+    <div class="contenedor">
+
+      <div class="subtitulo">Cada vez queda menos</div>
+
+      <h2>Cuenta atrás</h2>
+
+      <div class="countdown">
+
+        <div>
+          <span class="numero" id="dias">00</span>
+          <span class="unidad">Días</span>
+        </div>
+
+        <div>
+          <span class="numero" id="horas">00</span>
+          <span class="unidad">Horas</span>
+        </div>
+
+        <div>
+          <span class="numero" id="minutos">00</span>
+          <span class="unidad">Minutos</span>
+        </div>
+
+        <div>
+          <span class="numero" id="segundos">00</span>
+          <span class="unidad">Segundos</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- LUGAR -->
+
+  <section class="lugar">
+    <div class="contenedor">
+
+      <div class="subtitulo">Dónde será</div>
+
+      <h2>El lugar</h2>
+
+      <p class="texto">
+        Hemos elegido un rincón muy especial de Cuenca
+        para celebrar juntos nuestro gran día.
+      </p>
+
+      <div class="tarjeta">
+
+        <div class="ramita">❦</div>
+
+        <h3>Parador de Cuenca</h3>
+
+        <p>
+          Subida a San Pablo, s/n<br>
+          Cuenca
+        </p>
+
+        <div class="hora">
+          29 de mayo de 2028
+        </div>
+
+        <p>
+          La ceremonia y la celebración tendrán lugar
+          en el propio Parador.
+        </p>
+
+        <a class="boton"
+           href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
+           target="_blank">
+           Cómo llegar
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PROGRAMA -->
+
+  <section class="programa">
+    <div class="contenedor">
+
+      <div class="subtitulo">Nuestro día</div>
+
+      <h2>Programa</h2>
+
+      <div class="timeline">
+
+        <div class="evento">
+          <h3>Bienvenida</h3>
+          <p>Nos encontraremos en el Parador de Cuenca.</p>
+        </div>
+
+        <div class="evento">
+          <h3>Ceremonia</h3>
+          <p>El momento de decir: sí, quiero.</p>
+        </div>
+
+        <div class="evento">
+          <h3>Cóctel</h3>
+          <p>Brindaremos juntos mientras empieza la celebración.</p>
+        </div>
+
+        <div class="evento">
+          <h3>Banquete</h3>
+          <p>Comer, beber, brindar y disfrutar.</p>
+        </div>
+
+        <div class="evento">
+          <h3>Fiesta</h3>
+          <p>Y después... ¡a celebrarlo como se merece!</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- CONFIRMACIÓN -->
+
+  <section class="confirmar" id="confirmar">
+    <div class="contenedor">
+
+      <div class="subtitulo">Queremos contar contigo</div>
+
+      <h2>¿Nos acompañas?</h2>
+
+      <div class="ramita">❦</div>
+
+      <p class="texto">
+        Para nosotros será un regalo poder compartir este día contigo.
+        <br>
+        Confírmanos tu asistencia cuando puedas.
+      </p>
+
+      <a class="boton" href="#">
+        Confirmar asistencia
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- FINAL -->
+
+  <footer>
+
+    <div class="nombres">
+      Sara & Nacho
+    </div>
+
+    <p>
+      29 · MAYO · 2028 — CUENCA
+    </p>
+
+  </footer>
+
+
+  <script>
+
+    const fechaBoda = new Date("May 29, 2028 12:00:00").getTime();
+
+    function actualizarCuenta() {
+
+      const ahora = new Date().getTime();
+      const distancia = fechaBoda - ahora;
+
+      if (distancia < 0) {
+        document.querySelector(".countdown").innerHTML =
+          "<span class='numero'>¡Hoy es el gran día!</span>";
+        return;
+      }
+
+      const dias =
+        Math.floor(distancia / (1000 * 60 * 60 * 24));
+
+      const horas =
+        Math.floor((distancia % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60));
+
+      const minutos =
+        Math.floor((distancia % (1000 * 60 * 60))
+        / (1000 * 60));
+
+      const segundos =
+        Math.floor((distancia % (1000 * 60))
+        / 1000);
+
+      document.getElementById("dias").innerHTML = dias;
+      document.getElementById("horas").innerHTML =
+        String(horas).padStart(2,"0");
+
+      document.getElementById("minutos").innerHTML =
+        String(minutos).padStart(2,"0");
+
+      document.getElementById("segundos").innerHTML =
+        String(segundos).padStart(2,"0");
+    }
+
+    actualizarCuenta();
+    setInterval(actualizarCuenta,1000);
+
+  </script>
+
+</body>
+</html>
