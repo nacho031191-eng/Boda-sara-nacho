@@ -37,12 +37,14 @@ body{
 
 
 /* ==================================================
-   PANTALLA INICIAL
+   PANTALLA DEL SOBRE
 ================================================== */
 
 #pantallaSobre{
+
     position:fixed;
     inset:0;
+
     z-index:9999;
 
     display:flex;
@@ -51,10 +53,10 @@ body{
 
     background:
         radial-gradient(
-            circle at 50% 42%,
-            #f3eadb 0%,
-            #e5d8c3 55%,
-            #d8c7ad 100%
+            circle at 50% 35%,
+            #f3eadc 0%,
+            #e6d8c1 60%,
+            #d6c3a6 100%
         );
 
     transition:
@@ -62,46 +64,56 @@ body{
         visibility 1s ease;
 }
 
+
 #pantallaSobre.oculto{
+
     opacity:0;
     visibility:hidden;
+
     pointer-events:none;
 }
 
+
+/* textura general */
+
 #pantallaSobre::before{
+
     content:"";
+
     position:absolute;
     inset:0;
 
-    opacity:.12;
+    opacity:.10;
 
     background-image:
+
         repeating-linear-gradient(
             45deg,
-            rgba(92,71,47,.10) 0px,
-            rgba(92,71,47,.10) 1px,
+            rgba(92,71,47,.08) 0px,
+            rgba(92,71,47,.08) 1px,
             transparent 1px,
-            transparent 5px
+            transparent 6px
         );
 
     pointer-events:none;
 }
 
 
-/* ==================================================
-   TEXTO SOBRE EL SOBRE
-================================================== */
+.intro-wrap{
+
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+}
+
 
 .instruccion-sobre{
-    position:absolute;
-    bottom:-60px;
-    left:50%;
 
-    transform:translateX(-50%);
-
-    width:100%;
-
-    text-align:center;
+    margin-top:30px;
 
     text-transform:uppercase;
 
@@ -109,15 +121,50 @@ body{
 
     font-size:10px;
 
-    color:#776b5b;
+    color:#776956;
 
-    opacity:.75;
+    opacity:.8;
 
-    transition:opacity .4s ease;
+    transition:
+        opacity .35s ease;
 }
 
-.envelope-container.abierto .instruccion-sobre{
+
+#pantallaSobre.quemando
+.instruccion-sobre{
+
     opacity:0;
+}
+
+
+/* ==================================================
+   CONTENEDOR
+================================================== */
+
+.sobre-box{
+
+    position:relative;
+
+    width:min(540px,88vw);
+    height:min(360px,58vw);
+
+    --bx:50%;
+    --by:53%;
+
+    --r1:0px;
+    --r2:0px;
+
+    --burnOpacity:0;
+
+    filter:
+        drop-shadow(
+            0 24px 30px
+            rgba(50,35,20,.20)
+        );
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
 }
 
 
@@ -125,78 +172,163 @@ body{
    SOBRE
 ================================================== */
 
-.envelope-container{
-    position:relative;
+.sobre-real{
 
-    width:min(480px,84vw);
-    height:min(320px,56vw);
-
-    filter:
-        drop-shadow(
-            0 22px 30px
-            rgba(55,40,25,.20)
-        );
-
-    perspective:1000px;
-}
-
-.envelope{
     position:absolute;
     inset:0;
 
-    background:#faf5eb;
-
-    border:1px solid rgba(100,80,55,.15);
-
     overflow:hidden;
+
+    border-radius:4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #faf5eb 0%,
+            #f2e7d5 100%
+        );
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,.75),
+
+        inset 0 -15px 25px
+        rgba(115,80,45,.05),
+
+        0 1px 0
+        rgba(130,95,60,.10);
+
 }
 
 
-/* laterales inferiores */
+/* textura de papel */
 
-.envelope::before{
-    content:"";
+.sobre-base{
+
+    position:absolute;
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at 18% 25%,
+            rgba(130,100,65,.045),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 78% 72%,
+            rgba(110,80,50,.04),
+            transparent 28%
+        ),
+
+        repeating-linear-gradient(
+            13deg,
+            rgba(100,75,50,.017) 0px,
+            rgba(100,75,50,.017) 1px,
+            transparent 1px,
+            transparent 7px
+        );
+}
+
+
+/* ==================================================
+   PARTE DELANTERA
+================================================== */
+
+.sobre-frente{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:64%;
+
+    z-index:3;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #f0e3cf 0%,
+            #e9d5b9 100%
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            0 35%,
+            50% 0,
+            100% 35%,
+            100% 100%
+        );
+
+    box-shadow:
+        inset 0 12px 18px
+        rgba(255,255,255,.18);
+}
+
+
+/* laterales */
+
+.sobre-lateral-izq{
 
     position:absolute;
 
     left:0;
     bottom:0;
 
-    width:0;
-    height:0;
-
-    border-left:min(240px,42vw) solid #eee3d1;
-    border-right:min(240px,42vw) solid #eee3d1;
-    border-top:min(160px,28vw) solid transparent;
+    width:52%;
+    height:72%;
 
     z-index:2;
+
+    background:
+        linear-gradient(
+            130deg,
+            #f5ebdc,
+            #e7d3b6
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 70%,
+            100% 100%,
+            0 100%
+        );
 }
 
 
-/* ligera textura */
-
-.envelope::after{
-    content:"";
+.sobre-lateral-der{
 
     position:absolute;
-    inset:0;
+
+    right:0;
+    bottom:0;
+
+    width:52%;
+    height:72%;
+
+    z-index:2;
 
     background:
-        radial-gradient(
-            circle at 25% 30%,
-            rgba(150,120,80,.04),
-            transparent 30%
-        ),
-        repeating-linear-gradient(
-            20deg,
-            rgba(120,95,65,.025) 0,
-            rgba(120,95,65,.025) 1px,
-            transparent 1px,
-            transparent 7px
+        linear-gradient(
+            230deg,
+            #f5ebdc,
+            #e7d3b6
         );
 
-    pointer-events:none;
-    z-index:3;
+    clip-path:
+        polygon(
+            100% 0,
+            0 70%,
+            0 100%,
+            100% 100%
+        );
 }
 
 
@@ -204,20 +336,24 @@ body{
    SOLAPA
 ================================================== */
 
-.flap{
+.solapa-real{
+
     position:absolute;
 
     top:0;
     left:0;
 
     width:100%;
-    height:59%;
+    height:60%;
+
+    z-index:4;
 
     background:
+
         linear-gradient(
-            165deg,
-            #faf5eb 0%,
-            #f1e7d6 100%
+            180deg,
+            #fcf7ee 0%,
+            #f0e1ca 100%
         );
 
     clip-path:
@@ -227,25 +363,23 @@ body{
             50% 100%
         );
 
-    transform-origin:top center;
-
-    transition:
-        transform 1.05s cubic-bezier(.3,.1,.2,1);
-
-    backface-visibility:hidden;
-
-    z-index:5;
+    filter:
+        drop-shadow(
+            0 2px 1px
+            rgba(100,70,40,.08)
+        );
 }
 
 
-/* línea de cierre */
+.solapa-real::after{
 
-.linea-cierre{
+    content:"";
+
     position:absolute;
 
-    left:8%;
-    right:8%;
-    top:53%;
+    left:16%;
+    right:16%;
+    bottom:5px;
 
     height:1px;
 
@@ -253,11 +387,9 @@ body{
         linear-gradient(
             90deg,
             transparent,
-            rgba(100,78,55,.15),
+            rgba(110,85,55,.18),
             transparent
         );
-
-    z-index:4;
 }
 
 
@@ -265,400 +397,317 @@ body{
    SELLO DE LACRE
 ================================================== */
 
-.sello{
+.sello-real{
+
     appearance:none;
+
     border:none;
 
     position:absolute;
 
-    width:92px;
-    height:89px;
-
     left:50%;
     top:53%;
 
-    transform:translate(-50%,-50%) rotate(-2deg);
+    transform:
+        translate(-50%,-50%)
+        rotate(-3deg);
 
-    z-index:10;
+    width:96px;
+    height:92px;
+
+    z-index:12;
 
     cursor:pointer;
 
     border-radius:
         47% 53% 46% 54% /
-        52% 46% 54% 48%;
+        52% 47% 53% 48%;
 
     background:
+
         radial-gradient(
-            circle at 34% 27%,
-            rgba(255,255,255,.18) 0%,
-            transparent 13%
+            circle at 32% 25%,
+            rgba(255,255,255,.22) 0%,
+            transparent 14%
         ),
+
         radial-gradient(
-            circle at 44% 45%,
-            #8a3e38 0%,
-            #78302e 47%,
-            #602422 78%,
-            #4c1b1b 100%
+            circle at 47% 45%,
+            #96443d 0%,
+            #7c302d 43%,
+            #61201f 76%,
+            #451516 100%
         );
 
     box-shadow:
-        3px 2px 0 -1px #652724,
-        -4px 3px 0 -2px #712c29,
-        2px -4px 0 -2px #85403a,
-        -3px -3px 0 -2px #662725,
 
-        inset 3px 4px 7px rgba(255,255,255,.11),
-        inset -6px -7px 10px rgba(35,5,5,.30),
+        4px 2px 0 -2px #7b2c29,
+        -5px 2px 0 -2px #672421,
+        2px -4px 0 -2px #873a35,
+        -2px 5px 0 -2px #57201e,
 
-        0 7px 11px rgba(50,24,15,.30);
+        inset 3px 4px 8px
+        rgba(255,255,255,.11),
 
-    color:#d9b7a4;
+        inset -6px -7px 10px
+        rgba(25,0,0,.32),
 
-    font-family:'Cormorant Garamond',serif;
+        0 8px 14px
+        rgba(45,20,12,.28);
 
     transition:
-        filter .3s,
-        transform .3s;
+        transform .25s ease,
+        opacity .3s ease,
+        filter .3s ease;
 
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
-.sello:hover{
+
+.sello-real:hover{
+
     transform:
         translate(-50%,-50%)
-        rotate(-2deg)
-        scale(1.035);
-}
-
-.sello:focus-visible{
-    outline:2px solid #8c7657;
-    outline-offset:8px;
+        rotate(-3deg)
+        scale(1.04);
 }
 
 
-/* borde irregular */
+.sello-real::before{
 
-.sello::before{
     content:"";
 
     position:absolute;
 
-    inset:9px;
+    inset:10px;
 
     border-radius:50%;
 
-    border:1px solid rgba(216,180,159,.52);
+    border:
+        1px solid
+        rgba(222,183,156,.58);
 
     box-shadow:
-        inset 0 0 4px rgba(30,0,0,.28),
-        0 0 1px rgba(255,230,210,.25);
+
+        inset 0 0 5px
+        rgba(0,0,0,.25),
+
+        0 0 1px
+        rgba(255,230,210,.20);
 }
 
 
-/* iniciales */
-
-.sello::after{
-    content:"S  &  N";
+.iniciales-sello{
 
     position:absolute;
-
     inset:0;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    font-size:24px;
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:26px;
+
     font-style:italic;
+
     font-weight:500;
 
-    color:#d6ae98;
+    color:#dbb59e;
 
     letter-spacing:-1px;
 
     text-shadow:
-        0 1px 0 rgba(255,255,255,.10),
-        0 -1px 1px rgba(44,5,5,.45);
+
+        0 1px 1px
+        rgba(255,255,255,.10),
+
+        0 -1px 1px
+        rgba(30,0,0,.5);
 }
 
 
 /* ==================================================
-   TEXTURA DEL LACRE
+   QUEMADO DEL PAPEL
 ================================================== */
 
-.textura-lacre{
-    position:absolute;
-    inset:0;
+.sobre-real.quemando{
 
-    border-radius:inherit;
+    -webkit-mask-image:
 
-    overflow:hidden;
+        radial-gradient(
+            circle at var(--bx) var(--by),
 
-    pointer-events:none;
+            transparent var(--r1),
+
+            rgba(0,0,0,.20)
+            calc(var(--r1) + 8px),
+
+            #000 var(--r2)
+        );
+
+
+    mask-image:
+
+        radial-gradient(
+            circle at var(--bx) var(--by),
+
+            transparent var(--r1),
+
+            rgba(0,0,0,.20)
+            calc(var(--r1) + 8px),
+
+            #000 var(--r2)
+        );
+
 }
 
-.textura-lacre::before{
+
+/* ==================================================
+   BORDE DE FUEGO
+================================================== */
+
+.burn-fx{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:18;
+
+    pointer-events:none;
+
+    opacity:0;
+}
+
+
+.burn-fx.activo{
+
+    opacity:1;
+}
+
+
+.burn-fx::before{
+
     content:"";
 
     position:absolute;
     inset:0;
 
-    opacity:.45;
-
     background:
-        radial-gradient(circle at 18% 31%, rgba(255,210,185,.16) 0 2px, transparent 3px),
-        radial-gradient(circle at 74% 23%, rgba(60,5,5,.16) 0 2px, transparent 3px),
-        radial-gradient(circle at 68% 73%, rgba(255,200,170,.10) 0 1px, transparent 3px),
-        radial-gradient(circle at 31% 78%, rgba(45,0,0,.15) 0 2px, transparent 4px);
-}
 
+        radial-gradient(
+            circle at var(--bx) var(--by),
 
-/* ==================================================
-   GRIETAS
-================================================== */
+            transparent
+            calc(var(--r1) - 5px),
 
-.grieta{
-    position:absolute;
+            rgba(20,7,3,.98)
+            var(--r1),
 
-    z-index:5;
+            rgba(75,20,3,.98)
+            calc(var(--r1) + 4px),
 
-    width:2px;
+            rgba(255,83,0,.97)
+            calc(var(--r1) + 8px),
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(45,5,0,.95),
-            rgba(255,129,53,.85)
+            rgba(255,177,50,.95)
+            calc(var(--r1) + 11px),
+
+            rgba(255,75,0,.80)
+            calc(var(--r1) + 15px),
+
+            rgba(34,11,5,.98)
+            calc(var(--r1) + 21px),
+
+            transparent
+            calc(var(--r1) + 32px)
         );
 
-    border-radius:3px;
+    opacity:
+        var(--burnOpacity);
 
-    opacity:0;
-
-    transform-origin:top center;
-
-    box-shadow:
-        0 0 3px rgba(255,90,20,.55);
-}
-
-.g1{
-    height:28px;
-    left:48%;
-    top:9px;
-    transform:rotate(17deg) scaleY(0);
-}
-
-.g2{
-    height:25px;
-    left:66%;
-    top:34px;
-    transform:rotate(66deg) scaleY(0);
-}
-
-.g3{
-    height:27px;
-    left:32%;
-    top:39px;
-    transform:rotate(-58deg) scaleY(0);
-}
-
-.g4{
-    height:21px;
-    left:52%;
-    top:56px;
-    transform:rotate(-12deg) scaleY(0);
+    filter:
+        blur(1.2px);
 }
 
 
-/* ==================================================
-   EFECTO DE QUEMADO
-================================================== */
+.burn-fx::after{
 
-.sello.quemando{
-    pointer-events:none;
+    content:"";
 
-    animation:
-        quemarSello 1.18s
-        cubic-bezier(.55,.05,.7,.35)
-        forwards;
-}
-
-.sello.quemando .grieta{
-    animation:
-        abrirGrieta .42s ease-out forwards;
-}
-
-.sello.quemando .g2{
-    animation-delay:.12s;
-}
-
-.sello.quemando .g3{
-    animation-delay:.20s;
-}
-
-.sello.quemando .g4{
-    animation-delay:.27s;
-}
-
-
-/* sello calentándose y desapareciendo */
-
-@keyframes quemarSello{
-
-    0%{
-        transform:
-            translate(-50%,-50%)
-            rotate(-2deg)
-            scale(1);
-
-        filter:
-            brightness(1)
-            saturate(1);
-
-        opacity:1;
-    }
-
-    18%{
-        filter:
-            brightness(1.2)
-            saturate(1.35);
-
-        box-shadow:
-            0 0 8px rgba(255,120,35,.20),
-            0 7px 11px rgba(50,24,15,.30);
-    }
-
-    38%{
-        transform:
-            translate(-50%,-50%)
-            rotate(1deg)
-            scale(1.04);
-
-        filter:
-            brightness(1.45)
-            saturate(1.5);
-
-        box-shadow:
-            0 0 13px rgba(255,95,20,.60),
-            0 0 30px rgba(255,84,10,.22);
-    }
-
-    57%{
-        transform:
-            translate(-50%,-50%)
-            rotate(-2deg)
-            scale(.98);
-
-        filter:
-            brightness(.9)
-            sepia(.35)
-            saturate(1.5);
-    }
-
-    76%{
-        transform:
-            translate(-50%,-50%)
-            rotate(4deg)
-            scale(.82);
-
-        filter:
-            brightness(.48)
-            saturate(.55)
-            blur(.5px);
-
-        opacity:.82;
-    }
-
-    100%{
-        transform:
-            translate(-50%,-47%)
-            rotate(8deg)
-            scale(.22);
-
-        filter:
-            brightness(.20)
-            saturate(.1)
-            blur(5px);
-
-        opacity:0;
-    }
-}
-
-
-@keyframes abrirGrieta{
-
-    0%{
-        opacity:0;
-        transform:
-            rotate(var(--rot,0deg))
-            scaleY(0);
-    }
-
-    35%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:1;
-        transform:
-            rotate(var(--rot,0deg))
-            scaleY(1);
-    }
-}
-
-.g1{ --rot:17deg; }
-.g2{ --rot:66deg; }
-.g3{ --rot:-58deg; }
-.g4{ --rot:-12deg; }
-
-
-/* ==================================================
-   BRASAS Y HUMO
-================================================== */
-
-#efectoFuego{
     position:absolute;
+    inset:0;
 
-    left:50%;
-    top:53%;
+    background:
 
-    width:1px;
-    height:1px;
+        radial-gradient(
+            circle at var(--bx) var(--by),
 
-    z-index:20;
+            transparent var(--r1),
+
+            rgba(10,5,3,.90)
+            calc(var(--r1) + 12px),
+
+            transparent
+            calc(var(--r1) + 28px)
+        );
+
+    opacity:
+        var(--burnOpacity);
+}
+
+
+/* ==================================================
+   PARTÍCULAS
+================================================== */
+
+#particles{
+
+    position:absolute;
+    inset:0;
+
+    z-index:30;
 
     pointer-events:none;
 }
 
 
-.brasa{
+.spark{
+
     position:absolute;
 
-    width:var(--tam);
-    height:var(--tam);
+    width:var(--size);
+    height:var(--size);
 
     border-radius:50%;
 
-    background:#ffad45;
+    background:#ffc25b;
 
     box-shadow:
-        0 0 5px #ff7227,
-        0 0 11px rgba(255,70,10,.7);
 
-    opacity:0;
+        0 0 5px #ff8a2b,
+
+        0 0 12px
+        rgba(255,70,0,.8);
 
     animation:
-        volarBrasa
+        sparkFly
         var(--dur)
         ease-out
-        var(--delay)
         forwards;
 }
 
 
-@keyframes volarBrasa{
+@keyframes sparkFly{
 
     0%{
+
         transform:
             translate(0,0)
             scale(.4);
@@ -666,19 +715,20 @@ body{
         opacity:0;
     }
 
-    12%{
+    8%{
         opacity:1;
     }
 
     70%{
-        opacity:.8;
+        opacity:.85;
     }
 
     100%{
+
         transform:
             translate(
-                var(--x),
-                var(--y)
+                var(--tx),
+                var(--ty)
             )
             scale(.05);
 
@@ -688,85 +738,155 @@ body{
 }
 
 
-.humo{
+/* ==================================================
+   CENIZA
+================================================== */
+
+.ash{
+
     position:absolute;
 
-    width:var(--tam);
-    height:var(--tam);
-
-    border-radius:50%;
+    width:var(--size);
+    height:var(--size);
 
     background:
-        radial-gradient(
-            circle,
-            rgba(85,72,66,.34),
-            rgba(85,72,66,.12) 50%,
-            transparent 72%
-        );
+        rgba(35,30,27,.75);
 
-    filter:blur(3px);
-
-    opacity:0;
+    border-radius:
+        30% 60% 45% 55%;
 
     animation:
-        subirHumo
+        ashFall
         var(--dur)
         ease-out
-        var(--delay)
         forwards;
 }
 
 
-@keyframes subirHumo{
+@keyframes ashFall{
 
     0%{
-        opacity:0;
+
+        opacity:.8;
 
         transform:
-            translate(0,5px)
-            scale(.5);
-    }
-
-    25%{
-        opacity:.34;
+            translate(0,0)
+            rotate(0deg);
     }
 
     100%{
+
         opacity:0;
 
         transform:
             translate(
-                var(--x),
-                var(--y)
+                var(--tx),
+                var(--ty)
             )
-            scale(2.5);
+            rotate(240deg);
     }
 
 }
 
 
 /* ==================================================
-   APERTURA DEL SOBRE
+   HUMO
 ================================================== */
 
-.envelope-container.abierto .flap{
-    transform:rotateX(180deg);
-    z-index:1;
+.smoke{
+
+    position:absolute;
+
+    width:var(--size);
+    height:var(--size);
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+
+            rgba(70,65,62,.34),
+
+            rgba(70,65,62,.14) 48%,
+
+            transparent 72%
+        );
+
+    filter:blur(5px);
+
+    animation:
+        smokeUp
+        var(--dur)
+        ease-out
+        forwards;
+}
+
+
+@keyframes smokeUp{
+
+    0%{
+
+        transform:
+            translate(0,0)
+            scale(.4);
+
+        opacity:0;
+    }
+
+    20%{
+
+        opacity:.40;
+    }
+
+    100%{
+
+        transform:
+            translate(
+                var(--tx),
+                var(--ty)
+            )
+            scale(2.5);
+
+        opacity:0;
+    }
+
 }
 
 
 /* ==================================================
-   WEB
+   FINAL DEL SOBRE
+================================================== */
+
+.sobre-box.fin{
+
+    opacity:0;
+
+    transform:
+        scale(.96);
+
+    filter:
+        blur(2px);
+
+}
+
+
+/* ==================================================
+   PÁGINA
 ================================================== */
 
 #web{
+
     opacity:0;
 
     transition:
-        opacity 1.3s ease;
+        opacity 1.35s ease;
 }
 
+
 #web.visible{
+
     opacity:1;
 }
 
@@ -776,11 +896,13 @@ body{
 ================================================== */
 
 .hero{
+
     min-height:100vh;
 
     position:relative;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -791,25 +913,33 @@ body{
     color:white;
 
     background:
+
         linear-gradient(
-            rgba(22,28,19,.22),
-            rgba(22,28,19,.52)
+            rgba(20,25,18,.18),
+            rgba(20,25,18,.52)
         ),
+
         url('fondo-cuenca.png');
 
     background-size:cover;
-    background-position:center;
+
+    background-position:center center;
 }
 
+
 .hero-content{
+
     max-width:950px;
 
     text-shadow:
+
         0 3px 18px
-        rgba(0,0,0,.42);
+        rgba(0,0,0,.43);
 }
 
+
 .hero .fecha{
+
     font-size:14px;
 
     letter-spacing:6px;
@@ -819,7 +949,9 @@ body{
     text-transform:uppercase;
 }
 
+
 .hero .nos-casamos{
+
     font-size:13px;
 
     letter-spacing:6px;
@@ -829,8 +961,12 @@ body{
     margin-bottom:22px;
 }
 
+
 .hero h1{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:
         clamp(72px,12vw,145px);
@@ -842,7 +978,9 @@ body{
     margin-bottom:35px;
 }
 
+
 .amp{
+
     font-style:italic;
 
     font-size:.72em;
@@ -850,21 +988,29 @@ body{
     color:#e0d2b2;
 }
 
+
 .hero .lugar-portada{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:23px;
 
     letter-spacing:3px;
 }
 
+
 .scroll{
+
     position:absolute;
 
     bottom:28px;
+
     left:50%;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
     color:white;
 
@@ -872,18 +1018,25 @@ body{
 
     font-size:25px;
 
-    animation:bajar 1.8s infinite;
+    animation:
+        bajar 1.8s infinite;
 }
+
 
 @keyframes bajar{
 
     0%,100%{
-        transform:translate(-50%,0);
+
+        transform:
+            translate(-50%,0);
     }
 
     50%{
-        transform:translate(-50%,8px);
+
+        transform:
+            translate(-50%,8px);
     }
+
 }
 
 
@@ -892,10 +1045,14 @@ body{
 ================================================== */
 
 section{
-    padding:100px 25px;
+
+    padding:
+        100px 25px;
 }
 
+
 .contenedor{
+
     max-width:1000px;
 
     margin:auto;
@@ -903,7 +1060,9 @@ section{
     text-align:center;
 }
 
+
 .subtitulo{
+
     text-transform:uppercase;
 
     letter-spacing:4px;
@@ -915,8 +1074,12 @@ section{
     margin-bottom:12px;
 }
 
+
 h2{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:
         clamp(42px,7vw,65px);
@@ -928,12 +1091,16 @@ h2{
     color:#3e4937;
 }
 
+
 .texto{
+
     max-width:720px;
 
     margin:auto;
 
-    font-family:'Cormorant Garamond',serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:23px;
 
@@ -946,15 +1113,20 @@ h2{
 ================================================== */
 
 .separador{
+
     width:95px;
+
     height:25px;
 
-    margin:24px auto 30px;
+    margin:
+        24px auto 30px;
 
     position:relative;
 }
 
+
 .separador::before{
+
     content:"";
 
     position:absolute;
@@ -968,7 +1140,9 @@ h2{
     background:#8b9275;
 }
 
+
 .separador::after{
+
     content:"";
 
     position:absolute;
@@ -985,18 +1159,26 @@ h2{
 
     background:#f4f0e7;
 
-    border:1px solid #8b9275;
+    border:
+        1px solid
+        #8b9275;
 }
 
+
 .tarjeta .separador::after{
+
     background:#f8f5ed;
 }
 
+
 .regalo .separador::after{
+
     background:#3e4937;
 }
 
+
 .confirmar .separador::after{
+
     background:#ddd5c4;
 }
 
@@ -1006,19 +1188,27 @@ h2{
 ================================================== */
 
 .countdown-section{
+
     background:#35402f;
+
     color:white;
 }
 
+
 .countdown-section h2{
+
     color:#f6f1e6;
 }
 
+
 .countdown-section .subtitulo{
+
     color:#d5c6a7;
 }
 
+
 .countdown{
+
     display:flex;
 
     justify-content:center;
@@ -1030,17 +1220,23 @@ h2{
     margin-top:45px;
 }
 
+
 .numero{
+
     display:block;
 
-    font-family:'Cormorant Garamond',serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:55px;
 
     line-height:1;
 }
 
+
 .unidad{
+
     text-transform:uppercase;
 
     font-size:10px;
@@ -1056,23 +1252,34 @@ h2{
 ================================================== */
 
 .lugar{
+
     background:#e7e0d1;
 }
 
+
 .tarjeta{
+
     max-width:780px;
 
-    margin:45px auto 0;
+    margin:
+        45px auto 0;
 
     background:#f8f5ed;
 
-    padding:55px 30px;
+    padding:
+        55px 30px;
 
-    border:1px solid #c9bda6;
+    border:
+        1px solid
+        #c9bda6;
 }
 
+
 .tarjeta h3{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:38px;
 
@@ -1081,10 +1288,15 @@ h2{
     margin-bottom:10px;
 }
 
-.hora{
-    margin:25px 0;
 
-    font-family:'Cormorant Garamond',serif;
+.hora{
+
+    margin:
+        25px 0;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:24px;
 }
@@ -1095,13 +1307,17 @@ h2{
 ================================================== */
 
 .boton{
+
     display:inline-block;
 
     margin-top:25px;
 
-    padding:14px 30px;
+    padding:
+        14px 30px;
 
-    border:1px solid #59644f;
+    border:
+        1px solid
+        #59644f;
 
     color:#46503f;
 
@@ -1120,8 +1336,11 @@ h2{
     transition:.3s;
 }
 
+
 .boton:hover{
+
     background:#46503f;
+
     color:white;
 }
 
@@ -1131,30 +1350,43 @@ h2{
 ================================================== */
 
 .programa{
+
     background:#f4f0e7;
 }
 
+
 .timeline{
+
     max-width:550px;
 
-    margin:50px auto 0;
+    margin:
+        50px auto 0;
 
     text-align:left;
 }
 
-.evento{
-    border-left:1px solid #9c927d;
 
-    padding:0 0 45px 35px;
+.evento{
+
+    border-left:
+        1px solid
+        #9c927d;
+
+    padding:
+        0 0 45px 35px;
 
     position:relative;
 }
 
+
 .evento:last-child{
+
     padding-bottom:0;
 }
 
+
 .evento::before{
+
     content:"";
 
     position:absolute;
@@ -1170,16 +1402,23 @@ h2{
     top:8px;
 }
 
+
 .evento h3{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:27px;
 
     font-weight:500;
 }
 
+
 .evento p{
+
     color:#777265;
+
     font-size:14px;
 }
 
@@ -1189,33 +1428,49 @@ h2{
 ================================================== */
 
 .regalo{
+
     background:#3e4937;
+
     color:#f5f0e5;
 }
+
 
 .regalo h2{
+
     color:#f5f0e5;
 }
 
+
 .regalo .subtitulo{
+
     color:#d5c6a7;
 }
 
+
 .regalo .texto{
+
     color:#eee8dc;
 }
 
+
 .cuenta{
+
     max-width:650px;
 
-    margin:40px auto 0;
+    margin:
+        40px auto 0;
 
-    padding:35px 20px;
+    padding:
+        35px 20px;
 
-    border:1px solid rgba(255,255,255,.35);
+    border:
+        1px solid
+        rgba(255,255,255,.35);
 }
 
+
 .cuenta-titulo{
+
     text-transform:uppercase;
 
     letter-spacing:3px;
@@ -1225,8 +1480,12 @@ h2{
     margin-bottom:15px;
 }
 
+
 .iban{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:
         clamp(19px,4vw,28px);
@@ -1242,22 +1501,30 @@ h2{
 ================================================== */
 
 .confirmar{
+
     background:#ddd5c4;
 }
 
+
 .formulario{
+
     max-width:650px;
 
-    margin:45px auto 0;
+    margin:
+        45px auto 0;
 
     text-align:left;
 }
 
+
 .campo{
+
     margin-bottom:22px;
 }
 
+
 .campo label{
+
     display:block;
 
     margin-bottom:8px;
@@ -1269,41 +1536,57 @@ h2{
     letter-spacing:1.5px;
 }
 
+
 input,
 select,
 textarea{
+
     width:100%;
 
     padding:14px;
 
-    border:1px solid #b7ad99;
+    border:
+        1px solid
+        #b7ad99;
 
-    background:rgba(255,255,255,.55);
+    background:
+        rgba(255,255,255,.55);
 
     color:#45493c;
 
-    font-family:'Montserrat',sans-serif;
+    font-family:
+        'Montserrat',
+        sans-serif;
 
     font-size:15px;
 }
 
+
 textarea{
+
     min-height:110px;
+
     resize:vertical;
 }
 
+
 .boton-enviar{
+
     display:block;
 
-    margin:30px auto 0;
+    margin:
+        30px auto 0;
 
     background:#44503d;
 
     color:white;
 
-    padding:17px 40px;
+    padding:
+        17px 40px;
 
-    border:1px solid #44503d;
+    border:
+        1px solid
+        #44503d;
 }
 
 
@@ -1312,25 +1595,34 @@ textarea{
 ================================================== */
 
 footer{
+
     background:#30392b;
 
     color:#e9e3d6;
 
     text-align:center;
 
-    padding:70px 20px;
+    padding:
+        70px 20px;
 }
 
+
 footer .nombres{
-    font-family:'Cormorant Garamond',serif;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:45px;
 
     margin-bottom:10px;
 }
 
+
 footer p{
+
     font-size:12px;
+
     letter-spacing:2px;
 }
 
@@ -1342,56 +1634,68 @@ footer p{
 @media(max-width:600px){
 
     section{
-        padding:75px 20px;
+
+        padding:
+            75px 20px;
     }
 
+
     .countdown{
+
         gap:25px;
     }
 
+
     .numero{
+
         font-size:42px;
     }
 
+
     .tarjeta{
-        padding:40px 20px;
+
+        padding:
+            40px 20px;
     }
 
+
     .hero{
+
         background-position:center center;
     }
 
+
     .hero h1{
+
         font-size:
             clamp(63px,20vw,95px);
     }
 
-    .sello{
+
+    .sello-real{
+
         width:76px;
         height:74px;
     }
 
-    .sello::after{
-        font-size:20px;
-    }
 
-    .sello::before{
-        inset:8px;
+    .iniciales-sello{
+
+        font-size:21px;
     }
 
 }
 
 
 /* ==================================================
-   REDUCIR ANIMACIÓN SI EL USUARIO LO PREFIERE
+   ACCESIBILIDAD
 ================================================== */
 
 @media(prefers-reduced-motion:reduce){
 
-    *{
-        animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
-        transition-duration:.01ms !important;
+    .scroll{
+
+        animation:none;
     }
 
 }
@@ -1405,42 +1709,91 @@ footer p{
 
 
 <!-- ==================================================
-     SOBRE
+     SOBRE INICIAL
 ================================================== -->
 
 <div id="pantallaSobre">
 
-    <div class="envelope-container" id="sobre">
-
-        <div class="envelope"></div>
-
-        <div class="linea-cierre"></div>
-
-        <div class="flap"></div>
+    <div class="intro-wrap">
 
 
-        <button
-            class="sello"
-            id="sello"
-            type="button"
-            aria-label="Romper el sello y abrir la invitación">
-
-            <span class="textura-lacre"></span>
-
-            <span class="grieta g1"></span>
-            <span class="grieta g2"></span>
-            <span class="grieta g3"></span>
-            <span class="grieta g4"></span>
-
-        </button>
+        <div
+            class="sobre-box"
+            id="sobreBox">
 
 
-        <div id="efectoFuego"></div>
+            <div
+                class="burn-fx"
+                id="burnFx">
+            </div>
 
 
-        <div class="instruccion-sobre">
-            Toca el sello para abrir
+            <div
+                class="sobre-real"
+                id="sobreReal">
+
+
+                <div
+                    class="sobre-base">
+                </div>
+
+
+                <div
+                    class="sobre-lateral-izq">
+                </div>
+
+
+                <div
+                    class="sobre-lateral-der">
+                </div>
+
+
+                <div
+                    class="sobre-frente">
+                </div>
+
+
+                <div
+                    class="solapa-real">
+                </div>
+
+
+                <button
+                    class="sello-real"
+                    id="selloReal"
+                    type="button"
+                    aria-label="Abrir invitación">
+
+
+                    <span
+                        class="iniciales-sello">
+
+                        S & N
+
+                    </span>
+
+
+                </button>
+
+
+            </div>
+
+
+            <div
+                id="particles">
+            </div>
+
+
         </div>
+
+
+        <div
+            class="instruccion-sobre">
+
+            Toca el sello para abrir
+
+        </div>
+
 
     </div>
 
@@ -1454,40 +1807,63 @@ footer p{
 <div id="web">
 
 
+<!-- ==================================================
+     PORTADA
+================================================== -->
+
 <header class="hero">
+
 
     <div class="hero-content">
 
+
         <div class="fecha">
+
             29 · 05 · 2027
+
         </div>
 
+
         <div class="nos-casamos">
+
             Nos casamos
+
         </div>
+
 
         <h1>
 
             Sara
 
             <span class="amp">
+
                 &
+
             </span>
 
             Nacho
 
         </h1>
 
+
         <div class="lugar-portada">
+
             Parador de Cuenca
+
         </div>
+
 
     </div>
 
 
-    <a class="scroll" href="#historia">
+    <a
+        class="scroll"
+        href="#historia">
+
         ↓
+
     </a>
+
 
 </header>
 
@@ -1500,15 +1876,23 @@ footer p{
 
 <div class="contenedor">
 
+
     <div class="subtitulo">
+
         Nuestra boda
+
     </div>
 
+
     <h2>
+
         ¡Nos casamos!
+
     </h2>
 
+
     <div class="separador"></div>
+
 
     <p class="texto">
 
@@ -1526,6 +1910,7 @@ footer p{
 
     </p>
 
+
 </div>
 
 </section>
@@ -1539,25 +1924,39 @@ footer p{
 
 <div class="contenedor">
 
+
     <div class="subtitulo">
+
         Cada vez queda menos
+
     </div>
 
+
     <h2>
+
         Cuenta atrás
+
     </h2>
 
 
     <div class="countdown">
 
+
         <div>
 
-            <span class="numero" id="dias">
+            <span
+                class="numero"
+                id="dias">
+
                 00
+
             </span>
 
+
             <span class="unidad">
+
                 Días
+
             </span>
 
         </div>
@@ -1565,12 +1964,19 @@ footer p{
 
         <div>
 
-            <span class="numero" id="horas">
+            <span
+                class="numero"
+                id="horas">
+
                 00
+
             </span>
 
+
             <span class="unidad">
+
                 Horas
+
             </span>
 
         </div>
@@ -1578,12 +1984,19 @@ footer p{
 
         <div>
 
-            <span class="numero" id="minutos">
+            <span
+                class="numero"
+                id="minutos">
+
                 00
+
             </span>
 
+
             <span class="unidad">
+
                 Minutos
+
             </span>
 
         </div>
@@ -1591,17 +2004,26 @@ footer p{
 
         <div>
 
-            <span class="numero" id="segundos">
+            <span
+                class="numero"
+                id="segundos">
+
                 00
+
             </span>
 
+
             <span class="unidad">
+
                 Segundos
+
             </span>
 
         </div>
+
 
     </div>
+
 
 </div>
 
@@ -1616,12 +2038,18 @@ footer p{
 
 <div class="contenedor">
 
+
     <div class="subtitulo">
+
         Dónde será
+
     </div>
 
+
     <h2>
+
         El lugar
+
     </h2>
 
 
@@ -1636,10 +2064,14 @@ footer p{
 
     <div class="tarjeta">
 
+
         <div class="separador"></div>
 
+
         <h3>
+
             Parador de Cuenca
+
         </h3>
 
 
@@ -1678,7 +2110,9 @@ footer p{
 
         </a>
 
+
     </div>
+
 
 </div>
 
@@ -1693,12 +2127,18 @@ footer p{
 
 <div class="contenedor">
 
+
     <div class="subtitulo">
+
         Nuestro día
+
     </div>
 
+
     <h2>
+
         Programa
+
     </h2>
 
 
@@ -1708,12 +2148,17 @@ footer p{
         <div class="evento">
 
             <h3>
+
                 Bienvenida
+
             </h3>
 
+
             <p>
+
                 Nos encontraremos
                 en el Parador de Cuenca.
+
             </p>
 
         </div>
@@ -1722,12 +2167,17 @@ footer p{
         <div class="evento">
 
             <h3>
+
                 Ceremonia
+
             </h3>
 
+
             <p>
+
                 El momento de decir:
                 sí, quiero.
+
             </p>
 
         </div>
@@ -1736,12 +2186,17 @@ footer p{
         <div class="evento">
 
             <h3>
+
                 Cóctel
+
             </h3>
 
+
             <p>
+
                 Brindaremos juntos
                 mientras empieza la celebración.
+
             </p>
 
         </div>
@@ -1750,12 +2205,17 @@ footer p{
         <div class="evento">
 
             <h3>
+
                 Banquete
+
             </h3>
 
+
             <p>
+
                 Comer, beber,
                 brindar y disfrutar.
+
             </p>
 
         </div>
@@ -1764,18 +2224,24 @@ footer p{
         <div class="evento">
 
             <h3>
+
                 Fiesta
+
             </h3>
 
+
             <p>
+
                 Y después...
                 ¡a celebrarlo como se merece!
+
             </p>
 
         </div>
 
 
     </div>
+
 
 </div>
 
@@ -1790,6 +2256,7 @@ footer p{
 
 <div class="contenedor">
 
+
     <div class="subtitulo">
 
         El mejor regalo
@@ -1799,7 +2266,9 @@ footer p{
 
 
     <h2>
+
         Si queréis ayudarnos
+
     </h2>
 
 
@@ -1828,16 +2297,23 @@ footer p{
 
     <div class="cuenta">
 
+
         <div class="cuenta-titulo">
+
             Número de cuenta
+
         </div>
 
 
         <div class="iban">
+
             ES00 0000 0000 0000 0000 0000
+
         </div>
 
+
     </div>
+
 
 </div>
 
@@ -1852,16 +2328,21 @@ footer p{
     class="confirmar"
     id="confirmar">
 
+
 <div class="contenedor">
 
 
     <div class="subtitulo">
+
         Queremos contar contigo
+
     </div>
 
 
     <h2>
+
         ¿Nos acompañas?
+
     </h2>
 
 
@@ -1882,119 +2363,176 @@ footer p{
 
 
     <form
+
         class="formulario"
+
         action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
+
         method="POST">
 
 
         <input
+
             type="hidden"
+
             name="_subject"
+
             value="Nueva confirmación - Boda Sara y Nacho">
 
 
         <div class="campo">
 
+
             <label for="name">
+
                 Nombre y apellidos
+
             </label>
 
 
             <input
+
                 type="text"
+
                 id="name"
+
                 name="name"
+
                 placeholder="Tu nombre y apellidos"
+
                 required>
+
 
         </div>
 
 
         <div class="campo">
 
+
             <label for="asistencia">
+
                 ¿Podrás acompañarnos?
+
             </label>
 
 
             <select
+
                 id="asistencia"
+
                 name="asistencia"
+
                 required>
 
 
                 <option value="">
+
                     Selecciona una opción
+
                 </option>
 
 
                 <option value="Sí, asistiré">
+
                     Sí, ¡allí estaré!
+
                 </option>
 
 
                 <option value="No podré asistir">
+
                     Lo siento, no podré asistir
+
                 </option>
 
 
             </select>
 
+
         </div>
 
 
         <div class="campo">
+
 
             <label for="acompanantes">
+
                 ¿Cuántas personas asistiréis?
+
             </label>
 
 
             <input
+
                 type="number"
+
                 id="acompanantes"
+
                 name="numero_personas"
+
                 min="1"
+
                 max="10"
+
                 placeholder="Ejemplo: 2">
 
+
         </div>
 
 
         <div class="campo">
 
+
             <label for="alimentacion">
-                Alergias, intolerancias o alimentación especial
+
+                Alergias, intolerancias
+                o alimentación especial
+
             </label>
 
 
             <input
+
                 type="text"
+
                 id="alimentacion"
+
                 name="alimentacion"
+
                 placeholder="Vegetariano, celíaco, alergias...">
+
 
         </div>
 
 
         <div class="campo">
 
+
             <label for="message">
+
                 ¿Quieres contarnos algo?
+
             </label>
 
 
             <textarea
+
                 id="message"
+
                 name="message"
+
                 placeholder="Déjanos un mensaje si quieres">
+
             </textarea>
+
 
         </div>
 
 
         <button
+
             class="boton boton-enviar"
+
             type="submit">
 
             Confirmar asistencia
@@ -2003,6 +2541,7 @@ footer p{
 
 
     </form>
+
 
 </div>
 
@@ -2015,14 +2554,20 @@ footer p{
 
 <footer>
 
+
     <div class="nombres">
+
         Sara & Nacho
+
     </div>
 
 
     <p>
+
         29 · MAYO · 2027 — CUENCA
+
     </p>
+
 
 </footer>
 
@@ -2038,176 +2583,615 @@ footer p{
 
 
 /* ==================================================
-   APERTURA DEL SELLO
+   ELEMENTOS
 ================================================== */
-
-const sello =
-    document.getElementById("sello");
-
-const sobre =
-    document.getElementById("sobre");
 
 const pantalla =
     document.getElementById("pantallaSobre");
 
+
 const web =
     document.getElementById("web");
 
-const efectoFuego =
-    document.getElementById("efectoFuego");
+
+const sobreBox =
+    document.getElementById("sobreBox");
+
+
+const sobreReal =
+    document.getElementById("sobreReal");
+
+
+const burnFx =
+    document.getElementById("burnFx");
+
+
+const particles =
+    document.getElementById("particles");
+
+
+const selloReal =
+    document.getElementById("selloReal");
+
 
 let abriendo = false;
 
 
-sello.addEventListener(
+/* ==================================================
+   CLICK EN EL SELLO
+================================================== */
+
+selloReal.addEventListener(
     "click",
-    abrirInvitacion
+    iniciarQuemado
 );
 
 
-function abrirInvitacion(){
+/* ==================================================
+   INICIAR QUEMADO
+================================================== */
+
+function iniciarQuemado(){
+
 
     if(abriendo){
+
         return;
+
     }
+
 
     abriendo = true;
 
 
-    /* comienza a quemarse el lacre */
-
-    sello.classList.add("quemando");
-
-
-    crearBrasas();
-
-    crearHumo();
+    pantalla.classList.add(
+        "quemando"
+    );
 
 
-    /* después del quemado se abre la solapa */
+    burnFx.classList.add(
+        "activo"
+    );
+
+
+    selloReal.style.pointerEvents =
+        "none";
+
+
+    const rect =
+        sobreReal.getBoundingClientRect();
+
+
+    const x =
+        rect.width * 0.50;
+
+
+    const y =
+        rect.height * 0.53;
+
+
+    const maxRadius =
+        Math.hypot(
+            rect.width,
+            rect.height
+        ) * 1.25;
+
+
+    sobreBox.style.setProperty(
+        "--bx",
+        x + "px"
+    );
+
+
+    sobreBox.style.setProperty(
+        "--by",
+        y + "px"
+    );
+
+
+    sobreReal.style.setProperty(
+        "--bx",
+        x + "px"
+    );
+
+
+    sobreReal.style.setProperty(
+        "--by",
+        y + "px"
+    );
+
+
+    sobreReal.classList.add(
+        "quemando"
+    );
+
+
+    /* el sello empieza a oscurecerse */
+
+    selloReal.style.filter =
+        "brightness(.65) saturate(.8)";
+
+
+    /* primera tanda de chispas */
+
+    crearExplosionInicial(
+        x,
+        y
+    );
+
 
     setTimeout(function(){
 
-        sobre.classList.add("abierto");
+        selloReal.style.opacity =
+            "0";
 
-    },950);
+    },260);
 
 
-    /* aparece la web */
+    /* ==================================================
+       ANIMACIÓN PRINCIPAL DEL FUEGO
+    ================================================== */
 
-    setTimeout(function(){
+    let inicio = null;
 
-        pantalla.classList.add("oculto");
 
-        web.classList.add("visible");
+    const duracion =
+        2400;
 
-        window.scrollTo({
-            top:0,
-            behavior:"instant"
-        });
 
-    },1850);
+    function frame(timestamp){
+
+
+        if(!inicio){
+
+            inicio = timestamp;
+
+        }
+
+
+        let progreso =
+            (timestamp - inicio)
+            /
+            duracion;
+
+
+        progreso =
+            Math.min(
+                progreso,
+                1
+            );
+
+
+        /*
+           curva algo irregular para que
+           empiece despacio y luego avance
+        */
+
+        const eased =
+
+            progreso < .35
+
+            ?
+
+            2.5
+            *
+            progreso
+            *
+            progreso
+
+            :
+
+            1
+            -
+            Math.pow(
+                1 - progreso,
+                2.2
+            );
+
+
+        const radio =
+            eased
+            *
+            maxRadius;
+
+
+        const interior =
+            Math.max(
+                radio - 18,
+                0
+            );
+
+
+        const exterior =
+            radio + 3;
+
+
+        sobreBox.style.setProperty(
+            "--r1",
+            interior + "px"
+        );
+
+
+        sobreBox.style.setProperty(
+            "--r2",
+            exterior + "px"
+        );
+
+
+        sobreBox.style.setProperty(
+            "--burnOpacity",
+            Math.min(
+                progreso * 2.5,
+                1
+            )
+        );
+
+
+        sobreReal.style.setProperty(
+            "--r1",
+            interior + "px"
+        );
+
+
+        sobreReal.style.setProperty(
+            "--r2",
+            exterior + "px"
+        );
+
+
+        /*
+           vamos generando pequeñas chispas
+           mientras avanza el borde
+        */
+
+        if(
+            Math.random() < .20
+            &&
+            progreso < .83
+        ){
+
+            crearChispaEnBorde(
+                x,
+                y,
+                radio
+            );
+
+        }
+
+
+        if(
+            Math.random() < .07
+            &&
+            progreso < .75
+        ){
+
+            crearHumoEnBorde(
+                x,
+                y,
+                radio
+            );
+
+        }
+
+
+        if(
+            Math.random() < .08
+            &&
+            progreso > .35
+        ){
+
+            crearCeniza(
+                x,
+                y,
+                radio
+            );
+
+        }
+
+
+        if(progreso < 1){
+
+            requestAnimationFrame(
+                frame
+            );
+
+        }
+
+        else{
+
+            terminarApertura();
+
+        }
+
+
+    }
+
+
+    requestAnimationFrame(
+        frame
+    );
 
 }
 
 
 /* ==================================================
-   BRASAS
+   EXPLOSIÓN INICIAL
 ================================================== */
 
-function crearBrasas(){
+function crearExplosionInicial(
+    x,
+    y
+){
 
-    for(let i=0;i<28;i++){
+    for(
+        let i=0;
+        i<30;
+        i++
+    ){
 
-        const brasa =
-            document.createElement("span");
+        const spark =
+            document.createElement(
+                "span"
+            );
 
 
-        brasa.className =
-            "brasa";
+        spark.className =
+            "spark";
 
 
         const angulo =
             Math.random()
-            * Math.PI
-            * 2;
+            *
+            Math.PI
+            *
+            2;
 
 
         const distancia =
-            35
-            + Math.random()*80;
+            25
+            +
+            Math.random()
+            *
+            90;
 
 
-        const x =
+        const tx =
             Math.cos(angulo)
-            * distancia;
+            *
+            distancia;
 
 
-        const y =
+        const ty =
             Math.sin(angulo)
-            * distancia
-            - Math.random()*35;
+            *
+            distancia
+            -
+            Math.random()
+            *
+            25;
 
 
-        const tam =
-            2
-            + Math.random()*4;
+        spark.style.left =
+            x + "px";
 
 
-        const dur =
-            .65
-            + Math.random()*.7;
+        spark.style.top =
+            y + "px";
 
 
-        const delay =
-            Math.random()*.35;
-
-
-        brasa.style.setProperty(
-            "--x",
-            x+"px"
+        spark.style.setProperty(
+            "--tx",
+            tx + "px"
         );
 
 
-        brasa.style.setProperty(
-            "--y",
-            y+"px"
+        spark.style.setProperty(
+            "--ty",
+            ty + "px"
         );
 
 
-        brasa.style.setProperty(
-            "--tam",
-            tam+"px"
+        spark.style.setProperty(
+            "--size",
+            (
+                2
+                +
+                Math.random()
+                *
+                4
+            )
+            +
+            "px"
         );
 
 
-        brasa.style.setProperty(
+        spark.style.setProperty(
             "--dur",
-            dur+"s"
+            (
+                .65
+                +
+                Math.random()
+                *
+                .8
+            )
+            +
+            "s"
         );
 
 
-        brasa.style.setProperty(
-            "--delay",
-            delay+"s"
-        );
-
-
-        efectoFuego.appendChild(
-            brasa
+        particles.appendChild(
+            spark
         );
 
 
         setTimeout(
             function(){
 
-                brasa.remove();
+                spark.remove();
 
             },
-            1800
+            1700
         );
 
     }
+
+
+    for(
+        let i=0;
+        i<9;
+        i++
+    ){
+
+        crearHumo(
+            x,
+            y
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   CHISPA EN EL BORDE DE QUEMADO
+================================================== */
+
+function crearChispaEnBorde(
+    centroX,
+    centroY,
+    radio
+){
+
+    const angulo =
+        Math.random()
+        *
+        Math.PI
+        *
+        2;
+
+
+    const x =
+        centroX
+        +
+        Math.cos(angulo)
+        *
+        radio;
+
+
+    const y =
+        centroY
+        +
+        Math.sin(angulo)
+        *
+        radio;
+
+
+    const spark =
+        document.createElement(
+            "span"
+        );
+
+
+    spark.className =
+        "spark";
+
+
+    const tx =
+        Math.cos(angulo)
+        *
+        (
+            25
+            +
+            Math.random()
+            *
+            40
+        );
+
+
+    const ty =
+
+        Math.sin(angulo)
+        *
+        (
+            15
+            +
+            Math.random()
+            *
+            35
+        )
+
+        -
+
+        (
+            20
+            +
+            Math.random()
+            *
+            30
+        );
+
+
+    spark.style.left =
+        x + "px";
+
+
+    spark.style.top =
+        y + "px";
+
+
+    spark.style.setProperty(
+        "--tx",
+        tx + "px"
+    );
+
+
+    spark.style.setProperty(
+        "--ty",
+        ty + "px"
+    );
+
+
+    spark.style.setProperty(
+        "--size",
+        (
+            1.5
+            +
+            Math.random()
+            *
+            3
+        )
+        +
+        "px"
+    );
+
+
+    spark.style.setProperty(
+        "--dur",
+        (
+            .45
+            +
+            Math.random()
+            *
+            .55
+        )
+        +
+        "s"
+    );
+
+
+    particles.appendChild(
+        spark
+    );
+
+
+    setTimeout(
+        function(){
+
+            spark.remove();
+
+        },
+        1200
+    );
 
 }
 
@@ -2216,88 +3200,348 @@ function crearBrasas(){
    HUMO
 ================================================== */
 
-function crearHumo(){
+function crearHumo(
+    x,
+    y
+){
 
-    for(let i=0;i<11;i++){
-
-        const humo =
-            document.createElement("span");
-
-
-        humo.className =
-            "humo";
-
-
-        const x =
-            -25
-            + Math.random()*50;
+    const humo =
+        document.createElement(
+            "span"
+        );
 
 
-        const y =
-            -45
-            - Math.random()*75;
+    humo.className =
+        "smoke";
 
 
-        const tam =
-            14
-            + Math.random()*23;
+    humo.style.left =
+        x + "px";
 
 
-        const dur =
+    humo.style.top =
+        y + "px";
+
+
+    humo.style.setProperty(
+        "--tx",
+        (
+            -30
+            +
+            Math.random()
+            *
+            60
+        )
+        +
+        "px"
+    );
+
+
+    humo.style.setProperty(
+        "--ty",
+        (
+            -55
+            -
+            Math.random()
+            *
+            85
+        )
+        +
+        "px"
+    );
+
+
+    humo.style.setProperty(
+        "--size",
+        (
+            18
+            +
+            Math.random()
+            *
+            28
+        )
+        +
+        "px"
+    );
+
+
+    humo.style.setProperty(
+        "--dur",
+        (
             1
-            + Math.random()*.7;
+            +
+            Math.random()
+            *
+            .9
+        )
+        +
+        "s"
+    );
 
 
-        const delay =
-            .25
-            + Math.random()*.45;
+    particles.appendChild(
+        humo
+    );
 
 
-        humo.style.setProperty(
-            "--x",
-            x+"px"
+    setTimeout(
+        function(){
+
+            humo.remove();
+
+        },
+        2200
+    );
+
+}
+
+
+/* ==================================================
+   HUMO EN EL BORDE
+================================================== */
+
+function crearHumoEnBorde(
+    centroX,
+    centroY,
+    radio
+){
+
+    const angulo =
+        Math.random()
+        *
+        Math.PI
+        *
+        2;
+
+
+    const x =
+        centroX
+        +
+        Math.cos(angulo)
+        *
+        radio;
+
+
+    const y =
+        centroY
+        +
+        Math.sin(angulo)
+        *
+        radio;
+
+
+    crearHumo(
+        x,
+        y
+    );
+
+}
+
+
+/* ==================================================
+   CENIZA
+================================================== */
+
+function crearCeniza(
+    centroX,
+    centroY,
+    radio
+){
+
+    const angulo =
+        Math.random()
+        *
+        Math.PI
+        *
+        2;
+
+
+    const x =
+        centroX
+        +
+        Math.cos(angulo)
+        *
+        radio;
+
+
+    const y =
+        centroY
+        +
+        Math.sin(angulo)
+        *
+        radio;
+
+
+    const ash =
+        document.createElement(
+            "span"
         );
 
 
-        humo.style.setProperty(
-            "--y",
-            y+"px"
-        );
+    ash.className =
+        "ash";
 
 
-        humo.style.setProperty(
-            "--tam",
-            tam+"px"
-        );
+    ash.style.left =
+        x + "px";
 
 
-        humo.style.setProperty(
-            "--dur",
-            dur+"s"
-        );
+    ash.style.top =
+        y + "px";
 
 
-        humo.style.setProperty(
-            "--delay",
-            delay+"s"
-        );
+    ash.style.setProperty(
+        "--tx",
+        (
+            -20
+            +
+            Math.random()
+            *
+            40
+        )
+        +
+        "px"
+    );
 
 
-        efectoFuego.appendChild(
-            humo
-        );
+    ash.style.setProperty(
+        "--ty",
+        (
+            30
+            +
+            Math.random()
+            *
+            65
+        )
+        +
+        "px"
+    );
 
 
-        setTimeout(
-            function(){
+    ash.style.setProperty(
+        "--size",
+        (
+            2
+            +
+            Math.random()
+            *
+            5
+        )
+        +
+        "px"
+    );
 
-                humo.remove();
 
-            },
-            2400
+    ash.style.setProperty(
+        "--dur",
+        (
+            .8
+            +
+            Math.random()
+            *
+            .8
+        )
+        +
+        "s"
+    );
+
+
+    particles.appendChild(
+        ash
+    );
+
+
+    setTimeout(
+        function(){
+
+            ash.remove();
+
+        },
+        1800
+    );
+
+}
+
+
+/* ==================================================
+   FINAL
+================================================== */
+
+function terminarApertura(){
+
+
+    /*
+       un poco de humo al final
+    */
+
+    const rect =
+        sobreReal.getBoundingClientRect();
+
+
+    for(
+        let i=0;
+        i<8;
+        i++
+    ){
+
+        crearHumo(
+            rect.width
+            *
+            (
+                .25
+                +
+                Math.random()
+                *
+                .50
+            ),
+
+            rect.height
+            *
+            (
+                .30
+                +
+                Math.random()
+                *
+                .40
+            )
         );
 
     }
+
+
+    setTimeout(
+        function(){
+
+            sobreBox.classList.add(
+                "fin"
+            );
+
+        },
+        180
+    );
+
+
+    setTimeout(
+        function(){
+
+            pantalla.classList.add(
+                "oculto"
+            );
+
+
+            web.classList.add(
+                "visible"
+            );
+
+
+            window.scrollTo(
+                0,
+                0
+            );
+
+        },
+        700
+    );
 
 }
 
@@ -2307,6 +3551,7 @@ function crearHumo(){
 ================================================== */
 
 const fechaBoda =
+
     new Date(
         2027,
         4,
@@ -2314,26 +3559,35 @@ const fechaBoda =
         12,
         0,
         0
-    ).getTime();
+    )
+    .getTime();
 
 
 function actualizarCuenta(){
 
+
     const ahora =
-        new Date().getTime();
+        new Date()
+        .getTime();
 
 
     const distancia =
         fechaBoda
-        - ahora;
+        -
+        ahora;
 
 
     if(distancia < 0){
 
+
         document
-        .querySelector(".countdown")
+        .querySelector(
+            ".countdown"
+        )
         .innerHTML =
+
         "<span class='numero'>¡Hoy es el gran día!</span>";
+
 
         return;
 
@@ -2341,64 +3595,154 @@ function actualizarCuenta(){
 
 
     const dias =
+
         Math.floor(
-            distancia /
-            (1000*60*60*24)
+
+            distancia
+            /
+            (
+                1000
+                *
+                60
+                *
+                60
+                *
+                24
+            )
+
         );
 
 
     const horas =
+
         Math.floor(
-            (distancia %
-            (1000*60*60*24))
+
+            (
+                distancia
+                %
+                (
+                    1000
+                    *
+                    60
+                    *
+                    60
+                    *
+                    24
+                )
+            )
+
             /
-            (1000*60*60)
+
+            (
+                1000
+                *
+                60
+                *
+                60
+            )
+
         );
 
 
     const minutos =
+
         Math.floor(
-            (distancia %
-            (1000*60*60))
+
+            (
+                distancia
+                %
+                (
+                    1000
+                    *
+                    60
+                    *
+                    60
+                )
+            )
+
             /
-            (1000*60)
+
+            (
+                1000
+                *
+                60
+            )
+
         );
 
 
     const segundos =
+
         Math.floor(
-            (distancia %
-            (1000*60))
+
+            (
+                distancia
+                %
+                (
+                    1000
+                    *
+                    60
+                )
+            )
+
             /
+
             1000
+
         );
 
 
     document
-    .getElementById("dias")
+    .getElementById(
+        "dias"
+    )
     .textContent =
-    dias;
+        dias;
 
 
     document
-    .getElementById("horas")
+    .getElementById(
+        "horas"
+    )
     .textContent =
-    String(horas)
-    .padStart(2,"0");
+
+        String(
+            horas
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 
     document
-    .getElementById("minutos")
+    .getElementById(
+        "minutos"
+    )
     .textContent =
-    String(minutos)
-    .padStart(2,"0");
+
+        String(
+            minutos
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 
     document
-    .getElementById("segundos")
+    .getElementById(
+        "segundos"
+    )
     .textContent =
-    String(segundos)
-    .padStart(2,"0");
+
+        String(
+            segundos
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 }
 
@@ -2413,6 +3757,7 @@ setInterval(
 
 
 </script>
+
 
 </body>
 
