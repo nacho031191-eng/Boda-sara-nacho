@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,7 +10,12 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap');
+
+
+/* ==================================================
+   GENERAL
+================================================== */
 
 *{
     margin:0;
@@ -34,8 +40,10 @@ body{
 ================================================== */
 
 #pantallaSobre{
+
     position:fixed;
     inset:0;
+
     z-index:9999;
 
     display:flex;
@@ -43,30 +51,39 @@ body{
     justify-content:center;
 
     background:
-        radial-gradient(circle at center,#eee5d5 0%,#ded1ba 100%);
+        radial-gradient(
+            circle at center,
+            #eee5d5 0%,
+            #ded1ba 100%
+        );
 
     transition:
         opacity 1s ease,
         visibility 1s ease;
 }
 
+
 #pantallaSobre.oculto{
+
     opacity:0;
     visibility:hidden;
     pointer-events:none;
 }
 
 
-/* textura suave */
+/* textura del fondo */
 
 #pantallaSobre::before{
+
     content:"";
+
     position:absolute;
     inset:0;
 
     opacity:.15;
 
     background-image:
+
         repeating-linear-gradient(
             45deg,
             rgba(90,70,40,.08) 0px,
@@ -79,44 +96,59 @@ body{
 }
 
 
-/* sobre */
+/* ==================================================
+   SOBRE
+================================================== */
 
 .envelope-container{
+
     position:relative;
+
     width:min(480px,82vw);
     height:min(320px,55vw);
 
     cursor:pointer;
 
     filter:
-        drop-shadow(0 18px 25px rgba(60,45,30,.18));
+        drop-shadow(
+            0 18px 25px
+            rgba(60,45,30,.18)
+        );
 
-    transition:transform .4s ease;
+    transition:
+        transform .4s ease;
 }
 
+
 .envelope-container:hover{
+
     transform:translateY(-5px);
 }
 
 
 .envelope{
+
     position:absolute;
     inset:0;
 
     background:#f8f2e6;
 
-    border:1px solid rgba(100,80,55,.16);
+    border:
+        1px solid
+        rgba(100,80,55,.16);
 
     overflow:hidden;
 }
 
 
-/* triángulos del sobre */
+/* laterales del sobre */
 
 .envelope::before{
+
     content:"";
 
     position:absolute;
+
     left:0;
     bottom:0;
 
@@ -140,7 +172,9 @@ body{
 /* tapa */
 
 .flap{
+
     position:absolute;
+
     top:0;
     left:0;
 
@@ -149,36 +183,68 @@ body{
 
     background:#f4ecde;
 
-    clip-path:polygon(0 0,100% 0,50% 100%);
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 100%
+        );
 
-    transform-origin:top center;
+    transform-origin:
+        top center;
 
-    transition:transform 1s ease;
+    transition:
+        transform 1s ease;
 
     z-index:4;
 }
 
 
-/* sello */
+/* ==================================================
+   SELLO DE LACRE
+================================================== */
 
 .sello{
+
     position:absolute;
 
-    width:78px;
-    height:78px;
+    width:88px;
+    height:88px;
 
     left:50%;
     top:53%;
 
-    transform:translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     border-radius:50%;
 
-    background:#6f7757;
+    /*
+       Efecto de lacre verde oliva.
+       Tiene diferentes tonos para dar
+       sensación de volumen.
+    */
+
+    background:
+
+        radial-gradient(
+            circle at 32% 25%,
+            #939a79 0%,
+            #788060 26%,
+            #657050 60%,
+            #505a40 100%
+        );
 
     box-shadow:
-        inset 0 0 0 4px rgba(255,255,255,.15),
-        0 5px 12px rgba(0,0,0,.2);
+
+        inset 3px 4px 6px
+        rgba(255,255,255,.15),
+
+        inset -5px -5px 8px
+        rgba(0,0,0,.20),
+
+        0 5px 11px
+        rgba(0,0,0,.28);
 
     z-index:6;
 
@@ -186,32 +252,83 @@ body{
     align-items:center;
     justify-content:center;
 
-    color:#dcd8c5;
+    color:#eee6d5;
 
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:30px;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     transition:
         opacity .4s,
         transform .6s;
 }
 
-.sello::after{
-    content:"❦";
+
+/* aro grabado interior */
+
+.sello::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:9px;
+
+    border:
+        1px solid
+        rgba(238,230,213,.65);
+
+    border-radius:50%;
+
+    box-shadow:
+        inset 0 0 4px
+        rgba(0,0,0,.15);
 }
 
 
-/* animación */
+/* iniciales */
+
+.sello::after{
+
+    content:"S & N";
+
+    position:relative;
+
+    z-index:2;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:25px;
+
+    font-style:italic;
+
+    font-weight:500;
+
+    letter-spacing:-1px;
+
+    text-shadow:
+        0 1px 2px
+        rgba(0,0,0,.25);
+}
+
+
+/* ==================================================
+   ANIMACIÓN DEL SOBRE
+================================================== */
 
 .envelope-container.abierto .flap{
+
     transform:
         rotateX(180deg);
 
     z-index:1;
 }
 
+
 .envelope-container.abierto .sello{
+
     opacity:0;
 
     transform:
@@ -225,17 +342,22 @@ body{
 ================================================== */
 
 #web{
+
     opacity:0;
-    transition:opacity 1.2s ease;
+
+    transition:
+        opacity 1.2s ease;
 }
 
+
 #web.visible{
+
     opacity:1;
 }
 
 
 /* ==================================================
-   PORTADA CUENCA
+   PORTADA
 ================================================== */
 
 .hero{
@@ -255,24 +377,27 @@ body{
     color:white;
 
     background:
+
         linear-gradient(
-            rgba(25,30,22,.28),
-            rgba(25,30,22,.58)
+            rgba(25,30,22,.25),
+            rgba(25,30,22,.60)
         ),
+
         url('fondo-cuenca.png');
 
     background-size:cover;
 
     background-position:center;
-
 }
 
 
 .hero-content{
+
     max-width:950px;
 
     text-shadow:
-        0 3px 18px rgba(0,0,0,.38);
+        0 3px 18px
+        rgba(0,0,0,.38);
 }
 
 
@@ -285,6 +410,18 @@ body{
     margin-bottom:25px;
 
     text-transform:uppercase;
+}
+
+
+.hero .nos-casamos{
+
+    font-size:13px;
+
+    letter-spacing:6px;
+
+    text-transform:uppercase;
+
+    margin-bottom:22px;
 }
 
 
@@ -306,23 +443,12 @@ body{
 
 
 .amp{
+
     font-style:italic;
 
     font-size:.72em;
 
     color:#e0d2b2;
-}
-
-
-.hero .nos-casamos{
-
-    font-size:13px;
-
-    letter-spacing:6px;
-
-    text-transform:uppercase;
-
-    margin-bottom:22px;
 }
 
 
@@ -346,7 +472,8 @@ body{
 
     left:50%;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
     color:white;
 
@@ -354,31 +481,35 @@ body{
 
     font-size:25px;
 
-    animation:bajar 1.8s infinite;
+    animation:
+        bajar 1.8s infinite;
 }
 
 
 @keyframes bajar{
 
     0%,100%{
+
         transform:
             translate(-50%,0);
     }
 
     50%{
+
         transform:
             translate(-50%,8px);
     }
-
 }
 
 
 /* ==================================================
-   GENERALES
+   SECCIONES GENERALES
 ================================================== */
 
 section{
-    padding:100px 25px;
+
+    padding:
+        100px 25px;
 }
 
 
@@ -439,13 +570,83 @@ h2{
 }
 
 
-.ramita{
+/* ==================================================
+   NUEVO SEPARADOR
+   Sustituye al antiguo símbolo ❦
+================================================== */
 
-    font-size:32px;
+.separador{
 
-    margin:25px 0;
+    width:95px;
 
-    color:#738065;
+    height:25px;
+
+    margin:
+        24px auto 30px;
+
+    position:relative;
+}
+
+
+.separador::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:12px;
+    left:0;
+
+    width:100%;
+
+    height:1px;
+
+    background:
+        #8b9275;
+}
+
+
+.separador::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    top:8px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+
+    background:#f4f0e7;
+
+    border:
+        1px solid
+        #8b9275;
+}
+
+
+/* separador sobre fondo distinto */
+
+.tarjeta .separador::after{
+
+    background:#f8f5ed;
+}
+
+
+.regalo .separador::after{
+
+    background:#3e4937;
+}
+
+
+.confirmar .separador::after{
+
+    background:#ddd5c4;
 }
 
 
@@ -464,6 +665,12 @@ h2{
 .countdown-section h2{
 
     color:#f6f1e6;
+}
+
+
+.countdown-section .subtitulo{
+
+    color:#d5c6a7;
 }
 
 
@@ -521,13 +728,17 @@ h2{
 
     max-width:780px;
 
-    margin:45px auto 0;
+    margin:
+        45px auto 0;
 
     background:#f8f5ed;
 
-    padding:55px 30px;
+    padding:
+        55px 30px;
 
-    border:1px solid #c9bda6;
+    border:
+        1px solid
+        #c9bda6;
 }
 
 
@@ -547,7 +758,8 @@ h2{
 
 .hora{
 
-    margin:25px 0;
+    margin:
+        25px 0;
 
     font-family:
         'Cormorant Garamond',
@@ -567,9 +779,12 @@ h2{
 
     margin-top:25px;
 
-    padding:14px 30px;
+    padding:
+        14px 30px;
 
-    border:1px solid #59644f;
+    border:
+        1px solid
+        #59644f;
 
     color:#46503f;
 
@@ -611,7 +826,8 @@ h2{
 
     max-width:550px;
 
-    margin:50px auto 0;
+    margin:
+        50px auto 0;
 
     text-align:left;
 }
@@ -619,12 +835,20 @@ h2{
 
 .evento{
 
-    border-left:1px solid #9c927d;
+    border-left:
+        1px solid
+        #9c927d;
 
     padding:
         0 0 45px 35px;
 
     position:relative;
+}
+
+
+.evento:last-child{
+
+    padding-bottom:0;
 }
 
 
@@ -700,9 +924,11 @@ h2{
 
     max-width:650px;
 
-    margin:40px auto 0;
+    margin:
+        40px auto 0;
 
-    padding:35px 20px;
+    padding:
+        35px 20px;
 
     border:
         1px solid
@@ -751,7 +977,8 @@ h2{
 
     max-width:650px;
 
-    margin:45px auto 0;
+    margin:
+        45px auto 0;
 
     text-align:left;
 }
@@ -785,7 +1012,9 @@ textarea{
 
     padding:14px;
 
-    border:1px solid #b7ad99;
+    border:
+        1px solid
+        #b7ad99;
 
     background:
         rgba(255,255,255,.55);
@@ -812,20 +1041,24 @@ textarea{
 
     display:block;
 
-    margin:30px auto 0;
+    margin:
+        30px auto 0;
 
     background:#44503d;
 
     color:white;
 
-    padding:17px 40px;
+    padding:
+        17px 40px;
 
-    border:1px solid #44503d;
+    border:
+        1px solid
+        #44503d;
 }
 
 
 /* ==================================================
-   FINAL
+   PIE
 ================================================== */
 
 footer{
@@ -836,7 +1069,8 @@ footer{
 
     text-align:center;
 
-    padding:70px 20px;
+    padding:
+        70px 20px;
 }
 
 
@@ -867,22 +1101,28 @@ footer p{
 @media(max-width:600px){
 
     section{
-        padding:75px 20px;
+
+        padding:
+            75px 20px;
     }
 
 
     .countdown{
+
         gap:25px;
     }
 
 
     .numero{
+
         font-size:42px;
     }
 
 
     .tarjeta{
-        padding:40px 20px;
+
+        padding:
+            40px 20px;
     }
 
 
@@ -893,21 +1133,36 @@ footer p{
     }
 
 
+    .hero h1{
+
+        font-size:
+            clamp(63px,20vw,95px);
+    }
+
+
     .envelope-container{
 
         width:82vw;
-
         height:55vw;
     }
 
 
     .sello{
 
-        width:62px;
+        width:70px;
+        height:70px;
+    }
 
-        height:62px;
 
-        font-size:25px;
+    .sello::after{
+
+        font-size:20px;
+    }
+
+
+    .sello::before{
+
+        inset:8px;
     }
 
 }
@@ -930,7 +1185,8 @@ footer p{
         class="envelope-container"
         id="sobre"
         onclick="abrirInvitacion()"
-        aria-label="Abrir invitación">
+        aria-label="Abrir invitación"
+        role="button">
 
         <div class="envelope"></div>
 
@@ -943,7 +1199,6 @@ footer p{
 </div>
 
 
-
 <!-- ==================================================
      WEB
 ================================================== -->
@@ -951,7 +1206,9 @@ footer p{
 <div id="web">
 
 
-<!-- PORTADA -->
+<!-- ==================================================
+     PORTADA
+================================================== -->
 
 <header class="hero">
 
@@ -987,16 +1244,15 @@ footer p{
     <a
         class="scroll"
         href="#historia">
-
         ↓
-
     </a>
 
 </header>
 
 
-
-<!-- INTRODUCCIÓN -->
+<!-- ==================================================
+     INTRODUCCIÓN
+================================================== -->
 
 <section id="historia">
 
@@ -1010,9 +1266,7 @@ footer p{
         ¡Nos casamos!
     </h2>
 
-    <div class="ramita">
-        ❦
-    </div>
+    <div class="separador"></div>
 
     <p class="texto">
 
@@ -1035,8 +1289,9 @@ footer p{
 </section>
 
 
-
-<!-- CUENTA ATRÁS -->
+<!-- ==================================================
+     CUENTA ATRÁS
+================================================== -->
 
 <section class="countdown-section">
 
@@ -1058,9 +1313,7 @@ footer p{
             <span
                 class="numero"
                 id="dias">
-
                 00
-
             </span>
 
             <span class="unidad">
@@ -1075,9 +1328,7 @@ footer p{
             <span
                 class="numero"
                 id="horas">
-
                 00
-
             </span>
 
             <span class="unidad">
@@ -1092,9 +1343,7 @@ footer p{
             <span
                 class="numero"
                 id="minutos">
-
                 00
-
             </span>
 
             <span class="unidad">
@@ -1109,9 +1358,7 @@ footer p{
             <span
                 class="numero"
                 id="segundos">
-
                 00
-
             </span>
 
             <span class="unidad">
@@ -1127,8 +1374,9 @@ footer p{
 </section>
 
 
-
-<!-- LUGAR -->
+<!-- ==================================================
+     LUGAR
+================================================== -->
 
 <section class="lugar">
 
@@ -1154,13 +1402,12 @@ footer p{
 
     <div class="tarjeta">
 
-        <div class="ramita">
-            ❦
-        </div>
+        <div class="separador"></div>
 
         <h3>
             Parador de Cuenca
         </h3>
+
 
         <p>
 
@@ -1204,8 +1451,9 @@ footer p{
 </section>
 
 
-
-<!-- PROGRAMA -->
+<!-- ==================================================
+     PROGRAMA
+================================================== -->
 
 <section class="programa">
 
@@ -1301,8 +1549,9 @@ footer p{
 </section>
 
 
-
-<!-- REGALO -->
+<!-- ==================================================
+     REGALO
+================================================== -->
 
 <section class="regalo">
 
@@ -1321,9 +1570,7 @@ footer p{
     </h2>
 
 
-    <div class="ramita">
-        ❦
-    </div>
+    <div class="separador"></div>
 
 
     <p class="texto">
@@ -1368,8 +1615,9 @@ footer p{
 </section>
 
 
-
-<!-- CONFIRMACIÓN -->
+<!-- ==================================================
+     CONFIRMACIÓN
+================================================== -->
 
 <section
     class="confirmar"
@@ -1390,9 +1638,7 @@ footer p{
     </h2>
 
 
-    <div class="ramita">
-        ❦
-    </div>
+    <div class="separador"></div>
 
 
     <p class="texto">
@@ -1406,7 +1652,6 @@ footer p{
         rellenando este pequeño formulario.
 
     </p>
-
 
 
     <form
@@ -1485,8 +1730,7 @@ footer p{
 
                 <option value="No podré asistir">
 
-                    Lo siento,
-                    no podré asistir
+                    Lo siento, no podré asistir
 
                 </option>
 
@@ -1581,14 +1825,14 @@ footer p{
 
     </form>
 
-
 </div>
 
 </section>
 
 
-
-<!-- PIE -->
+<!-- ==================================================
+     PIE
+================================================== -->
 
 <footer>
 
@@ -1611,12 +1855,15 @@ footer p{
 </div>
 
 
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
 
 
 /* ==================================================
-   ABRIR SOBRE
+   ABRIR EL SOBRE
 ================================================== */
 
 function abrirInvitacion(){
@@ -1647,7 +1894,6 @@ function abrirInvitacion(){
 }
 
 
-
 /* ==================================================
    CUENTA ATRÁS
 ================================================== */
@@ -1659,7 +1905,6 @@ const fechaBoda =
 
 
 function actualizarCuenta(){
-
 
     const ahora =
         new Date().getTime();
@@ -1746,6 +1991,7 @@ function actualizarCuenta(){
 
 actualizarCuenta();
 
+
 setInterval(
     actualizarCuenta,
     1000
@@ -1754,6 +2000,6 @@ setInterval(
 
 </script>
 
-
 </body>
+
 </html>
