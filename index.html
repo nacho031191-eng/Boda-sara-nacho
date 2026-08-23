@@ -1,2370 +1,1218 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sara & Nacho | 29.05.2027</title>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap');
-
-
-/* =========================================================
-   GENERAL
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:'Montserrat',sans-serif;
-    background:#f4f0e7;
-    color:#45493c;
-    line-height:1.7;
-    overflow-x:hidden;
-}
-
-body.intro-activa{
-    overflow:hidden;
-}
-
-
-/* =========================================================
-   INTRO - SOBRE REAL
-========================================================= */
-
-#introSobre{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#ddc7a8;
-
-    opacity:1;
-    visibility:visible;
-
-    transition:
-        opacity .85s ease,
-        visibility .85s ease;
-}
-
-#introSobre.desaparecer{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-}
-
-
-/* =========================================================
-   CONTENEDOR DEL SOBRE
-========================================================= */
-
-.sobre-stage{
-    position:relative;
-
-    width:min(900px,96vw);
-
-    aspect-ratio:4 / 3;
-
-    overflow:hidden;
-
-    border-radius:2px;
-
-    box-shadow:
-        0 30px 60px rgba(45,30,15,.20);
-
-    transition:
-        transform .8s ease,
-        filter .8s ease,
-        opacity .8s ease;
-}
-
-
-/* =========================================================
-   CAPAS DE IMAGEN
-
-   Usamos dos imágenes para hacer fundidos
-   entre las distintas fases de quemado.
-========================================================= */
-
-.burn-layer{
-    position:absolute;
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-
-    user-select:none;
-    pointer-events:none;
-
-    transition:
-        opacity .38s ease,
-        filter .30s ease,
-        transform .55s ease;
-}
-
-#burnLayerA{
-    z-index:1;
-    opacity:1;
-}
-
-#burnLayerB{
-    z-index:2;
-    opacity:0;
-}
-
-
-/* pequeño aumento de tensión al comenzar */
-
-.sobre-stage.quemando .burn-layer{
-    transform:scale(1.008);
-}
-
-
-/* =========================================================
-   BOTÓN INVISIBLE SOBRE EL SELLO REAL
-========================================================= */
-
-#botonSello{
-    position:absolute;
-
-    /*
-       Zona del sello de la fotografía.
-       Si luego quieres moverla 1 cm,
-       se cambia aquí.
-    */
-
-    left:50%;
-    top:56%;
-
-    transform:translate(-50%,-50%);
-
-    width:115px;
-    height:115px;
-
-    border:0;
-    border-radius:50%;
-
-    background:transparent;
-
-    cursor:pointer;
-
-    z-index:20;
-
-    -webkit-tap-highlight-color:transparent;
-}
-
-#botonSello::after{
-    content:"";
-
-    position:absolute;
-    inset:-8px;
-
-    border-radius:50%;
-
-    opacity:0;
-
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,.20),
-        0 0 20px rgba(255,255,255,.10);
-
-    transition:opacity .3s ease;
-}
-
-#botonSello:hover::after{
-    opacity:1;
-}
-
-#botonSello:focus-visible{
-    outline:2px solid rgba(255,255,255,.8);
-    outline-offset:8px;
-}
-
-#botonSello.oculto{
-    pointer-events:none;
-}
-
-
-/* =========================================================
-   TEXTO "TOCA EL SELLO"
-========================================================= */
-
-.indicacion{
-    position:absolute;
-
-    left:50%;
-    bottom:5.5%;
-
-    transform:translateX(-50%);
-
-    z-index:30;
-
-    color:#75634e;
-
-    font-family:'Montserrat',sans-serif;
-
-    font-size:10px;
-
-    text-transform:uppercase;
-
-    letter-spacing:3px;
-
-    white-space:nowrap;
-
-    text-shadow:
-        0 1px 1px rgba(255,255,255,.5);
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
-}
-
-.indicacion.oculta{
-    opacity:0;
-
-    transform:
-        translateX(-50%)
-        translateY(7px);
-}
-
-
-/* =========================================================
-   DESTELLO MUY SUAVE EN EL INICIO DEL FUEGO
-========================================================= */
-
-#resplandor{
-    position:absolute;
-
-    left:50%;
-    top:56%;
-
-    width:80px;
-    height:80px;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
-    z-index:15;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,190,80,.55) 0%,
-            rgba(255,95,15,.25) 32%,
-            transparent 70%
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara & Nacho | 29.05.2027</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap');
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Montserrat',sans-serif;
+      background:#f4f0e7;
+      color:#45493c;
+      line-height:1.7;
+      overflow-x:hidden;
+    }
+
+    body.intro-activa{
+      overflow:hidden;
+    }
+
+    /* =========================
+       INTRO SOBRE
+    ========================= */
+
+    #introSobre{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:
+        radial-gradient(circle at center, #efe2ce 0%, #dcc5a6 100%);
+
+      opacity:1;
+      visibility:visible;
+
+      transition:
+        opacity .9s ease,
+        visibility .9s ease,
+        background .9s ease;
+    }
+
+    #introSobre.oculto{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    #introSobre::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:.08;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(90,70,40,.10) 0px,
+          rgba(90,70,40,.10) 1px,
+          transparent 1px,
+          transparent 6px
         );
-
-    filter:blur(7px);
-}
-
-#resplandor.activo{
-    animation:encender .55s ease forwards;
-}
-
-@keyframes encender{
-
-    0%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(.3);
+      pointer-events:none;
     }
-
-    45%{
-        opacity:1;
-        transform:translate(-50%,-50%) scale(1.3);
-    }
-
-    100%{
-        opacity:.25;
-        transform:translate(-50%,-50%) scale(2);
-    }
-
-}
-
-
-/* =========================================================
-   CHISPAS
-========================================================= */
-
-#particulas{
-    position:absolute;
-    inset:0;
-
-    z-index:18;
-
-    overflow:hidden;
-
-    pointer-events:none;
-}
-
-.chispa{
-    position:absolute;
-
-    left:50%;
-    top:56%;
-
-    width:var(--size);
-    height:var(--size);
-
-    border-radius:50%;
-
-    background:#ffbe55;
-
-    box-shadow:
-        0 0 5px #ff6b12,
-        0 0 10px rgba(255,80,0,.6);
-
-    animation:
-        volarChispa
-        var(--dur)
-        ease-out
-        forwards;
-}
-
-@keyframes volarChispa{
-
-    0%{
-        opacity:0;
-        transform:translate(0,0) scale(.2);
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(
-                var(--x),
-                var(--y)
-            )
-            scale(.05);
-    }
-}
-
-
-/* =========================================================
-   HUMO SUAVE
-========================================================= */
-
-.humo{
-    position:absolute;
-
-    left:50%;
-    top:56%;
-
-    width:var(--size);
-    height:var(--size);
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(60,55,52,.20),
-            rgba(60,55,52,.08) 48%,
-            transparent 72%
-        );
-
-    filter:blur(6px);
-
-    animation:
-        subirHumo
-        var(--dur)
-        ease-out
-        forwards;
-}
-
-@keyframes subirHumo{
-
-    0%{
-        opacity:0;
-        transform:translate(0,0) scale(.4);
-    }
-
-    25%{
-        opacity:.45;
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(
-                var(--x),
-                var(--y)
-            )
-            scale(2.2);
-    }
-}
-
-
-/* =========================================================
-   FINAL DEL SOBRE
-========================================================= */
-
-.sobre-stage.final{
-    opacity:0;
-
-    transform:
-        scale(1.035);
-
-    filter:
-        brightness(.7)
-        blur(2px);
-}
-
-
-/* =========================================================
-   PORTADA
-========================================================= */
-
-.hero{
-    min-height:100vh;
-
-    position:relative;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:30px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            rgba(22,28,19,.18),
-            rgba(22,28,19,.50)
-        ),
-        url('fondo-cuenca.png');
-
-    background-size:cover;
-    background-position:center center;
-}
-
-.hero-content{
-    max-width:950px;
-
-    text-shadow:
-        0 3px 18px
-        rgba(0,0,0,.44);
-}
-
-.hero .fecha{
-    font-size:14px;
-    letter-spacing:6px;
-    margin-bottom:25px;
-    text-transform:uppercase;
-}
-
-.hero .nos-casamos{
-    font-size:13px;
-    letter-spacing:6px;
-    text-transform:uppercase;
-    margin-bottom:22px;
-}
-
-.hero h1{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:
-        clamp(72px,12vw,145px);
-
-    font-weight:400;
-
-    line-height:.85;
-
-    margin-bottom:35px;
-}
-
-.amp{
-    font-style:italic;
-    font-size:.72em;
-    color:#e0d2b2;
-}
-
-.hero .lugar-portada{
-    font-family:'Cormorant Garamond',serif;
-    font-size:23px;
-    letter-spacing:3px;
-}
-
-.scroll{
-    position:absolute;
-
-    bottom:28px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    color:white;
-    text-decoration:none;
-
-    font-size:25px;
-
-    animation:bajar 1.8s infinite;
-}
-
-@keyframes bajar{
-
-    0%,100%{
-        transform:translate(-50%,0);
-    }
-
-    50%{
-        transform:translate(-50%,8px);
-    }
-
-}
-
-
-/* =========================================================
-   SECCIONES
-========================================================= */
-
-section{
-    padding:100px 25px;
-}
-
-.contenedor{
-    max-width:1000px;
-    margin:auto;
-    text-align:center;
-}
-
-.subtitulo{
-    text-transform:uppercase;
-    letter-spacing:4px;
-    font-size:11px;
-    color:#8c7657;
-    margin-bottom:12px;
-}
-
-h2{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:
-        clamp(42px,7vw,65px);
-
-    font-weight:400;
-    margin-bottom:25px;
-    color:#3e4937;
-}
-
-.texto{
-    max-width:720px;
-    margin:auto;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:23px;
-    color:#5c5c50;
-}
-
-
-/* =========================================================
-   SEPARADORES
-========================================================= */
-
-.separador{
-    width:95px;
-    height:25px;
-
-    margin:24px auto 30px;
-
-    position:relative;
-}
-
-.separador::before{
-    content:"";
-
-    position:absolute;
-
-    top:12px;
-    left:0;
-
-    width:100%;
-    height:1px;
-
-    background:#8b9275;
-}
-
-.separador::after{
-    content:"";
-
-    position:absolute;
-
-    width:8px;
-    height:8px;
-
-    top:8px;
-    left:50%;
-
-    transform:
-        translateX(-50%)
-        rotate(45deg);
-
-    background:#f4f0e7;
-
-    border:1px solid #8b9275;
-}
-
-.tarjeta .separador::after{
-    background:#f8f5ed;
-}
-
-.regalo .separador::after{
-    background:#3e4937;
-}
-
-.confirmar .separador::after{
-    background:#ddd5c4;
-}
-
-
-/* =========================================================
-   CUENTA ATRÁS
-========================================================= */
-
-.countdown-section{
-    background:#35402f;
-    color:white;
-}
-
-.countdown-section h2{
-    color:#f6f1e6;
-}
-
-.countdown-section .subtitulo{
-    color:#d5c6a7;
-}
-
-.countdown{
-    display:flex;
-    justify-content:center;
-
-    gap:45px;
-
-    flex-wrap:wrap;
-
-    margin-top:45px;
-}
-
-.numero{
-    display:block;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:55px;
-
-    line-height:1;
-}
-
-.unidad{
-    text-transform:uppercase;
-
-    font-size:10px;
-
-    letter-spacing:3px;
-
-    color:#d3c7ae;
-}
-
-
-/* =========================================================
-   LUGAR
-========================================================= */
-
-.lugar{
-    background:#e7e0d1;
-}
-
-.tarjeta{
-    max-width:780px;
-
-    margin:45px auto 0;
-
-    background:#f8f5ed;
-
-    padding:55px 30px;
-
-    border:1px solid #c9bda6;
-}
-
-.tarjeta h3{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:38px;
-
-    font-weight:500;
-
-    margin-bottom:10px;
-}
-
-.hora{
-    margin:25px 0;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:24px;
-}
-
-
-/* =========================================================
-   BOTONES
-========================================================= */
-
-.boton{
-    display:inline-block;
-
-    margin-top:25px;
-
-    padding:14px 30px;
-
-    border:1px solid #59644f;
-
-    color:#46503f;
-
-    background:transparent;
-
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:11px;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.boton:hover{
-    background:#46503f;
-    color:white;
-}
-
-
-/* =========================================================
-   PROGRAMA
-========================================================= */
-
-.programa{
-    background:#f4f0e7;
-}
-
-.timeline{
-    max-width:550px;
-
-    margin:50px auto 0;
-
-    text-align:left;
-}
-
-.evento{
-    border-left:1px solid #9c927d;
-
-    padding:
-        0 0 45px 35px;
-
-    position:relative;
-}
-
-.evento:last-child{
-    padding-bottom:0;
-}
-
-.evento::before{
-    content:"";
-
-    position:absolute;
-
-    width:9px;
-    height:9px;
-
-    background:#64705a;
-
-    border-radius:50%;
-
-    left:-5px;
-    top:8px;
-}
-
-.evento h3{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:27px;
-
-    font-weight:500;
-}
-
-.evento p{
-    color:#777265;
-    font-size:14px;
-}
-
-
-/* =========================================================
-   REGALO
-========================================================= */
-
-.regalo{
-    background:#3e4937;
-    color:#f5f0e5;
-}
-
-.regalo h2{
-    color:#f5f0e5;
-}
-
-.regalo .subtitulo{
-    color:#d5c6a7;
-}
-
-.regalo .texto{
-    color:#eee8dc;
-}
-
-.cuenta{
-    max-width:650px;
-
-    margin:40px auto 0;
-
-    padding:35px 20px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.35);
-}
-
-.cuenta-titulo{
-    text-transform:uppercase;
-
-    letter-spacing:3px;
-
-    font-size:11px;
-
-    margin-bottom:15px;
-}
-
-.iban{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:
-        clamp(19px,4vw,28px);
-
-    letter-spacing:2px;
-
-    word-break:break-word;
-}
-
-
-/* =========================================================
-   CONFIRMACIÓN
-========================================================= */
-
-.confirmar{
-    background:#ddd5c4;
-}
-
-.formulario{
-    max-width:650px;
-
-    margin:45px auto 0;
-
-    text-align:left;
-}
-
-.campo{
-    margin-bottom:22px;
-}
-
-.campo label{
-    display:block;
-
-    margin-bottom:8px;
-
-    font-size:12px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1.5px;
-}
-
-input,
-select,
-textarea{
-    width:100%;
-
-    padding:14px;
-
-    border:1px solid #b7ad99;
-
-    background:
-        rgba(255,255,255,.55);
-
-    color:#45493c;
-
-    font-family:'Montserrat',sans-serif;
-
-    font-size:15px;
-}
-
-textarea{
-    min-height:110px;
-    resize:vertical;
-}
-
-.boton-enviar{
-    display:block;
-
-    margin:30px auto 0;
-
-    background:#44503d;
-
-    color:white;
-
-    padding:17px 40px;
-
-    border:1px solid #44503d;
-}
-
-
-/* =========================================================
-   PIE
-========================================================= */
-
-footer{
-    background:#30392b;
-
-    color:#e9e3d6;
-
-    text-align:center;
-
-    padding:70px 20px;
-}
-
-footer .nombres{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:45px;
-
-    margin-bottom:10px;
-}
-
-footer p{
-    font-size:12px;
-    letter-spacing:2px;
-}
-
-
-/* =========================================================
-   MÓVIL
-========================================================= */
-
-@media(max-width:600px){
 
     .sobre-stage{
-        width:100vw;
-
-        box-shadow:none;
-
-        border-radius:0;
+      position:relative;
+      width:min(900px, 94vw);
+      aspect-ratio:4/3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:
+        transform .8s ease,
+        opacity .8s ease,
+        filter .8s ease;
     }
 
-    #botonSello{
-        width:82px;
-        height:82px;
+    .sobre-stage.fin{
+      opacity:0;
+      transform:scale(1.03);
+      filter:blur(2px);
     }
 
-    .indicacion{
-        bottom:3%;
-        font-size:9px;
-        letter-spacing:2px;
+    #sobreImg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      user-select:none;
+      pointer-events:none;
+      z-index:2;
+      transition:
+        opacity 4.2s linear,
+        filter .6s ease,
+        transform 4.2s linear;
+      box-shadow:
+        0 28px 55px rgba(45,30,15,.22);
     }
 
-    section{
-        padding:75px 20px;
+    #sobreImg.quemandose{
+      opacity:.12;
+      transform:scale(1.015);
+      filter:brightness(.88) saturate(.9);
     }
 
-    .countdown{
-        gap:25px;
+    #burnCanvas{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:4;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .35s ease;
     }
 
-    .numero{
-        font-size:42px;
+    #burnCanvas.visible{
+      opacity:1;
     }
 
-    .tarjeta{
-        padding:40px 20px;
+    #sealButton{
+      position:absolute;
+      left:50%;
+      top:56%;
+      transform:translate(-50%,-50%);
+      width:112px;
+      height:112px;
+      border:none;
+      border-radius:50%;
+      background:transparent;
+      cursor:pointer;
+      z-index:10;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    #sealButton:focus-visible{
+      outline:2px solid rgba(255,255,255,.85);
+      outline-offset:8px;
+    }
+
+    #sealButton::after{
+      content:"";
+      position:absolute;
+      inset:-8px;
+      border-radius:50%;
+      opacity:0;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.25),
+        0 0 16px rgba(255,255,255,.16);
+      transition:opacity .25s ease;
+    }
+
+    #sealButton:hover::after{
+      opacity:1;
+    }
+
+    #sealButton.oculto{
+      pointer-events:none;
+      opacity:0;
+    }
+
+    .intro-texto{
+      position:absolute;
+      left:50%;
+      bottom:6%;
+      transform:translateX(-50%);
+      z-index:8;
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-size:10px;
+      color:#6f5d49;
+      text-shadow:0 1px 1px rgba(255,255,255,.45);
+      white-space:nowrap;
+      transition:
+        opacity .35s ease,
+        transform .35s ease;
+    }
+
+    .intro-texto.oculto{
+      opacity:0;
+      transform:translateX(-50%) translateY(7px);
+    }
+
+    #resplandor{
+      position:absolute;
+      left:50%;
+      top:56%;
+      transform:translate(-50%,-50%);
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,196,93,.78) 0%,
+          rgba(255,120,25,.36) 35%,
+          transparent 72%
+        );
+      filter:blur(9px);
+      opacity:0;
+      z-index:5;
+      pointer-events:none;
+    }
+
+    #resplandor.activo{
+      animation:resplandorInicio .65s ease forwards;
+    }
+
+    @keyframes resplandorInicio{
+      0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.35);
+      }
+      45%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.2);
+      }
+      100%{
+        opacity:.18;
+        transform:translate(-50%,-50%) scale(2.3);
+      }
+    }
+
+    #particulas{
+      position:absolute;
+      inset:0;
+      z-index:6;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .chispa{
+      position:absolute;
+      left:50%;
+      top:56%;
+      width:var(--size);
+      height:var(--size);
+      border-radius:50%;
+      background:#ffc769;
+      box-shadow:
+        0 0 5px #ff7a1d,
+        0 0 12px rgba(255,85,0,.65);
+      animation:volarChispa var(--dur) ease-out forwards;
+    }
+
+    @keyframes volarChispa{
+      0%{
+        opacity:0;
+        transform:translate(0,0) scale(.2);
+      }
+      12%{
+        opacity:1;
+      }
+      100%{
+        opacity:0;
+        transform:translate(var(--x), var(--y)) scale(.05);
+      }
+    }
+
+    .humo{
+      position:absolute;
+      left:50%;
+      top:56%;
+      width:var(--size);
+      height:var(--size);
+      border-radius:50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(65,60,58,.24),
+          rgba(65,60,58,.10) 48%,
+          transparent 74%
+        );
+      filter:blur(7px);
+      animation:subirHumo var(--dur) ease-out forwards;
+    }
+
+    @keyframes subirHumo{
+      0%{
+        opacity:0;
+        transform:translate(0,0) scale(.45);
+      }
+      20%{
+        opacity:.45;
+      }
+      100%{
+        opacity:0;
+        transform:translate(var(--x), var(--y)) scale(2.3);
+      }
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero{
+      min-height:100vh;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:30px;
+      color:white;
+      background:
+        linear-gradient(
+          rgba(20,25,18,.18),
+          rgba(20,25,18,.50)
+        ),
+        url('fondo-cuenca.png');
+      background-size:cover;
+      background-position:center center;
+    }
+
+    .hero-content{
+      max-width:950px;
+      text-shadow:0 3px 18px rgba(0,0,0,.44);
+    }
+
+    .hero .fecha{
+      font-size:14px;
+      letter-spacing:6px;
+      margin-bottom:25px;
+      text-transform:uppercase;
+    }
+
+    .hero .nos-casamos{
+      font-size:13px;
+      letter-spacing:6px;
+      text-transform:uppercase;
+      margin-bottom:22px;
     }
 
     .hero h1{
-        font-size:
-            clamp(63px,20vw,95px);
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(72px,12vw,145px);
+      font-weight:400;
+      line-height:.85;
+      margin-bottom:35px;
     }
 
-}
+    .amp{
+      font-style:italic;
+      font-size:.72em;
+      color:#e0d2b2;
+    }
 
-
-/* =========================================================
-   REDUCIR MOVIMIENTO
-========================================================= */
-
-@media(prefers-reduced-motion:reduce){
+    .hero .lugar-portada{
+      font-family:'Cormorant Garamond',serif;
+      font-size:23px;
+      letter-spacing:3px;
+    }
 
     .scroll{
-        animation:none;
+      position:absolute;
+      bottom:28px;
+      left:50%;
+      transform:translateX(-50%);
+      color:white;
+      text-decoration:none;
+      font-size:25px;
+      animation:bajar 1.8s infinite;
     }
 
-}
+    @keyframes bajar{
+      0%,100%{
+        transform:translate(-50%,0);
+      }
+      50%{
+        transform:translate(-50%,8px);
+      }
+    }
 
-</style>
+    /* =========================
+       SECCIONES
+    ========================= */
 
+    section{
+      padding:100px 25px;
+    }
+
+    .contenedor{
+      max-width:1000px;
+      margin:auto;
+      text-align:center;
+    }
+
+    .subtitulo{
+      text-transform:uppercase;
+      letter-spacing:4px;
+      font-size:11px;
+      color:#8c7657;
+      margin-bottom:12px;
+    }
+
+    h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(42px,7vw,65px);
+      font-weight:400;
+      margin-bottom:25px;
+      color:#3e4937;
+    }
+
+    .texto{
+      max-width:720px;
+      margin:auto;
+      font-family:'Cormorant Garamond',serif;
+      font-size:23px;
+      color:#5c5c50;
+    }
+
+    .separador{
+      width:95px;
+      height:25px;
+      margin:24px auto 30px;
+      position:relative;
+    }
+
+    .separador::before{
+      content:"";
+      position:absolute;
+      top:12px;
+      left:0;
+      width:100%;
+      height:1px;
+      background:#8b9275;
+    }
+
+    .separador::after{
+      content:"";
+      position:absolute;
+      width:8px;
+      height:8px;
+      top:8px;
+      left:50%;
+      transform:translateX(-50%) rotate(45deg);
+      background:#f4f0e7;
+      border:1px solid #8b9275;
+    }
+
+    .tarjeta .separador::after{
+      background:#f8f5ed;
+    }
+
+    .regalo .separador::after{
+      background:#3e4937;
+    }
+
+    .confirmar .separador::after{
+      background:#ddd5c4;
+    }
+
+    .countdown-section{
+      background:#35402f;
+      color:white;
+    }
+
+    .countdown-section h2{
+      color:#f6f1e6;
+    }
+
+    .countdown-section .subtitulo{
+      color:#d5c6a7;
+    }
+
+    .countdown{
+      display:flex;
+      justify-content:center;
+      gap:45px;
+      flex-wrap:wrap;
+      margin-top:45px;
+    }
+
+    .numero{
+      display:block;
+      font-family:'Cormorant Garamond',serif;
+      font-size:55px;
+      line-height:1;
+    }
+
+    .unidad{
+      text-transform:uppercase;
+      font-size:10px;
+      letter-spacing:3px;
+      color:#d3c7ae;
+    }
+
+    .lugar{
+      background:#e7e0d1;
+    }
+
+    .tarjeta{
+      max-width:780px;
+      margin:45px auto 0;
+      background:#f8f5ed;
+      padding:55px 30px;
+      border:1px solid #c9bda6;
+    }
+
+    .tarjeta h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:38px;
+      font-weight:500;
+      margin-bottom:10px;
+    }
+
+    .hora{
+      margin:25px 0;
+      font-family:'Cormorant Garamond',serif;
+      font-size:24px;
+    }
+
+    .boton{
+      display:inline-block;
+      margin-top:25px;
+      padding:14px 30px;
+      border:1px solid #59644f;
+      color:#46503f;
+      background:transparent;
+      text-decoration:none;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:11px;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .boton:hover{
+      background:#46503f;
+      color:white;
+    }
+
+    .programa{
+      background:#f4f0e7;
+    }
+
+    .timeline{
+      max-width:550px;
+      margin:50px auto 0;
+      text-align:left;
+    }
+
+    .evento{
+      border-left:1px solid #9c927d;
+      padding:0 0 45px 35px;
+      position:relative;
+    }
+
+    .evento:last-child{
+      padding-bottom:0;
+    }
+
+    .evento::before{
+      content:"";
+      position:absolute;
+      width:9px;
+      height:9px;
+      background:#64705a;
+      border-radius:50%;
+      left:-5px;
+      top:8px;
+    }
+
+    .evento h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:27px;
+      font-weight:500;
+    }
+
+    .evento p{
+      color:#777265;
+      font-size:14px;
+    }
+
+    .regalo{
+      background:#3e4937;
+      color:#f5f0e5;
+    }
+
+    .regalo h2{
+      color:#f5f0e5;
+    }
+
+    .regalo .subtitulo{
+      color:#d5c6a7;
+    }
+
+    .regalo .texto{
+      color:#eee8dc;
+    }
+
+    .cuenta{
+      max-width:650px;
+      margin:40px auto 0;
+      padding:35px 20px;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .cuenta-titulo{
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-size:11px;
+      margin-bottom:15px;
+    }
+
+    .iban{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(19px,4vw,28px);
+      letter-spacing:2px;
+      word-break:break-word;
+    }
+
+    .confirmar{
+      background:#ddd5c4;
+    }
+
+    .formulario{
+      max-width:650px;
+      margin:45px auto 0;
+      text-align:left;
+    }
+
+    .campo{
+      margin-bottom:22px;
+    }
+
+    .campo label{
+      display:block;
+      margin-bottom:8px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:14px;
+      border:1px solid #b7ad99;
+      background:rgba(255,255,255,.55);
+      color:#45493c;
+      font-family:'Montserrat',sans-serif;
+      font-size:15px;
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .boton-enviar{
+      display:block;
+      margin:30px auto 0;
+      background:#44503d;
+      color:white;
+      padding:17px 40px;
+      border:1px solid #44503d;
+    }
+
+    footer{
+      background:#30392b;
+      color:#e9e3d6;
+      text-align:center;
+      padding:70px 20px;
+    }
+
+    footer .nombres{
+      font-family:'Cormorant Garamond',serif;
+      font-size:45px;
+      margin-bottom:10px;
+    }
+
+    footer p{
+      font-size:12px;
+      letter-spacing:2px;
+    }
+
+    @media(max-width:600px){
+      .sobre-stage{
+        width:100vw;
+      }
+
+      #sealButton{
+        width:84px;
+        height:84px;
+      }
+
+      .intro-texto{
+        font-size:9px;
+        letter-spacing:2px;
+        bottom:4%;
+      }
+
+      section{
+        padding:75px 20px;
+      }
+
+      .countdown{
+        gap:25px;
+      }
+
+      .numero{
+        font-size:42px;
+      }
+
+      .tarjeta{
+        padding:40px 20px;
+      }
+
+      .hero h1{
+        font-size:clamp(63px,20vw,95px);
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .scroll{
+        animation:none;
+      }
+    }
+  </style>
 </head>
-
 
 <body class="intro-activa">
 
+  <!-- INTRO -->
+  <div id="introSobre">
+    <div class="sobre-stage" id="sobreStage">
 
-<!-- =========================================================
-     SOBRE
-========================================================= -->
+      <img
+        id="sobreImg"
+        src="frame-01.png"
+        alt="Sobre de boda de Sara y Nacho">
 
-<div id="introSobre">
+      <canvas id="burnCanvas"></canvas>
 
-    <div
-        class="sobre-stage"
-        id="sobreStage">
+      <div id="resplandor"></div>
 
-        <!-- Primera capa -->
+      <div id="particulas"></div>
 
-        <img
-            id="burnLayerA"
-            class="burn-layer"
-            src="frame-01.png"
-            alt="Sobre de boda de Sara y Nacho">
+      <button
+        id="sealButton"
+        type="button"
+        aria-label="Abrir la invitación">
+      </button>
 
-
-        <!-- Segunda capa para hacer fundidos -->
-
-        <img
-            id="burnLayerB"
-            class="burn-layer"
-            src="frame-02.png"
-            alt="">
-
-
-        <!-- resplandor al comenzar -->
-
-        <div id="resplandor"></div>
-
-
-        <!-- partículas -->
-
-        <div id="particulas"></div>
-
-
-        <!-- zona clicable del sello -->
-
-        <button
-            id="botonSello"
-            type="button"
-            aria-label="Abrir la invitación">
-        </button>
-
-
-        <div
-            class="indicacion"
-            id="indicacion">
-
-            Toca el sello para abrir
-
-        </div>
-
+      <div class="intro-texto" id="introTexto">
+        Toca el sello para abrir
+      </div>
     </div>
+  </div>
 
-</div>
+  <!-- vídeo fuente oculto -->
+  <video
+    id="burnVideo"
+    src="quemado-real.mp4"
+    playsinline
+    muted
+    preload="auto"
+    style="display:none;"></video>
 
-
-<!-- =========================================================
-     PORTADA
-========================================================= -->
-
-<header class="hero">
-
+  <!-- HERO -->
+  <header class="hero">
     <div class="hero-content">
+      <div class="fecha">29 · 05 · 2027</div>
+      <div class="nos-casamos">Nos casamos</div>
 
-        <div class="fecha">
-            29 · 05 · 2027
-        </div>
+      <h1>
+        Sara
+        <span class="amp">&</span>
+        Nacho
+      </h1>
 
-        <div class="nos-casamos">
-            Nos casamos
-        </div>
-
-        <h1>
-
-            Sara
-
-            <span class="amp">
-                &
-            </span>
-
-            Nacho
-
-        </h1>
-
-        <div class="lugar-portada">
-            Parador de Cuenca
-        </div>
-
+      <div class="lugar-portada">
+        Parador de Cuenca
+      </div>
     </div>
 
-    <a
-        class="scroll"
-        href="#historia">
+    <a class="scroll" href="#historia">↓</a>
+  </header>
 
-        ↓
+  <!-- INTRODUCCIÓN -->
+  <section id="historia">
+    <div class="contenedor">
+      <div class="subtitulo">Nuestra boda</div>
+      <h2>¡Nos casamos!</h2>
+      <div class="separador"></div>
 
-    </a>
-
-</header>
-
-
-<!-- =========================================================
-     INTRODUCCIÓN
-========================================================= -->
-
-<section id="historia">
-
-<div class="contenedor">
-
-    <div class="subtitulo">
-        Nuestra boda
-    </div>
-
-    <h2>
-        ¡Nos casamos!
-    </h2>
-
-    <div class="separador"></div>
-
-    <p class="texto">
-
+      <p class="texto">
         Hay momentos que merecen ser compartidos
         con las personas que hacen nuestra vida especial.
-
         <br><br>
-
         Y no imaginamos este día sin vosotros.
-
         <br><br>
-
         Nos haría muchísima ilusión
         que nos acompañarais.
-
-    </p>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     CUENTA ATRÁS
-========================================================= -->
-
-<section class="countdown-section">
-
-<div class="contenedor">
-
-    <div class="subtitulo">
-        Cada vez queda menos
+      </p>
     </div>
+  </section>
 
-    <h2>
-        Cuenta atrás
-    </h2>
+  <!-- CUENTA ATRÁS -->
+  <section class="countdown-section">
+    <div class="contenedor">
+      <div class="subtitulo">Cada vez queda menos</div>
+      <h2>Cuenta atrás</h2>
 
-
-    <div class="countdown">
-
+      <div class="countdown">
         <div>
-
-            <span
-                class="numero"
-                id="dias">
-                00
-            </span>
-
-            <span class="unidad">
-                Días
-            </span>
-
+          <span class="numero" id="dias">00</span>
+          <span class="unidad">Días</span>
         </div>
 
-
         <div>
-
-            <span
-                class="numero"
-                id="horas">
-                00
-            </span>
-
-            <span class="unidad">
-                Horas
-            </span>
-
+          <span class="numero" id="horas">00</span>
+          <span class="unidad">Horas</span>
         </div>
 
-
         <div>
-
-            <span
-                class="numero"
-                id="minutos">
-                00
-            </span>
-
-            <span class="unidad">
-                Minutos
-            </span>
-
+          <span class="numero" id="minutos">00</span>
+          <span class="unidad">Minutos</span>
         </div>
 
-
         <div>
-
-            <span
-                class="numero"
-                id="segundos">
-                00
-            </span>
-
-            <span class="unidad">
-                Segundos
-            </span>
-
+          <span class="numero" id="segundos">00</span>
+          <span class="unidad">Segundos</span>
         </div>
-
+      </div>
     </div>
+  </section>
 
-</div>
+  <!-- LUGAR -->
+  <section class="lugar">
+    <div class="contenedor">
+      <div class="subtitulo">Dónde será</div>
+      <h2>El lugar</h2>
 
-</section>
-
-
-<!-- =========================================================
-     LUGAR
-========================================================= -->
-
-<section class="lugar">
-
-<div class="contenedor">
-
-    <div class="subtitulo">
-        Dónde será
-    </div>
-
-    <h2>
-        El lugar
-    </h2>
-
-    <p class="texto">
-
+      <p class="texto">
         Hemos elegido uno de los rincones
         más especiales de Cuenca
         para celebrar juntos nuestro gran día.
+      </p>
 
-    </p>
-
-
-    <div class="tarjeta">
-
+      <div class="tarjeta">
         <div class="separador"></div>
 
-        <h3>
-            Parador de Cuenca
-        </h3>
+        <h3>Parador de Cuenca</h3>
 
         <p>
-
-            Subida a San Pablo, s/n
-
-            <br>
-
-            Cuenca
-
+          Subida a San Pablo, s/n
+          <br>
+          Cuenca
         </p>
 
-        <div class="hora">
-
-            29 de mayo de 2027
-
-        </div>
+        <div class="hora">29 de mayo de 2027</div>
 
         <p>
-
-            La ceremonia y la celebración
-            tendrán lugar en el propio Parador.
-
+          La ceremonia y la celebración
+          tendrán lugar en el propio Parador.
         </p>
 
         <a
-            class="boton"
-            href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
-            target="_blank">
-
-            Cómo llegar
-
+          class="boton"
+          href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
+          target="_blank">
+          Cómo llegar
         </a>
-
+      </div>
     </div>
+  </section>
 
-</div>
+  <!-- PROGRAMA -->
+  <section class="programa">
+    <div class="contenedor">
+      <div class="subtitulo">Nuestro día</div>
+      <h2>Programa</h2>
 
-</section>
+      <div class="timeline">
+        <div class="evento">
+          <h3>Bienvenida</h3>
+          <p>Nos encontraremos en el Parador de Cuenca.</p>
+        </div>
 
+        <div class="evento">
+          <h3>Ceremonia</h3>
+          <p>El momento de decir: sí, quiero.</p>
+        </div>
 
-<!-- =========================================================
-     PROGRAMA
-========================================================= -->
+        <div class="evento">
+          <h3>Cóctel</h3>
+          <p>Brindaremos juntos mientras empieza la celebración.</p>
+        </div>
 
-<section class="programa">
+        <div class="evento">
+          <h3>Banquete</h3>
+          <p>Comer, beber, brindar y disfrutar.</p>
+        </div>
 
-<div class="contenedor">
-
-    <div class="subtitulo">
-        Nuestro día
+        <div class="evento">
+          <h3>Fiesta</h3>
+          <p>Y después... ¡a celebrarlo como se merece!</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <h2>
-        Programa
-    </h2>
-
-
-    <div class="timeline">
-
-
-        <div class="evento">
-
-            <h3>
-                Bienvenida
-            </h3>
-
-            <p>
-                Nos encontraremos en el Parador de Cuenca.
-            </p>
-
-        </div>
-
-
-        <div class="evento">
-
-            <h3>
-                Ceremonia
-            </h3>
-
-            <p>
-                El momento de decir: sí, quiero.
-            </p>
-
-        </div>
-
-
-        <div class="evento">
-
-            <h3>
-                Cóctel
-            </h3>
-
-            <p>
-                Brindaremos juntos mientras empieza la celebración.
-            </p>
-
-        </div>
-
-
-        <div class="evento">
-
-            <h3>
-                Banquete
-            </h3>
-
-            <p>
-                Comer, beber, brindar y disfrutar.
-            </p>
-
-        </div>
-
-
-        <div class="evento">
-
-            <h3>
-                Fiesta
-            </h3>
-
-            <p>
-                Y después... ¡a celebrarlo como se merece!
-            </p>
-
-        </div>
-
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     REGALO
-========================================================= -->
-
-<section class="regalo">
-
-<div class="contenedor">
-
-    <div class="subtitulo">
+  <!-- REGALO -->
+  <section class="regalo">
+    <div class="contenedor">
+      <div class="subtitulo">
         El mejor regalo es compartirlo con vosotros
-    </div>
+      </div>
 
-    <h2>
-        Si queréis ayudarnos
-    </h2>
+      <h2>Si queréis ayudarnos</h2>
 
-    <div class="separador"></div>
+      <div class="separador"></div>
 
-    <p class="texto">
-
+      <p class="texto">
         Vuestra presencia en nuestro día
         es lo más importante para nosotros.
-
         <br><br>
-
         Pero si además queréis ayudarnos
         a comenzar esta nueva etapa,
         os dejamos por aquí una forma de hacerlo.
-
         <br><br>
-
         Gracias por formar parte
         de nuestra historia.
+      </p>
 
-    </p>
-
-
-    <div class="cuenta">
-
-        <div class="cuenta-titulo">
-            Número de cuenta
-        </div>
-
-        <div class="iban">
-            ES00 0000 0000 0000 0000 0000
-        </div>
-
+      <div class="cuenta">
+        <div class="cuenta-titulo">Número de cuenta</div>
+        <div class="iban">ES00 0000 0000 0000 0000 0000</div>
+      </div>
     </div>
+  </section>
 
-</div>
+  <!-- CONFIRMACIÓN -->
+  <section class="confirmar" id="confirmar">
+    <div class="contenedor">
+      <div class="subtitulo">Queremos contar contigo</div>
+      <h2>¿Nos acompañas?</h2>
 
-</section>
+      <div class="separador"></div>
 
-
-<!-- =========================================================
-     CONFIRMACIÓN
-========================================================= -->
-
-<section
-    class="confirmar"
-    id="confirmar">
-
-<div class="contenedor">
-
-    <div class="subtitulo">
-        Queremos contar contigo
-    </div>
-
-    <h2>
-        ¿Nos acompañas?
-    </h2>
-
-    <div class="separador"></div>
-
-    <p class="texto">
-
+      <p class="texto">
         Nos hará muchísima ilusión
         compartir este día contigo.
-
         <br>
-
         Confírmanos tu asistencia
         rellenando este pequeño formulario.
+      </p>
 
-    </p>
-
-
-    <form
+      <form
         class="formulario"
         action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
         method="POST">
 
-
         <input
-            type="hidden"
-            name="_subject"
-            value="Nueva confirmación - Boda Sara y Nacho">
-
-
-        <div class="campo">
-
-            <label for="name">
-                Nombre y apellidos
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Tu nombre y apellidos"
-                required>
-
-        </div>
-
+          type="hidden"
+          name="_subject"
+          value="Nueva confirmación - Boda Sara y Nacho">
 
         <div class="campo">
-
-            <label for="asistencia">
-                ¿Podrás acompañarnos?
-            </label>
-
-            <select
-                id="asistencia"
-                name="asistencia"
-                required>
-
-                <option value="">
-                    Selecciona una opción
-                </option>
-
-                <option value="Sí, asistiré">
-                    Sí, ¡allí estaré!
-                </option>
-
-                <option value="No podré asistir">
-                    Lo siento, no podré asistir
-                </option>
-
-            </select>
-
+          <label for="name">Nombre y apellidos</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Tu nombre y apellidos"
+            required>
         </div>
-
 
         <div class="campo">
-
-            <label for="acompanantes">
-                ¿Cuántas personas asistiréis?
-            </label>
-
-            <input
-                type="number"
-                id="acompanantes"
-                name="numero_personas"
-                min="1"
-                max="10"
-                placeholder="Ejemplo: 2">
-
+          <label for="asistencia">¿Podrás acompañarnos?</label>
+          <select
+            id="asistencia"
+            name="asistencia"
+            required>
+            <option value="">Selecciona una opción</option>
+            <option value="Sí, asistiré">Sí, ¡allí estaré!</option>
+            <option value="No podré asistir">Lo siento, no podré asistir</option>
+          </select>
         </div>
-
 
         <div class="campo">
-
-            <label for="alimentacion">
-                Alergias, intolerancias o alimentación especial
-            </label>
-
-            <input
-                type="text"
-                id="alimentacion"
-                name="alimentacion"
-                placeholder="Vegetariano, celíaco, alergias...">
-
+          <label for="acompanantes">¿Cuántas personas asistiréis?</label>
+          <input
+            type="number"
+            id="acompanantes"
+            name="numero_personas"
+            min="1"
+            max="10"
+            placeholder="Ejemplo: 2">
         </div>
-
 
         <div class="campo">
-
-            <label for="message">
-                ¿Quieres contarnos algo?
-            </label>
-
-            <textarea
-                id="message"
-                name="message"
-                placeholder="Déjanos un mensaje si quieres"></textarea>
-
+          <label for="alimentacion">Alergias, intolerancias o alimentación especial</label>
+          <input
+            type="text"
+            id="alimentacion"
+            name="alimentacion"
+            placeholder="Vegetariano, celíaco, alergias...">
         </div>
 
+        <div class="campo">
+          <label for="message">¿Quieres contarnos algo?</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Déjanos un mensaje si quieres"></textarea>
+        </div>
 
         <button
-            class="boton boton-enviar"
-            type="submit">
-
-            Confirmar asistencia
-
+          class="boton boton-enviar"
+          type="submit">
+          Confirmar asistencia
         </button>
-
-    </form>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     PIE
-========================================================= -->
-
-<footer>
-
-    <div class="nombres">
-        Sara & Nacho
+      </form>
     </div>
+  </section>
 
-    <p>
-        29 · MAYO · 2027 — CUENCA
-    </p>
+  <!-- PIE -->
+  <footer>
+    <div class="nombres">Sara & Nacho</div>
+    <p>29 · MAYO · 2027 — CUENCA</p>
+  </footer>
 
-</footer>
+  <script>
+    const introSobre = document.getElementById("introSobre");
+    const sobreStage = document.getElementById("sobreStage");
+    const sobreImg = document.getElementById("sobreImg");
+    const burnCanvas = document.getElementById("burnCanvas");
+    const burnVideo = document.getElementById("burnVideo");
+    const sealButton = document.getElementById("sealButton");
+    const introTexto = document.getElementById("introTexto");
+    const resplandor = document.getElementById("resplandor");
+    const particulas = document.getElementById("particulas");
 
+    const ctx = burnCanvas.getContext("2d", { willReadFrequently: true });
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
+    let abriendo = false;
+    let animacionActiva = false;
 
-<script>
-
-
-/* =========================================================
-   FOTOGRAMAS DEL QUEMADO
-========================================================= */
-
-const nombresFrames = [
-    "frame-01.png",
-    "frame-02.png",
-    "frame-03.png",
-    "frame-04.png",
-    "frame-05.png"
-];
-
-
-/*
-   Primero intentará encontrarlas
-   en la raíz del repositorio.
-
-   Si no las encuentra,
-   automáticamente prueba:
-   sobre_quemado_frames/frame-XX.png
-*/
-
-const frames = [];
-
-
-/* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const introSobre =
-    document.getElementById("introSobre");
-
-const sobreStage =
-    document.getElementById("sobreStage");
-
-const layerA =
-    document.getElementById("burnLayerA");
-
-const layerB =
-    document.getElementById("burnLayerB");
-
-const botonSello =
-    document.getElementById("botonSello");
-
-const indicacion =
-    document.getElementById("indicacion");
-
-const resplandor =
-    document.getElementById("resplandor");
-
-const particulas =
-    document.getElementById("particulas");
-
-let capaActiva = "A";
-
-let abriendo = false;
-
-
-/* =========================================================
-   BUSCAR ARCHIVOS AUTOMÁTICAMENTE
-========================================================= */
-
-function resolverImagen(nombre){
-
-    return new Promise((resolve) => {
-
-        const img = new Image();
-
-        img.onload = function(){
-
-            resolve(nombre);
-
-        };
-
-        img.onerror = function(){
-
-            resolve(
-                "sobre_quemado_frames/"
-                + nombre
-            );
-
-        };
-
-        img.src = nombre;
-
-    });
-
-}
-
-
-/* =========================================================
-   CARGAR TODAS LAS IMÁGENES ANTES DE LA ANIMACIÓN
-========================================================= */
-
-async function prepararFrames(){
-
-    for(
-        const nombre
-        of nombresFrames
-    ){
-
-        const ruta =
-            await resolverImagen(nombre);
-
-        frames.push(ruta);
-
-        const precarga =
-            new Image();
-
-        precarga.src =
-            ruta;
-
+    function ajustarCanvas(){
+      const rect = sobreStage.getBoundingClientRect();
+      burnCanvas.width = Math.max(2, Math.floor(rect.width));
+      burnCanvas.height = Math.max(2, Math.floor(rect.height));
     }
 
+    window.addEventListener("resize", ajustarCanvas);
+    ajustarCanvas();
 
-    layerA.src =
-        frames[0];
+    function crearChispas(cantidad){
+      for(let i = 0; i < cantidad; i++){
+        const chispa = document.createElement("span");
+        chispa.className = "chispa";
 
-    layerB.src =
-        frames[1];
+        const angulo = Math.random() * Math.PI * 2;
+        const distancia = 35 + Math.random() * 140;
+        const x = Math.cos(angulo) * distancia;
+        const y = Math.sin(angulo) * distancia - Math.random() * 70;
 
-}
+        chispa.style.setProperty("--x", x + "px");
+        chispa.style.setProperty("--y", y + "px");
+        chispa.style.setProperty("--size", (1.5 + Math.random() * 3.5) + "px");
+        chispa.style.setProperty("--dur", (0.55 + Math.random() * 0.85) + "s");
 
+        particulas.appendChild(chispa);
 
-/* =========================================================
-   CLICK EN EL SELLO
-========================================================= */
+        setTimeout(() => chispa.remove(), 1700);
+      }
+    }
 
-botonSello.addEventListener(
-    "click",
-    iniciarAnimacion
-);
+    function crearHumo(cantidad){
+      for(let i = 0; i < cantidad; i++){
+        const humo = document.createElement("span");
+        humo.className = "humo";
 
+        humo.style.setProperty("--x", (-60 + Math.random() * 120) + "px");
+        humo.style.setProperty("--y", (-90 - Math.random() * 150) + "px");
+        humo.style.setProperty("--size", (24 + Math.random() * 50) + "px");
+        humo.style.setProperty("--dur", (1.2 + Math.random() * 1.0) + "s");
 
-/* =========================================================
-   INICIAR
-========================================================= */
+        particulas.appendChild(humo);
 
-async function iniciarAnimacion(){
+        setTimeout(() => humo.remove(), 2600);
+      }
+    }
 
-    if(abriendo){
+    function chromaKeyFrame(){
+      if(!animacionActiva) return;
+
+      if(burnVideo.paused || burnVideo.ended){
         return;
-    }
+      }
 
-    abriendo = true;
+      ctx.clearRect(0, 0, burnCanvas.width, burnCanvas.height);
+      ctx.drawImage(burnVideo, 0, 0, burnCanvas.width, burnCanvas.height);
 
-    botonSello.classList.add(
-        "oculto"
-    );
+      const frame = ctx.getImageData(0, 0, burnCanvas.width, burnCanvas.height);
+      const data = frame.data;
 
-    indicacion.classList.add(
-        "oculta"
-    );
+      for(let i = 0; i < data.length; i += 4){
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3];
 
-    sobreStage.classList.add(
-        "quemando"
-    );
+        if(a === 0) continue;
 
-    resplandor.classList.add(
-        "activo"
-    );
+        const esVerde =
+          g > 65 &&
+          g > r * 1.18 &&
+          g > b * 1.12;
 
-
-    /* primeras chispas */
-
-    crearChispas(16);
-
-    crearHumo(5);
-
-
-    /*
-       FRAME 1
-       sobre intacto
-       ya está visible
-    */
-
-
-    await esperar(500);
-
-
-    /*
-       FRAME 2
-       empieza a quemarse
-    */
-
-    await cambiarFrame(
-        frames[1]
-    );
-
-
-    crearChispas(12);
-
-    crearHumo(4);
-
-
-    await esperar(500);
-
-
-    /*
-       FRAME 3
-       fuego extendiéndose
-    */
-
-    await cambiarFrame(
-        frames[2]
-    );
-
-
-    crearChispas(18);
-
-    crearHumo(6);
-
-
-    await esperar(650);
-
-
-    /*
-       FRAME 4
-       gran parte consumida
-    */
-
-    await cambiarFrame(
-        frames[3]
-    );
-
-
-    crearChispas(14);
-
-    crearHumo(7);
-
-
-    await esperar(650);
-
-
-    /*
-       FRAME 5
-       restos / ceniza
-    */
-
-    await cambiarFrame(
-        frames[4]
-    );
-
-
-    crearHumo(9);
-
-
-    await esperar(750);
-
-
-    /* desaparecer completamente */
-
-    sobreStage.classList.add(
-        "final"
-    );
-
-
-    await esperar(450);
-
-
-    introSobre.classList.add(
-        "desaparecer"
-    );
-
-
-    document.body.classList.remove(
-        "intro-activa"
-    );
-
-
-    window.scrollTo(
-        0,
-        0
-    );
-
-}
-
-
-/* =========================================================
-   CAMBIO DE IMAGEN CON FUNDIDO
-========================================================= */
-
-function cambiarFrame(ruta){
-
-    return new Promise((resolve) => {
-
-        if(capaActiva === "A"){
-
-            layerB.src =
-                ruta;
-
-            layerB.style.opacity =
-                "1";
-
-            layerA.style.opacity =
-                "0";
-
-            capaActiva =
-                "B";
-
+        if(esVerde){
+          data[i + 3] = 0;
         }
+      }
 
-        else{
+      ctx.putImageData(frame, 0, 0);
+      requestAnimationFrame(chromaKeyFrame);
+    }
 
-            layerA.src =
-                ruta;
+    async function iniciarIntro(){
+      if(abriendo) return;
+      abriendo = true;
 
-            layerA.style.opacity =
-                "1";
+      sealButton.classList.add("oculto");
+      introTexto.classList.add("oculto");
+      sobreImg.classList.add("quemandose");
+      burnCanvas.classList.add("visible");
+      resplandor.classList.add("activo");
 
-            layerB.style.opacity =
-                "0";
+      crearChispas(18);
+      crearHumo(6);
 
-            capaActiva =
-                "A";
+      try{
+        burnVideo.currentTime = 0;
+        await burnVideo.play();
+      }catch(err){
+        console.log("No se pudo reproducir el vídeo automáticamente:", err);
+      }
 
+      animacionActiva = true;
+      requestAnimationFrame(chromaKeyFrame);
+
+      const intervaloFx = setInterval(() => {
+        if(!animacionActiva) return;
+        crearChispas(5);
+        if(Math.random() > 0.45){
+          crearHumo(2);
         }
+      }, 280);
 
+      burnVideo.addEventListener("ended", () => {
+        animacionActiva = false;
+        clearInterval(intervaloFx);
 
-        setTimeout(
-            resolve,
-            390
-        );
+        crearHumo(8);
 
-    });
+        setTimeout(() => {
+          sobreStage.classList.add("fin");
+        }, 180);
 
-}
-
-
-/* =========================================================
-   ESPERAR
-========================================================= */
-
-function esperar(ms){
-
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
-
-}
-
-
-/* =========================================================
-   CHISPAS
-========================================================= */
-
-function crearChispas(cantidad){
-
-    for(
-        let i=0;
-        i<cantidad;
-        i++
-    ){
-
-        const chispa =
-            document.createElement(
-                "span"
-            );
-
-        chispa.className =
-            "chispa";
-
-
-        const angulo =
-            Math.random()
-            *
-            Math.PI
-            *
-            2;
-
-
-        const distancia =
-            30
-            +
-            Math.random()
-            *
-            120;
-
-
-        const x =
-            Math.cos(angulo)
-            *
-            distancia;
-
-
-        const y =
-            Math.sin(angulo)
-            *
-            distancia
-
-            -
-
-            Math.random()
-            *
-            60;
-
-
-        chispa.style.setProperty(
-            "--x",
-            x + "px"
-        );
-
-
-        chispa.style.setProperty(
-            "--y",
-            y + "px"
-        );
-
-
-        chispa.style.setProperty(
-            "--size",
-
-            (
-                1.5
-                +
-                Math.random()
-                *
-                3.2
-            )
-            +
-            "px"
-        );
-
-
-        chispa.style.setProperty(
-            "--dur",
-
-            (
-                .55
-                +
-                Math.random()
-                *
-                .7
-            )
-            +
-            "s"
-        );
-
-
-        particulas.appendChild(
-            chispa
-        );
-
-
-        setTimeout(
-            function(){
-
-                chispa.remove();
-
-            },
-            1500
-        );
-
+        setTimeout(() => {
+          introSobre.classList.add("oculto");
+          document.body.classList.remove("intro-activa");
+          window.scrollTo(0, 0);
+        }, 850);
+      }, { once:true });
     }
 
-}
+    sealButton.addEventListener("click", iniciarIntro);
 
+    // CUENTA ATRÁS
+    const fechaBoda = new Date(2027, 4, 29, 12, 0, 0).getTime();
 
-/* =========================================================
-   HUMO
-========================================================= */
+    function actualizarCuenta(){
+      const ahora = new Date().getTime();
+      const distancia = fechaBoda - ahora;
 
-function crearHumo(cantidad){
-
-    for(
-        let i=0;
-        i<cantidad;
-        i++
-    ){
-
-        const humo =
-            document.createElement(
-                "span"
-            );
-
-
-        humo.className =
-            "humo";
-
-
-        humo.style.setProperty(
-            "--x",
-
-            (
-                -45
-                +
-                Math.random()
-                *
-                90
-            )
-            +
-            "px"
-        );
-
-
-        humo.style.setProperty(
-            "--y",
-
-            (
-                -80
-                -
-                Math.random()
-                *
-                130
-            )
-            +
-            "px"
-        );
-
-
-        humo.style.setProperty(
-            "--size",
-
-            (
-                25
-                +
-                Math.random()
-                *
-                45
-            )
-            +
-            "px"
-        );
-
-
-        humo.style.setProperty(
-            "--dur",
-
-            (
-                1.2
-                +
-                Math.random()
-                *
-                .9
-            )
-            +
-            "s"
-        );
-
-
-        particulas.appendChild(
-            humo
-        );
-
-
-        setTimeout(
-            function(){
-
-                humo.remove();
-
-            },
-            2400
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CUENTA ATRÁS
-========================================================= */
-
-const fechaBoda =
-    new Date(
-        2027,
-        4,
-        29,
-        12,
-        0,
-        0
-    ).getTime();
-
-
-function actualizarCuenta(){
-
-    const ahora =
-        new Date()
-        .getTime();
-
-
-    const distancia =
-        fechaBoda
-        -
-        ahora;
-
-
-    if(distancia < 0){
-
-        document
-        .querySelector(
-            ".countdown"
-        )
-        .innerHTML =
-
-            "<span class='numero'>¡Hoy es el gran día!</span>";
-
+      if(distancia < 0){
+        document.querySelector(".countdown").innerHTML =
+          "<span class='numero'>¡Hoy es el gran día!</span>";
         return;
+      }
+
+      const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+      document.getElementById("dias").textContent = dias;
+      document.getElementById("horas").textContent = String(horas).padStart(2, "0");
+      document.getElementById("minutos").textContent = String(minutos).padStart(2, "0");
+      document.getElementById("segundos").textContent = String(segundos).padStart(2, "0");
     }
 
-
-    const dias =
-        Math.floor(
-            distancia /
-            (1000*60*60*24)
-        );
-
-
-    const horas =
-        Math.floor(
-            (
-                distancia %
-                (1000*60*60*24)
-            )
-            /
-            (1000*60*60)
-        );
-
-
-    const minutos =
-        Math.floor(
-            (
-                distancia %
-                (1000*60*60)
-            )
-            /
-            (1000*60)
-        );
-
-
-    const segundos =
-        Math.floor(
-            (
-                distancia %
-                (1000*60)
-            )
-            /
-            1000
-        );
-
-
-    document
-    .getElementById("dias")
-    .textContent =
-        dias;
-
-
-    document
-    .getElementById("horas")
-    .textContent =
-        String(horas)
-        .padStart(2,"0");
-
-
-    document
-    .getElementById("minutos")
-    .textContent =
-        String(minutos)
-        .padStart(2,"0");
-
-
-    document
-    .getElementById("segundos")
-    .textContent =
-        String(segundos)
-        .padStart(2,"0");
-
-}
-
-
-/* =========================================================
-   INICIALIZAR
-========================================================= */
-
-prepararFrames();
-
-actualizarCuenta();
-
-setInterval(
-    actualizarCuenta,
-    1000
-);
-
-</script>
-
+    actualizarCuenta();
+    setInterval(actualizarCuenta, 1000);
+  </script>
 </body>
-
 </html>
