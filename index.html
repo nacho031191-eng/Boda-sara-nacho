@@ -1,1435 +1,2917 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sara & Nacho | 29.05.2027</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* =========================================================
+   GENERAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    font-family:'Montserrat',sans-serif;
-    background:#f4f0e7;
-    color:#45493c;
-    line-height:1.7;
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f4f0e7;
+    color: #45493c;
+    line-height: 1.7;
 }
 
-body.no-scroll{
-    overflow:hidden;
+body.no-scroll {
+    overflow: hidden;
 }
 
-/* =========================
-   PANTALLA DEL SOBRE
-========================= */
 
-#pantallaSobre{
-    position:fixed;
-    inset:0;
-    z-index:9999;
+/* =========================================================
+   PANTALLA INICIAL
+========================================================= */
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+#pantallaSobre {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     background:
-        radial-gradient(circle at center,#eee5d5 0%,#ded1ba 100%);
+        radial-gradient(
+            circle at center,
+            #f3ecdf 0%,
+            #e8ddca 48%,
+            #d7c8ae 100%
+        );
 
     transition:
-        opacity .9s ease,
-        visibility .9s ease;
+        opacity 0.9s ease,
+        visibility 0.9s ease;
+
 }
 
-#pantallaSobre.oculto{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-}
 
-#pantallaSobre::before{
-    content:"";
-    position:absolute;
-    inset:0;
+/* textura suave de papel */
 
-    opacity:.15;
+#pantallaSobre::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.21;
 
     background-image:
+
         repeating-linear-gradient(
-            45deg,
-            rgba(90,70,40,.08) 0px,
-            rgba(90,70,40,.08) 1px,
+            32deg,
+            rgba(90, 70, 45, 0.05) 0px,
+            rgba(90, 70, 45, 0.05) 1px,
+            transparent 1px,
+            transparent 5px
+        ),
+
+        repeating-linear-gradient(
+            120deg,
+            rgba(255,255,255,0.08) 0,
+            rgba(255,255,255,0.08) 1px,
+            transparent 1px,
+            transparent 8px
+        );
+
+}
+
+
+#pantallaSobre.oculto {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SOBRE
+========================================================= */
+
+.envelope-container {
+
+    position: relative;
+
+    width: min(560px, 86vw);
+
+    aspect-ratio: 1.55 / 1;
+
+    perspective: 1500px;
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(0 28px 26px rgba(57, 39, 22, 0.22));
+
+    transition: transform .4s ease;
+
+}
+
+
+.envelope-container:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+/* parte trasera */
+
+.envelope-back {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fbf7ef,
+            #f0e5d1 60%,
+            #e8d9bf
+        );
+
+    border: 1px solid rgba(104, 83, 57, .15);
+
+}
+
+
+/* textura */
+
+.envelope-back::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .15;
+
+    background:
+
+        repeating-linear-gradient(
+            20deg,
+            rgba(104,84,59,.16) 0px,
+            rgba(104,84,59,.16) 1px,
             transparent 1px,
             transparent 5px
         );
 
-    pointer-events:none;
 }
 
-.envelope-container{
-    position:relative;
-    width:min(480px,82vw);
-    height:min(320px,55vw);
 
-    cursor:pointer;
-    perspective:1200px;
+/* carta que hay dentro */
 
-    filter:
-        drop-shadow(0 18px 25px rgba(60,45,30,.18));
+.carta-interior {
 
-    transition:transform .4s ease;
-}
+    position: absolute;
 
-.envelope-container:hover{
-    transform:translateY(-5px);
-}
+    z-index: 2;
 
-.envelope{
-    position:absolute;
-    inset:0;
+    left: 7%;
 
-    background:#f8f2e6;
+    right: 7%;
 
-    border:1px solid rgba(100,80,55,.16);
+    top: 10%;
 
-    overflow:hidden;
-}
-
-.envelope::before{
-    content:"";
-
-    position:absolute;
-    left:0;
-    bottom:0;
-
-    width:0;
-    height:0;
-
-    border-left:
-        min(240px,41vw)
-        solid #eee4d3;
-
-    border-right:
-        min(240px,41vw)
-        solid #eee4d3;
-
-    border-top:
-        min(160px,27.5vw)
-        solid transparent;
-}
-
-.flap{
-    position:absolute;
-    top:0;
-    left:0;
-
-    width:100%;
-    height:58%;
-
-    background:#f4ecde;
-
-    clip-path:polygon(0 0,100% 0,50% 100%);
-
-    transform-origin:top center;
-
-    transition:
-        transform .9s ease;
-
-    z-index:4;
-}
-
-.sello{
-    position:absolute;
-    width:78px;
-    height:78px;
-
-    left:50%;
-    top:53%;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
+    height: 76%;
 
     background:
-        radial-gradient(circle at 35% 30%,rgba(255,255,255,.20),transparent 16%),
-        radial-gradient(circle at center,#7d3540 0%,#6b2833 68%,#542029 100%);
+        linear-gradient(
+            180deg,
+            #fffdf8,
+            #f5ecdd
+        );
+
+    border: 1px solid rgba(100,80,55,.13);
 
     box-shadow:
-        inset 0 0 0 4px rgba(255,255,255,.10),
-        inset 0 0 0 7px rgba(74,20,28,.24),
-        0 5px 12px rgba(0,0,0,.22);
+        0 3px 10px rgba(64,42,22,.08);
 
-    z-index:6;
+    display: flex;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    align-items: center;
 
-    color:#eadcc7;
+    justify-content: center;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:25px;
-    font-weight:600;
+    text-align: center;
+
+    transform: translateY(26%);
 
     transition:
-        opacity .4s,
-        transform .6s;
+        transform 1.1s cubic-bezier(.2,.7,.2,1);
+
 }
 
-.sello::after{
-    content:"S & N";
+
+.carta-interior span {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 20px;
+
+    letter-spacing: 3px;
+
+    color: #85745f;
+
 }
 
-.envelope-container.abierto .flap{
-    transform:rotateX(180deg);
-    z-index:1;
+
+/* solapas laterales */
+
+.envelope-front-left {
+
+    position: absolute;
+
+    z-index: 3;
+
+    inset: 0;
+
+    clip-path:
+        polygon(
+            0 0,
+            52% 50%,
+            0 100%
+        );
+
+    background:
+        linear-gradient(
+            110deg,
+            #f3eadb,
+            #e5d5bd
+        );
+
 }
 
-.envelope-container.abierto .sello{
-    opacity:0;
+
+.envelope-front-right {
+
+    position: absolute;
+
+    z-index: 3;
+
+    inset: 0;
+
+    clip-path:
+        polygon(
+            100% 0,
+            48% 50%,
+            100% 100%
+        );
+
+    background:
+        linear-gradient(
+            250deg,
+            #f7efe2,
+            #e4d4bc
+        );
+
+}
+
+
+/* parte frontal inferior */
+
+.envelope-front-bottom {
+
+    position: absolute;
+
+    z-index: 4;
+
+    inset: 0;
+
+    clip-path:
+        polygon(
+            0 100%,
+            50% 48%,
+            100% 100%
+        );
+
+    background:
+        linear-gradient(
+            180deg,
+            #efe3d1,
+            #e1cfb5
+        );
+
+}
+
+
+/* solapa superior */
+
+.flap {
+
+    position: absolute;
+
+    z-index: 7;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 57%;
+
+    transform-origin: top center;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform 1s cubic-bezier(.25,.7,.2,1);
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 100%
+        );
+
+    background:
+        linear-gradient(
+            180deg,
+            #fbf4e8,
+            #eadcc6
+        );
+
+    border-top:
+        1px solid
+        rgba(99,78,53,.12);
+
+}
+
+
+.envelope-container.abierto .flap {
+
+    transform: rotateX(180deg);
+
+    z-index: 1;
+
+}
+
+
+.envelope-container.abierto .carta-interior {
 
     transform:
-        translate(-50%,-50%)
-        scale(.45)
-        rotate(-12deg);
+        translateY(-35%)
+        scale(1.02);
+
 }
 
-/* =========================
-   WEB
-========================= */
 
-#web{
-    opacity:0;
-    visibility:hidden;
+/* =========================================================
+   SELLO DE LACRE REALISTA
+========================================================= */
+
+.sello-real {
+
+    position: absolute;
+
+    z-index: 15;
+
+    left: 50%;
+
+    top: 51%;
+
+    width: 105px;
+
+    height: 105px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-4deg);
+
+    transition:
+        transform .6s ease,
+        opacity .45s ease;
+
+    filter:
+        drop-shadow(
+            0 8px 7px
+            rgba(44, 15, 17, .34)
+        );
+
+}
+
+
+/* pequeñas extensiones irregulares del lacre */
+
+.sello-real::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -5px;
+
+    border-radius:
+        46% 54% 48% 52%
+        /
+        51% 47% 53% 49%;
+
+    background: #762934;
+
+    transform: rotate(11deg);
+
+    box-shadow:
+
+        -6px 11px 0 -3px #6b2530,
+
+        8px 5px 0 -4px #772b35,
+
+        3px -6px 0 -4px #87343e,
+
+        -7px -3px 0 -5px #6d2530;
+
+}
+
+
+.sello-real svg {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: visible;
+
+}
+
+
+.envelope-container.abierto .sello-real {
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-14deg)
+        scale(.72);
+
+}
+
+
+/* texto abrir */
+
+.abrir-texto {
+
+    position: absolute;
+
+    top: calc(50% + min(220px, 34vw));
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    text-transform: uppercase;
+
+    letter-spacing: 4px;
+
+    font-size: 10px;
+
+    color: #746957;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   WEB OCULTA
+========================================================= */
+
+#web {
+
+    opacity: 0;
+
+    visibility: hidden;
 
     transition:
         opacity 1.1s ease;
+
 }
 
-#web.visible{
-    opacity:1;
-    visibility:visible;
+
+#web.visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
 }
 
-/* =========================
-   PORTADA CUENCA
-========================= */
 
-.hero{
-    min-height:100vh;
+/* =========================================================
+   PORTADA
+========================================================= */
 
-    position:relative;
+.hero {
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    min-height: 100vh;
 
-    text-align:center;
+    position: relative;
 
-    padding:30px;
+    overflow: hidden;
 
-    color:white;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: white;
 
     background-image:
+
         linear-gradient(
-            rgba(25,30,22,.25),
-            rgba(25,30,22,.58)
+            rgba(24,30,22,.15),
+            rgba(21,25,19,.52)
         ),
+
         url('./fondo-cuenca.png');
 
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
 }
 
-.hero-content{
-    max-width:950px;
+
+/* ligera ampliación cinematográfica */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -2%;
+
+    pointer-events: none;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            transparent 40%,
+            rgba(20,20,15,.18) 100%
+        );
+
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 900px;
 
     text-shadow:
-        0 3px 18px rgba(0,0,0,.45);
+        0 3px 18px
+        rgba(0,0,0,.45);
+
+    animation:
+        aparecerHero
+        1.7s ease both;
+
 }
 
-.hero .fecha{
-    font-size:14px;
-    letter-spacing:6px;
-    margin-bottom:25px;
-    text-transform:uppercase;
-}
 
-.hero h1{
-    font-family:'Cormorant Garamond',serif;
+@keyframes aparecerHero {
 
-    font-size:
-        clamp(72px,12vw,145px);
+    from {
 
-    font-weight:400;
-    line-height:.85;
+        opacity: 0;
 
-    margin-bottom:35px;
-}
+        transform:
+            translateY(18px);
 
-.amp{
-    font-style:italic;
-    font-size:.72em;
-    color:#e0d2b2;
-}
-
-.hero .nos-casamos{
-    font-size:13px;
-    letter-spacing:6px;
-    text-transform:uppercase;
-
-    margin-bottom:22px;
-}
-
-.hero .lugar-portada{
-    font-family:'Cormorant Garamond',serif;
-    font-size:23px;
-    letter-spacing:3px;
-}
-
-.scroll{
-    position:absolute;
-    bottom:28px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    color:white;
-    text-decoration:none;
-
-    font-size:25px;
-
-    animation:bajar 1.8s infinite;
-}
-
-@keyframes bajar{
-    0%,100%{
-        transform:translate(-50%,0);
     }
 
-    50%{
-        transform:translate(-50%,8px);
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
     }
+
 }
 
-/* =========================
-   GENERALES
-========================= */
 
-section{
-    padding:100px 25px;
+.hero .nos-casamos {
+
+    font-size: 11px;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 25px;
+
 }
 
-.contenedor{
-    max-width:1000px;
 
-    margin:auto;
+.hero h1 {
 
-    text-align:center;
-}
+    margin: 0;
 
-.subtitulo{
-    text-transform:uppercase;
-
-    letter-spacing:4px;
-
-    font-size:11px;
-
-    color:#8c7657;
-
-    margin-bottom:12px;
-}
-
-h2{
-    font-family:'Cormorant Garamond',serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
     font-size:
-        clamp(42px,7vw,65px);
+        clamp(
+            72px,
+            12vw,
+            145px
+        );
 
-    font-weight:400;
+    font-weight: 400;
 
-    margin-bottom:25px;
+    line-height: .82;
 
-    color:#3e4937;
 }
 
-.texto{
-    max-width:720px;
 
-    margin:auto;
+.hero h1 .amp {
 
-    font-family:'Cormorant Garamond',serif;
+    display: inline-block;
 
-    font-size:23px;
+    margin: 0 8px;
 
-    color:#5c5c50;
+    font-size: .7em;
+
+    font-style: italic;
+
+    color: #e6d3ac;
+
 }
 
-.ramita{
-    font-size:32px;
 
-    margin:25px 0;
+.hero .fecha {
 
-    color:#738065;
+    margin-top: 38px;
+
+    font-size: 13px;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
 }
 
-/* =========================
-   CUENTA ATRÁS
-========================= */
 
-.countdown-section{
-    background:#35402f;
-    color:white;
+.hero .lugar-portada {
+
+    margin-top: 15px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 24px;
+
+    letter-spacing: 3px;
+
 }
 
-.countdown-section h2{
-    color:#f6f1e6;
+
+.scroll {
+
+    position: absolute;
+
+    z-index: 3;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: white;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    font-size: 9px;
+
 }
 
-.countdown-section .subtitulo{
-    color:#d5c6a7;
+
+.scroll span {
+
+    display: block;
+
+    margin-top: 7px;
+
+    font-size: 22px;
+
+    animation:
+        bajar 1.8s
+        ease-in-out infinite;
+
 }
 
-.countdown{
-    display:flex;
 
-    justify-content:center;
+@keyframes bajar {
 
-    gap:45px;
+    0%,
+    100% {
 
-    flex-wrap:wrap;
+        transform:
+            translateY(0);
 
-    margin-top:45px;
+    }
+
+    50% {
+
+        transform:
+            translateY(6px);
+
+    }
+
 }
 
-.numero{
-    display:block;
 
-    font-family:'Cormorant Garamond',serif;
+/* =========================================================
+   SECCIONES
+========================================================= */
 
-    font-size:55px;
-
-    line-height:1;
-}
-
-.unidad{
-    text-transform:uppercase;
-
-    font-size:10px;
-
-    letter-spacing:3px;
-
-    color:#d3c7ae;
-}
-
-/* =========================
-   LUGAR
-========================= */
-
-.lugar{
-    background:#e7e0d1;
-}
-
-.tarjeta{
-    max-width:780px;
-
-    margin:45px auto 0;
-
-    background:#f8f5ed;
-
-    padding:55px 30px;
-
-    border:1px solid #c9bda6;
-}
-
-.tarjeta h3{
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:38px;
-
-    font-weight:500;
-
-    margin-bottom:10px;
-}
-
-.hora{
-    margin:25px 0;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:24px;
-}
-
-/* =========================
-   BOTONES
-========================= */
-
-.boton{
-    display:inline-block;
-
-    margin-top:25px;
-
-    padding:14px 30px;
-
-    border:1px solid #59644f;
-
-    color:#46503f;
-
-    background:transparent;
-
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:11px;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.boton:hover{
-    background:#46503f;
-
-    color:white;
-}
-
-/* =========================
-   PROGRAMA
-========================= */
-
-.programa{
-    background:#f4f0e7;
-}
-
-.timeline{
-    max-width:550px;
-
-    margin:50px auto 0;
-
-    text-align:left;
-}
-
-.evento{
-    border-left:1px solid #9c927d;
+section {
 
     padding:
-        0 0 45px 35px;
+        105px 25px;
 
-    position:relative;
 }
 
-.evento:last-child{
-    padding-bottom:0;
+
+.contenedor {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    text-align: center;
+
 }
 
-.evento::before{
-    content:"";
 
-    position:absolute;
+.subtitulo {
 
-    width:9px;
-    height:9px;
+    margin-bottom: 14px;
 
-    background:#64705a;
+    font-size: 10px;
 
-    border-radius:50%;
+    letter-spacing: 4px;
 
-    left:-5px;
-    top:8px;
+    text-transform: uppercase;
+
+    color: #8b765a;
+
 }
 
-.evento h3{
-    font-family:'Cormorant Garamond',serif;
 
-    font-size:27px;
+h2 {
 
-    font-weight:500;
+    margin-bottom: 28px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-weight: 400;
+
+    font-size:
+        clamp(
+            42px,
+            7vw,
+            68px
+        );
+
+    line-height: 1;
+
+    color: #3d4836;
+
 }
 
-.evento p{
-    color:#777265;
 
-    font-size:14px;
+.texto {
+
+    max-width: 720px;
+
+    margin: auto;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 23px;
+
+    line-height: 1.65;
+
+    color: #625e53;
+
 }
 
-/* =========================
-   REGALO
-========================= */
 
-.regalo{
-    background:#3e4937;
+.ramita {
 
-    color:#f5f0e5;
+    margin: 25px 0;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 37px;
+
+    color: #738064;
+
 }
 
-.regalo h2{
-    color:#f5f0e5;
+
+/* =========================================================
+   INTRODUCCIÓN
+========================================================= */
+
+#historia {
+
+    background:
+        #f5f0e7;
+
 }
 
-.regalo .subtitulo{
-    color:#d5c6a7;
+
+/* =========================================================
+   CUENTA ATRÁS
+========================================================= */
+
+.countdown-section {
+
+    background:
+        #3d4837;
+
+    color: white;
+
 }
 
-.regalo .texto{
-    color:#eee8dc;
+
+.countdown-section h2 {
+
+    color:
+        #f4eee2;
+
 }
 
-.cuenta{
-    max-width:650px;
 
-    margin:40px auto 0;
+.countdown-section .subtitulo {
 
-    padding:35px 20px;
+    color:
+        #d5c6a7;
+
+}
+
+
+.countdown {
+
+    margin-top: 50px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 50px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.numero {
+
+    display: block;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 58px;
+
+    line-height: 1;
+
+}
+
+
+.unidad {
+
+    display: block;
+
+    margin-top: 10px;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color:
+        #d3c8b1;
+
+}
+
+
+/* =========================================================
+   LUGAR
+========================================================= */
+
+.lugar {
+
+    background:
+        #e6dece;
+
+}
+
+
+.tarjeta {
+
+    max-width: 800px;
+
+    margin:
+        50px auto 0;
+
+    padding:
+        60px 35px;
+
+    background:
+        rgba(
+            252,
+            248,
+            239,
+            .88
+        );
 
     border:
         1px solid
-        rgba(255,255,255,.35);
+        #c9bda7;
+
 }
 
-.cuenta-titulo{
-    text-transform:uppercase;
 
-    letter-spacing:3px;
+.tarjeta h3 {
 
-    font-size:11px;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
-    margin-bottom:15px;
+    font-size: 40px;
+
+    font-weight: 500;
+
+    margin-bottom: 10px;
+
 }
 
-.iban{
-    font-family:'Cormorant Garamond',serif;
+
+.hora {
+
+    margin:
+        25px 0;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 25px;
+
+}
+
+
+/* =========================================================
+   BOTÓN
+========================================================= */
+
+.boton {
+
+    display:
+        inline-block;
+
+    margin-top:
+        28px;
+
+    padding:
+        14px 30px;
+
+    border:
+        1px solid
+        #59644f;
+
+    color:
+        #46503f;
+
+    text-decoration:
+        none;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        2px;
 
     font-size:
-        clamp(19px,4vw,28px);
+        10px;
 
-    letter-spacing:2px;
+    background:
+        transparent;
 
-    word-break:break-word;
+    transition:
+        .3s ease;
+
 }
 
-/* =========================
+
+.boton:hover {
+
+    color:
+        white;
+
+    background:
+        #46503f;
+
+}
+
+
+/* =========================================================
+   PROGRAMA
+========================================================= */
+
+.programa {
+
+    background:
+        #f4f0e7;
+
+}
+
+
+.timeline {
+
+    max-width:
+        550px;
+
+    margin:
+        55px auto 0;
+
+    text-align:
+        left;
+
+}
+
+
+.evento {
+
+    position:
+        relative;
+
+    padding:
+        0 0 46px 36px;
+
+    border-left:
+        1px solid
+        #9c927d;
+
+}
+
+
+.evento:last-child {
+
+    padding-bottom:
+        0;
+
+}
+
+
+.evento::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        -5px;
+
+    top:
+        9px;
+
+    width:
+        9px;
+
+    height:
+        9px;
+
+    border-radius:
+        50%;
+
+    background:
+        #64705a;
+
+}
+
+
+.evento h3 {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        29px;
+
+    font-weight:
+        500;
+
+}
+
+
+.evento p {
+
+    color:
+        #777265;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   REGALO
+========================================================= */
+
+.regalo {
+
+    background:
+        #3e4937;
+
+    color:
+        #f5f0e5;
+
+}
+
+
+.regalo h2 {
+
+    color:
+        #f5f0e5;
+
+}
+
+
+.regalo .subtitulo {
+
+    color:
+        #d5c6a7;
+
+}
+
+
+.regalo .texto {
+
+    color:
+        #eee8dc;
+
+}
+
+
+.cuenta {
+
+    max-width:
+        650px;
+
+    margin:
+        42px auto 0;
+
+    padding:
+        35px 20px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .35
+        );
+
+}
+
+
+.cuenta-titulo {
+
+    margin-bottom:
+        15px;
+
+    text-transform:
+        uppercase;
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        3px;
+
+}
+
+
+.iban {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(
+            19px,
+            4vw,
+            28px
+        );
+
+    letter-spacing:
+        2px;
+
+    word-break:
+        break-word;
+
+}
+
+
+/* =========================================================
    CONFIRMACIÓN
-========================= */
+========================================================= */
 
-.confirmar{
-    background:#ddd5c4;
+.confirmar {
+
+    background:
+        #ddd5c4;
+
 }
 
-.formulario{
-    max-width:650px;
 
-    margin:45px auto 0;
+.formulario {
 
-    text-align:left;
+    max-width:
+        650px;
+
+    margin:
+        50px auto 0;
+
+    text-align:
+        left;
+
 }
 
-.campo{
-    margin-bottom:22px;
+
+.campo {
+
+    margin-bottom:
+        23px;
+
 }
 
-.campo label{
-    display:block;
 
-    margin-bottom:8px;
+.campo label {
 
-    font-size:12px;
+    display:
+        block;
 
-    text-transform:uppercase;
+    margin-bottom:
+        8px;
 
-    letter-spacing:1.5px;
+    font-size:
+        10px;
+
+    letter-spacing:
+        1.5px;
+
+    text-transform:
+        uppercase;
+
 }
+
 
 input,
 select,
-textarea{
-    width:100%;
+textarea {
 
-    padding:14px;
+    width:
+        100%;
 
-    border:1px solid #b7ad99;
+    padding:
+        14px;
+
+    border:
+        1px solid
+        #b7ad99;
+
+    outline:
+        none;
 
     background:
-        rgba(255,255,255,.55);
+        rgba(
+            255,
+            255,
+            255,
+            .55
+        );
 
-    color:#45493c;
+    color:
+        #45493c;
 
-    font-family:'Montserrat',sans-serif;
+    font-family:
+        'Montserrat',
+        sans-serif;
 
-    font-size:15px;
+    font-size:
+        15px;
+
 }
 
-textarea{
-    min-height:110px;
 
-    resize:vertical;
+textarea {
+
+    min-height:
+        110px;
+
+    resize:
+        vertical;
+
 }
 
-.boton-enviar{
-    display:block;
 
-    margin:30px auto 0;
+.boton-enviar {
 
-    background:#44503d;
+    display:
+        block;
 
-    color:white;
+    margin:
+        30px auto 0;
 
-    padding:17px 40px;
+    padding:
+        17px 40px;
 
-    border:1px solid #44503d;
+    border:
+        1px solid
+        #44503d;
+
+    background:
+        #44503d;
+
+    color:
+        white;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        2px;
+
+    cursor:
+        pointer;
+
 }
 
-/* =========================
+
+/* =========================================================
    FINAL
-========================= */
+========================================================= */
 
-footer{
-    background:#30392b;
+footer {
 
-    color:#e9e3d6;
+    padding:
+        75px 20px;
 
-    text-align:center;
+    text-align:
+        center;
 
-    padding:70px 20px;
+    background:
+        #30392b;
+
+    color:
+        #e9e3d6;
+
 }
 
-footer .nombres{
-    font-family:'Cormorant Garamond',serif;
 
-    font-size:45px;
+footer .nombres {
 
-    margin-bottom:10px;
+    margin-bottom:
+        10px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        48px;
+
 }
 
-footer p{
-    font-size:12px;
 
-    letter-spacing:2px;
+footer p {
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        3px;
+
 }
 
-/* =========================
+
+/* =========================================================
    MÓVIL
-========================= */
+========================================================= */
 
-@media(max-width:600px){
+@media(max-width: 600px) {
 
-    section{
-        padding:75px 20px;
+    section {
+
+        padding:
+            78px 20px;
+
     }
 
-    .countdown{
-        gap:25px;
+
+    .envelope-container {
+
+        width:
+            84vw;
+
     }
 
-    .numero{
-        font-size:42px;
+
+    .sello-real {
+
+        width:
+            82px;
+
+        height:
+            82px;
+
     }
 
-    .tarjeta{
-        padding:40px 20px;
+
+    .abrir-texto {
+
+        top:
+            calc(
+                50% + 34vw
+            );
+
     }
 
-    .hero{
-        background-position:center center;
+
+    .hero {
+
+        background-position:
+            center center;
+
     }
 
-    .envelope-container{
-        width:82vw;
-        height:55vw;
+
+    .hero h1 {
+
+        font-size:
+            66px;
+
     }
 
-    .sello{
-        width:62px;
-        height:62px;
 
-        font-size:21px;
+    .hero .fecha {
+
+        letter-spacing:
+            4px;
+
     }
+
+
+    .hero .lugar-portada {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .countdown {
+
+        gap:
+            27px;
+
+    }
+
+
+    .numero {
+
+        font-size:
+            43px;
+
+    }
+
+
+    .tarjeta {
+
+        padding:
+            42px 22px;
+
+    }
+
+
+    .texto {
+
+        font-size:
+            21px;
+
+    }
+
 }
+
 </style>
+
 </head>
+
 
 <body class="no-scroll">
 
-<!-- SOBRE -->
+
+<!-- =====================================================
+     SOBRE
+===================================================== -->
 
 <div id="pantallaSobre">
 
-    <div
-        class="envelope-container"
-        id="sobre"
-        onclick="abrirInvitacion()"
-        role="button"
-        tabindex="0"
-        aria-label="Abrir invitación">
 
-        <div class="envelope"></div>
+<div
+    class="envelope-container"
+    id="sobre"
+    onclick="abrirInvitacion()"
+    role="button"
+    tabindex="0"
+    aria-label="Abrir invitación">
 
-        <div class="flap"></div>
 
-        <div class="sello"></div>
+    <div class="envelope-back"></div>
+
+
+    <div class="carta-interior">
+
+        <span>
+            Sara & Nacho
+        </span>
 
     </div>
 
+
+    <div class="envelope-front-left"></div>
+
+
+    <div class="envelope-front-right"></div>
+
+
+    <div class="envelope-front-bottom"></div>
+
+
+    <div class="flap"></div>
+
+
+    <!-- SELLO REALISTA -->
+
+    <div class="sello-real">
+
+        <svg
+            viewBox="0 0 120 120"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+                <!-- irregularidad del borde -->
+
+                <filter
+                    id="waxTexture"
+                    x="-30%"
+                    y="-30%"
+                    width="160%"
+                    height="160%">
+
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency=".025"
+                        numOctaves="3"
+                        seed="7"
+                        result="noise"/>
+
+                    <feDisplacementMap
+                        in="SourceGraphic"
+                        in2="noise"
+                        scale="4"
+                        xChannelSelector="R"
+                        yChannelSelector="G"/>
+
+                </filter>
+
+
+                <radialGradient
+                    id="waxGradient"
+                    cx="34%"
+                    cy="26%"
+                    r="72%">
+
+                    <stop
+                        offset="0%"
+                        stop-color="#a64c57"/>
+
+                    <stop
+                        offset="25%"
+                        stop-color="#903944"/>
+
+                    <stop
+                        offset="68%"
+                        stop-color="#752833"/>
+
+                    <stop
+                        offset="100%"
+                        stop-color="#581d26"/>
+
+                </radialGradient>
+
+
+                <radialGradient
+                    id="highlight"
+                    cx="30%"
+                    cy="25%"
+                    r="60%">
+
+                    <stop
+                        offset="0%"
+                        stop-color="white"
+                        stop-opacity=".28"/>
+
+                    <stop
+                        offset="45%"
+                        stop-color="white"
+                        stop-opacity=".05"/>
+
+                    <stop
+                        offset="100%"
+                        stop-color="white"
+                        stop-opacity="0"/>
+
+                </radialGradient>
+
+
+                <filter
+                    id="innerShadow"
+                    x="-20%"
+                    y="-20%"
+                    width="140%"
+                    height="140%">
+
+                    <feGaussianBlur
+                        stdDeviation="2"
+                        result="blur"/>
+
+                    <feOffset
+                        dy="2"/>
+
+                </filter>
+
+            </defs>
+
+
+            <!-- masa de lacre -->
+
+            <path
+                d="
+                M59 5
+                C73 4 82 11 91 18
+                C104 28 111 40 109 53
+                C115 67 105 82 97 91
+                C88 104 73 112 59 110
+                C45 115 31 106 22 97
+                C10 89 5 75 9 62
+                C3 49 9 34 19 24
+                C29 12 43 6 59 5
+                Z"
+                fill="url(#waxGradient)"
+                filter="url(#waxTexture)"/>
+
+
+            <!-- luz -->
+
+            <circle
+                cx="59"
+                cy="57"
+                r="49"
+                fill="url(#highlight)"
+                opacity=".58"/>
+
+
+            <!-- aro hundido -->
+
+            <circle
+                cx="59"
+                cy="57"
+                r="37"
+                fill="none"
+                stroke="#4f1820"
+                stroke-opacity=".42"
+                stroke-width="3"/>
+
+
+            <circle
+                cx="59"
+                cy="57"
+                r="34"
+                fill="none"
+                stroke="#bd7078"
+                stroke-opacity=".25"
+                stroke-width="1.4"/>
+
+
+            <!-- iniciales grabadas -->
+
+            <text
+                x="59"
+                y="65"
+                text-anchor="middle"
+                font-family="Cormorant Garamond, Georgia, serif"
+                font-size="27"
+                font-style="italic"
+                font-weight="600"
+                fill="#4d1720"
+                opacity=".72">
+
+                S &amp; N
+
+            </text>
+
+
+            <!-- brillo superior -->
+
+            <path
+                d="
+                M28 40
+                C37 22 59 14 78 25"
+                fill="none"
+                stroke="white"
+                stroke-opacity=".18"
+                stroke-width="3"
+                stroke-linecap="round"/>
+
+        </svg>
+
+    </div>
+
+
 </div>
 
-<!-- WEB -->
+
+<div class="abrir-texto">
+
+    Abrir invitación
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     WEB
+===================================================== -->
 
 <div id="web">
+
 
 <!-- PORTADA -->
 
 <header class="hero">
 
-    <div class="hero-content">
 
-        <div class="fecha">
-            29 · 05 · 2027
-        </div>
+<div class="hero-content">
 
-        <div class="nos-casamos">
-            Nos casamos
-        </div>
 
-        <h1>
-            Sara
-            <span class="amp">&</span>
-            Nacho
-        </h1>
+<div class="nos-casamos">
 
-        <div class="lugar-portada">
-            Parador de Cuenca
-        </div>
+Nos casamos
 
-    </div>
+</div>
 
-    <a
-        class="scroll"
-        href="#historia"
-        aria-label="Seguir viendo la invitación">
-        ↓
-    </a>
+
+<h1>
+
+Sara
+
+<span class="amp">
+&
+</span>
+
+Nacho
+
+</h1>
+
+
+<div class="fecha">
+
+29 · 05 · 2027
+
+</div>
+
+
+<div class="lugar-portada">
+
+Parador de Cuenca
+
+</div>
+
+
+</div>
+
+
+<a
+    class="scroll"
+    href="#historia">
+
+Descubre nuestro día
+
+<span>⌄</span>
+
+</a>
+
 
 </header>
 
-<!-- INTRODUCCIÓN -->
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
 <section id="historia">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            Nuestra boda
-        </div>
+<div class="contenedor">
 
-        <h2>
-            ¡Nos casamos!
-        </h2>
 
-        <div class="ramita">
-            ❦
-        </div>
+<div class="subtitulo">
 
-        <p class="texto">
-            Hay momentos que merecen ser compartidos
-            con las personas que hacen nuestra vida especial.
-            <br><br>
+Nuestra boda
 
-            Y no imaginamos este día sin vosotros.
-            <br><br>
+</div>
 
-            Nos haría muchísima ilusión
-            que nos acompañarais.
-        </p>
 
-    </div>
+<h2>
+
+¡Nos casamos!
+
+</h2>
+
+
+<div class="ramita">
+
+❦
+
+</div>
+
+
+<p class="texto">
+
+Hay momentos que merecen ser compartidos
+con las personas que hacen nuestra vida especial.
+
+<br><br>
+
+Y no imaginamos este día sin vosotros.
+
+<br><br>
+
+Nos haría muchísima ilusión
+que nos acompañarais.
+
+</p>
+
+
+</div>
+
 
 </section>
 
-<!-- CUENTA ATRÁS -->
+
+
+<!-- =====================================================
+     CUENTA ATRÁS
+===================================================== -->
 
 <section class="countdown-section">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            Cada vez queda menos
-        </div>
+<div class="contenedor">
 
-        <h2>
-            Cuenta atrás
-        </h2>
 
-        <div class="countdown">
+<div class="subtitulo">
 
-            <div>
-                <span
-                    class="numero"
-                    id="dias">
-                    00
-                </span>
+Cada vez queda menos
 
-                <span class="unidad">
-                    Días
-                </span>
-            </div>
+</div>
 
-            <div>
-                <span
-                    class="numero"
-                    id="horas">
-                    00
-                </span>
 
-                <span class="unidad">
-                    Horas
-                </span>
-            </div>
+<h2>
 
-            <div>
-                <span
-                    class="numero"
-                    id="minutos">
-                    00
-                </span>
+Cuenta atrás
 
-                <span class="unidad">
-                    Minutos
-                </span>
-            </div>
+</h2>
 
-            <div>
-                <span
-                    class="numero"
-                    id="segundos">
-                    00
-                </span>
 
-                <span class="unidad">
-                    Segundos
-                </span>
-            </div>
+<div class="countdown">
 
-        </div>
 
-    </div>
+<div>
+
+<span
+    class="numero"
+    id="dias">
+
+00
+
+</span>
+
+<span class="unidad">
+
+Días
+
+</span>
+
+</div>
+
+
+<div>
+
+<span
+    class="numero"
+    id="horas">
+
+00
+
+</span>
+
+<span class="unidad">
+
+Horas
+
+</span>
+
+</div>
+
+
+<div>
+
+<span
+    class="numero"
+    id="minutos">
+
+00
+
+</span>
+
+<span class="unidad">
+
+Minutos
+
+</span>
+
+</div>
+
+
+<div>
+
+<span
+    class="numero"
+    id="segundos">
+
+00
+
+</span>
+
+<span class="unidad">
+
+Segundos
+
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<!-- LUGAR -->
+
+
+<!-- =====================================================
+     LUGAR
+===================================================== -->
 
 <section class="lugar">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            Dónde será
-        </div>
+<div class="contenedor">
 
-        <h2>
-            El lugar
-        </h2>
 
-        <p class="texto">
-            Hemos elegido uno de los rincones
-            más especiales de Cuenca
-            para celebrar juntos nuestro gran día.
-        </p>
+<div class="subtitulo">
 
-        <div class="tarjeta">
+Dónde será
 
-            <div class="ramita">
-                ❦
-            </div>
+</div>
 
-            <h3>
-                Parador de Cuenca
-            </h3>
 
-            <p>
-                Subida a San Pablo, s/n
-                <br>
-                Cuenca
-            </p>
+<h2>
 
-            <div class="hora">
-                29 de mayo de 2027
-            </div>
+El lugar
 
-            <p>
-                La ceremonia y la celebración
-                tendrán lugar en el propio Parador.
-            </p>
+</h2>
 
-            <a
-                class="boton"
-                href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
-                target="_blank"
-                rel="noopener noreferrer">
-                Cómo llegar
-            </a>
 
-        </div>
+<p class="texto">
 
-    </div>
+Hemos elegido uno de los rincones
+más especiales de Cuenca
+para celebrar juntos nuestro gran día.
+
+</p>
+
+
+<div class="tarjeta">
+
+
+<div class="ramita">
+
+❦
+
+</div>
+
+
+<h3>
+
+Parador de Cuenca
+
+</h3>
+
+
+<p>
+
+Subida a San Pablo, s/n
+
+<br>
+
+Cuenca
+
+</p>
+
+
+<div class="hora">
+
+29 de mayo de 2027
+
+</div>
+
+
+<p>
+
+La ceremonia y la celebración
+tendrán lugar en el propio Parador.
+
+</p>
+
+
+<a
+    class="boton"
+    href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
+    target="_blank"
+    rel="noopener noreferrer">
+
+Cómo llegar
+
+</a>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<!-- PROGRAMA -->
+
+
+<!-- =====================================================
+     PROGRAMA
+===================================================== -->
 
 <section class="programa">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            Nuestro día
-        </div>
+<div class="contenedor">
 
-        <h2>
-            Programa
-        </h2>
 
-        <div class="timeline">
+<div class="subtitulo">
 
-            <div class="evento">
+Nuestro día
 
-                <h3>
-                    Bienvenida
-                </h3>
+</div>
 
-                <p>
-                    Nos encontraremos
-                    en el Parador de Cuenca.
-                </p>
 
-            </div>
+<h2>
 
-            <div class="evento">
+Programa
 
-                <h3>
-                    Ceremonia
-                </h3>
+</h2>
 
-                <p>
-                    El momento de decir:
-                    sí, quiero.
-                </p>
 
-            </div>
+<div class="timeline">
 
-            <div class="evento">
 
-                <h3>
-                    Cóctel
-                </h3>
+<div class="evento">
 
-                <p>
-                    Brindaremos juntos
-                    mientras empieza
-                    la celebración.
-                </p>
+<h3>
 
-            </div>
+Bienvenida
 
-            <div class="evento">
+</h3>
 
-                <h3>
-                    Banquete
-                </h3>
+<p>
 
-                <p>
-                    Comer, beber,
-                    brindar y disfrutar.
-                </p>
+Nos encontraremos
+en el Parador de Cuenca.
 
-            </div>
+</p>
 
-            <div class="evento">
+</div>
 
-                <h3>
-                    Fiesta
-                </h3>
 
-                <p>
-                    Y después...
-                    ¡a celebrarlo como se merece!
-                </p>
+<div class="evento">
 
-            </div>
+<h3>
 
-        </div>
+Ceremonia
 
-    </div>
+</h3>
+
+<p>
+
+El momento de decir
+sí, quiero.
+
+</p>
+
+</div>
+
+
+<div class="evento">
+
+<h3>
+
+Cóctel
+
+</h3>
+
+<p>
+
+Brindaremos juntos
+mientras empieza la celebración.
+
+</p>
+
+</div>
+
+
+<div class="evento">
+
+<h3>
+
+Banquete
+
+</h3>
+
+<p>
+
+Comer, beber,
+brindar y disfrutar.
+
+</p>
+
+</div>
+
+
+<div class="evento">
+
+<h3>
+
+Fiesta
+
+</h3>
+
+<p>
+
+Y después...
+¡a celebrarlo como se merece!
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<!-- REGALO -->
+
+
+<!-- =====================================================
+     REGALO
+===================================================== -->
 
 <section class="regalo">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            El mejor regalo
-            es compartirlo con vosotros
-        </div>
+<div class="contenedor">
 
-        <h2>
-            Si queréis ayudarnos
-        </h2>
 
-        <div class="ramita">
-            ❦
-        </div>
+<div class="subtitulo">
 
-        <p class="texto">
-            Vuestra presencia en nuestro día
-            es lo más importante para nosotros.
-            <br><br>
+El mejor regalo
+es compartirlo con vosotros
 
-            Pero si además queréis ayudarnos
-            a comenzar esta nueva etapa,
-            os dejamos por aquí
-            una forma de hacerlo.
-            <br><br>
+</div>
 
-            Gracias por formar parte
-            de nuestra historia.
-        </p>
 
-        <div class="cuenta">
+<h2>
 
-            <div class="cuenta-titulo">
-                Número de cuenta
-            </div>
+Si queréis ayudarnos
 
-            <div class="iban">
-                ES00 0000 0000 0000 0000 0000
-            </div>
+</h2>
 
-        </div>
 
-    </div>
+<div class="ramita">
+
+❦
+
+</div>
+
+
+<p class="texto">
+
+Vuestra presencia en nuestro día
+es lo más importante para nosotros.
+
+<br><br>
+
+Pero si además queréis ayudarnos
+a comenzar esta nueva etapa,
+os dejamos por aquí
+una forma de hacerlo.
+
+<br><br>
+
+Gracias por formar parte
+de nuestra historia.
+
+</p>
+
+
+<div class="cuenta">
+
+
+<div class="cuenta-titulo">
+
+Número de cuenta
+
+</div>
+
+
+<div class="iban">
+
+ES00 0000 0000 0000 0000 0000
+
+</div>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<!-- CONFIRMACIÓN -->
+
+
+<!-- =====================================================
+     CONFIRMAR
+===================================================== -->
 
 <section
     class="confirmar"
     id="confirmar">
 
-    <div class="contenedor">
 
-        <div class="subtitulo">
-            Queremos contar contigo
-        </div>
+<div class="contenedor">
 
-        <h2>
-            ¿Nos acompañas?
-        </h2>
 
-        <div class="ramita">
-            ❦
-        </div>
+<div class="subtitulo">
 
-        <p class="texto">
-            Nos hará muchísima ilusión
-            compartir este día contigo.
-            <br>
-
-            Confírmanos tu asistencia
-            rellenando este pequeño formulario.
-        </p>
-
-        <form
-            class="formulario"
-            action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
-            method="POST">
-
-            <input
-                type="hidden"
-                name="_subject"
-                value="Nueva confirmación - Boda Sara y Nacho">
-
-            <div class="campo">
-
-                <label for="name">
-                    Nombre y apellidos
-                </label>
-
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Tu nombre y apellidos"
-                    required>
-
-            </div>
-
-            <div class="campo">
-
-                <label for="asistencia">
-                    ¿Podrás acompañarnos?
-                </label>
-
-                <select
-                    id="asistencia"
-                    name="asistencia"
-                    required>
-
-                    <option value="">
-                        Selecciona una opción
-                    </option>
-
-                    <option value="Sí, asistiré">
-                        Sí, ¡allí estaré!
-                    </option>
-
-                    <option value="No podré asistir">
-                        Lo siento, no podré asistir
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="campo">
-
-                <label for="acompanantes">
-                    ¿Cuántas personas asistiréis?
-                </label>
-
-                <input
-                    type="number"
-                    id="acompanantes"
-                    name="numero_personas"
-                    min="1"
-                    max="10"
-                    placeholder="Ejemplo: 2">
-
-            </div>
-
-            <div class="campo">
-
-                <label for="alimentacion">
-                    Alergias, intolerancias
-                    o alimentación especial
-                </label>
-
-                <input
-                    type="text"
-                    id="alimentacion"
-                    name="alimentacion"
-                    placeholder="Vegetariano, celíaco, alergias...">
-
-            </div>
-
-            <div class="campo">
-
-                <label for="message">
-                    ¿Quieres contarnos algo?
-                </label>
-
-                <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Déjanos un mensaje si quieres">
-                </textarea>
-
-            </div>
-
-            <button
-                class="boton boton-enviar"
-                type="submit">
-                Confirmar asistencia
-            </button>
-
-        </form>
-
-    </div>
-
-</section>
-
-<!-- PIE -->
-
-<footer>
-
-    <div class="nombres">
-        Sara & Nacho
-    </div>
-
-    <p>
-        29 · MAYO · 2027 — CUENCA
-    </p>
-
-</footer>
+Queremos contar contigo
 
 </div>
 
+
+<h2>
+
+¿Nos acompañas?
+
+</h2>
+
+
+<div class="ramita">
+
+❦
+
+</div>
+
+
+<p class="texto">
+
+Nos hará muchísima ilusión
+compartir este día contigo.
+
+<br><br>
+
+Confírmanos tu asistencia
+rellenando este pequeño formulario.
+
+</p>
+
+
+<form
+    class="formulario"
+    action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
+    method="POST">
+
+
+<input
+    type="hidden"
+    name="_subject"
+    value="Nueva confirmación - Boda Sara y Nacho">
+
+
+<div class="campo">
+
+<label for="name">
+
+Nombre y apellidos
+
+</label>
+
+<input
+    id="name"
+    type="text"
+    name="name"
+    placeholder="Tu nombre y apellidos"
+    required>
+
+</div>
+
+
+<div class="campo">
+
+<label for="asistencia">
+
+¿Podrás acompañarnos?
+
+</label>
+
+<select
+    id="asistencia"
+    name="asistencia"
+    required>
+
+<option value="">
+
+Selecciona una opción
+
+</option>
+
+<option value="Sí">
+
+Sí, ¡allí estaré!
+
+</option>
+
+<option value="No">
+
+Lo siento, no podré asistir
+
+</option>
+
+</select>
+
+</div>
+
+
+<div class="campo">
+
+<label for="personas">
+
+¿Cuántas personas asistiréis?
+
+</label>
+
+<input
+    id="personas"
+    type="number"
+    name="numero_personas"
+    min="1"
+    max="10"
+    placeholder="Ejemplo: 2">
+
+</div>
+
+
+<div class="campo">
+
+<label for="alimentacion">
+
+Alergias, intolerancias
+o alimentación especial
+
+</label>
+
+<input
+    id="alimentacion"
+    type="text"
+    name="alimentacion"
+    placeholder="Vegetariano, celíaco, alergias...">
+
+</div>
+
+
+<div class="campo">
+
+<label for="mensaje">
+
+¿Quieres contarnos algo?
+
+</label>
+
+<textarea
+    id="mensaje"
+    name="message"
+    placeholder="Déjanos un mensaje si quieres"></textarea>
+
+</div>
+
+
+<button
+    class="boton-enviar"
+    type="submit">
+
+Confirmar asistencia
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<footer>
+
+
+<div class="nombres">
+
+Sara & Nacho
+
+</div>
+
+
+<p>
+
+29 · MAYO · 2027 — CUENCA
+
+</p>
+
+
+</footer>
+
+
+</div>
+
+
+
 <script>
 
-/* ABRIR SOBRE */
+
+/* =====================================================
+   APERTURA
+===================================================== */
 
 let invitacionAbierta = false;
 
-function abrirInvitacion(){
 
-    if(invitacionAbierta){
+function abrirInvitacion() {
+
+
+    if (invitacionAbierta) {
+
         return;
+
     }
+
 
     invitacionAbierta = true;
 
+
     const sobre =
-        document.getElementById("sobre");
+        document.getElementById(
+            "sobre"
+        );
+
 
     const pantalla =
-        document.getElementById("pantallaSobre");
+        document.getElementById(
+            "pantallaSobre"
+        );
+
 
     const web =
-        document.getElementById("web");
+        document.getElementById(
+            "web"
+        );
 
-    sobre.classList.add("abierto");
 
-    setTimeout(function(){
+    sobre.classList.add(
+        "abierto"
+    );
 
-        web.classList.add("visible");
 
-        document.body.classList.remove("no-scroll");
+    /* primero abre físicamente el sobre */
 
-        pantalla.classList.add("oculto");
 
-        window.scrollTo({
-            top:0,
-            left:0,
-            behavior:"auto"
-        });
+    setTimeout(function() {
 
-    },850);
 
-    setTimeout(function(){
+        web.classList.add(
+            "visible"
+        );
 
-        pantalla.style.display = "none";
 
-    },1800);
+        document.body.classList.remove(
+            "no-scroll"
+        );
+
+
+        pantalla.classList.add(
+            "oculto"
+        );
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+
+    }, 1050);
+
+
+    /*
+    IMPORTANTE:
+
+    Después de la transición
+    eliminamos completamente
+    la pantalla del sobre.
+
+    Así nunca puede quedarse
+    bloqueada encima de la web.
+    */
+
+
+    setTimeout(function() {
+
+
+        pantalla.style.display =
+            "none";
+
+
+    }, 2050);
+
+
 }
 
-/* ABRIR TAMBIÉN CON ENTER O ESPACIO */
+
+
+/* Enter y barra espaciadora */
 
 document
 .getElementById("sobre")
-.addEventListener("keydown",function(event){
+.addEventListener(
+    "keydown",
+    function(event) {
 
-    if(event.key === "Enter" || event.key === " "){
-        event.preventDefault();
-        abrirInvitacion();
+
+        if (
+            event.key === "Enter"
+            ||
+            event.key === " "
+        ) {
+
+
+            event.preventDefault();
+
+
+            abrirInvitacion();
+
+
+        }
+
+
     }
+);
 
-});
 
-/* CUENTA ATRÁS */
+
+/* =====================================================
+   CUENTA ATRÁS
+===================================================== */
+
 
 const fechaBoda =
+
     new Date(
         "2027-05-29T12:00:00+02:00"
     ).getTime();
 
-function actualizarCuenta(){
+
+
+function actualizarCuenta() {
+
 
     const ahora =
         new Date().getTime();
 
+
     const distancia =
         fechaBoda - ahora;
 
-    if(distancia < 0){
 
-        const countdown =
-            document.querySelector(".countdown");
+    if (distancia <= 0) {
 
-        if(countdown){
-            countdown.innerHTML =
-                "<span class='numero'>¡Hoy es el gran día!</span>";
-        }
+
+        document
+        .querySelector(
+            ".countdown"
+        )
+        .innerHTML =
+        "<span class='numero'>¡Hoy es el gran día!</span>";
+
 
         return;
+
+
     }
 
+
     const dias =
+
         Math.floor(
+
             distancia /
-            (1000*60*60*24)
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
+
         );
+
 
     const horas =
+
         Math.floor(
-            (distancia %
-            (1000*60*60*24))
+
+            (
+                distancia %
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+            )
+
             /
-            (1000*60*60)
+
+            (
+                1000 *
+                60 *
+                60
+            )
+
         );
+
 
     const minutos =
+
         Math.floor(
-            (distancia %
-            (1000*60*60))
+
+            (
+                distancia %
+                (
+                    1000 *
+                    60 *
+                    60
+                )
+            )
+
             /
-            (1000*60)
+
+            (
+                1000 *
+                60
+            )
+
         );
 
+
     const segundos =
+
         Math.floor(
-            (distancia %
-            (1000*60))
+
+            (
+                distancia %
+                (
+                    1000 *
+                    60
+                )
+            )
+
             /
+
             1000
+
         );
+
 
     document
     .getElementById("dias")
     .textContent =
-    dias;
+        dias;
+
 
     document
     .getElementById("horas")
     .textContent =
-    String(horas)
-    .padStart(2,"0");
+        String(horas)
+        .padStart(
+            2,
+            "0"
+        );
+
 
     document
     .getElementById("minutos")
     .textContent =
-    String(minutos)
-    .padStart(2,"0");
+        String(minutos)
+        .padStart(
+            2,
+            "0"
+        );
+
 
     document
     .getElementById("segundos")
     .textContent =
-    String(segundos)
-    .padStart(2,"0");
+        String(segundos)
+        .padStart(
+            2,
+            "0"
+        );
+
+
 }
 
+
 actualizarCuenta();
+
 
 setInterval(
     actualizarCuenta,
     1000
 );
 
+
 </script>
 
+
 </body>
+
 </html>
