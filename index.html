@@ -13,544 +13,279 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
-/* =========================================================
-   GENERAL
-========================================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: #f4f0e7;
-    color: #45493c;
-    line-height: 1.7;
+body{
+    margin:0;
+    background:#f4efe6;
+    color:#45493c;
+    font-family:'Montserrat',sans-serif;
+    line-height:1.7;
 }
 
-body.no-scroll {
-    overflow: hidden;
+body.bloqueado{
+    overflow:hidden;
 }
 
 
 /* =========================================================
-   PANTALLA INICIAL
+   INTRO - ANIMACIÓN POR FRAMES
 ========================================================= */
 
-#pantallaSobre {
+#introSobre{
 
-    position: fixed;
+    position:fixed;
 
-    inset: 0;
+    inset:0;
 
-    z-index: 99999;
+    z-index:99999;
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    justify-content: center;
+    justify-content:center;
 
-    overflow: hidden;
+    background:#f0e7d8;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #f3ecdf 0%,
-            #e8ddca 48%,
-            #d7c8ae 100%
-        );
+    overflow:hidden;
+
+    opacity:1;
+
+    visibility:visible;
 
     transition:
-        opacity 0.9s ease,
-        visibility 0.9s ease;
+        opacity .8s ease,
+        visibility .8s ease;
 
 }
 
 
-/* textura suave de papel */
+#introSobre.desaparecer{
 
-#pantallaSobre::before {
+    opacity:0;
 
-    content: "";
+    visibility:hidden;
 
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    opacity: 0.21;
-
-    background-image:
-
-        repeating-linear-gradient(
-            32deg,
-            rgba(90, 70, 45, 0.05) 0px,
-            rgba(90, 70, 45, 0.05) 1px,
-            transparent 1px,
-            transparent 5px
-        ),
-
-        repeating-linear-gradient(
-            120deg,
-            rgba(255,255,255,0.08) 0,
-            rgba(255,255,255,0.08) 1px,
-            transparent 1px,
-            transparent 8px
-        );
+    pointer-events:none;
 
 }
 
 
-#pantallaSobre.oculto {
+/* textura de fondo */
 
-    opacity: 0;
+#introSobre::before{
 
-    visibility: hidden;
+    content:"";
 
-    pointer-events: none;
+    position:absolute;
 
-}
+    inset:0;
 
+    pointer-events:none;
 
-/* =========================================================
-   SOBRE
-========================================================= */
-
-.envelope-container {
-
-    position: relative;
-
-    width: min(560px, 86vw);
-
-    aspect-ratio: 1.55 / 1;
-
-    perspective: 1500px;
-
-    cursor: pointer;
-
-    filter:
-        drop-shadow(0 28px 26px rgba(57, 39, 22, 0.22));
-
-    transition: transform .4s ease;
-
-}
-
-
-.envelope-container:hover {
-
-    transform: translateY(-5px);
-
-}
-
-
-/* parte trasera */
-
-.envelope-back {
-
-    position: absolute;
-
-    inset: 0;
-
-    border-radius: 4px;
-
-    overflow: hidden;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #fbf7ef,
-            #f0e5d1 60%,
-            #e8d9bf
-        );
-
-    border: 1px solid rgba(104, 83, 57, .15);
-
-}
-
-
-/* textura */
-
-.envelope-back::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    opacity: .15;
+    opacity:.18;
 
     background:
 
         repeating-linear-gradient(
-            20deg,
-            rgba(104,84,59,.16) 0px,
-            rgba(104,84,59,.16) 1px,
+            35deg,
+            rgba(80,60,40,.05) 0,
+            rgba(80,60,40,.05) 1px,
             transparent 1px,
-            transparent 5px
+            transparent 6px
         );
 
 }
 
 
-/* carta que hay dentro */
+/* contenedor de los frames */
 
-.carta-interior {
+.animacion-sobre{
 
-    position: absolute;
+    position:relative;
 
-    z-index: 2;
+    width:min(760px,94vw);
 
-    left: 7%;
+    display:flex;
 
-    right: 7%;
+    align-items:center;
 
-    top: 10%;
-
-    height: 76%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fffdf8,
-            #f5ecdd
-        );
-
-    border: 1px solid rgba(100,80,55,.13);
-
-    box-shadow:
-        0 3px 10px rgba(64,42,22,.08);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    transform: translateY(26%);
-
-    transition:
-        transform 1.1s cubic-bezier(.2,.7,.2,1);
+    justify-content:center;
 
 }
 
 
-.carta-interior span {
+/*
+Las dos imágenes están exactamente
+una encima de la otra.
 
-    font-family:
-        'Cormorant Garamond',
-        serif;
+Así podemos hacer fundidos suaves
+entre un frame y el siguiente.
+*/
 
-    font-size: 20px;
+.frame-capa{
 
-    letter-spacing: 3px;
+    width:100%;
 
-    color: #85745f;
+    height:auto;
 
-}
+    display:block;
 
+    object-fit:contain;
 
-/* solapas laterales */
+    position:relative;
 
-.envelope-front-left {
+    user-select:none;
 
-    position: absolute;
-
-    z-index: 3;
-
-    inset: 0;
-
-    clip-path:
-        polygon(
-            0 0,
-            52% 50%,
-            0 100%
-        );
-
-    background:
-        linear-gradient(
-            110deg,
-            #f3eadb,
-            #e5d5bd
-        );
+    -webkit-user-drag:none;
 
 }
 
 
-.envelope-front-right {
+#layerA{
 
-    position: absolute;
+    opacity:1;
 
-    z-index: 3;
-
-    inset: 0;
-
-    clip-path:
-        polygon(
-            100% 0,
-            48% 50%,
-            100% 100%
-        );
-
-    background:
-        linear-gradient(
-            250deg,
-            #f7efe2,
-            #e4d4bc
-        );
+    z-index:2;
 
 }
 
 
-/* parte frontal inferior */
+#layerB{
 
-.envelope-front-bottom {
+    position:absolute;
 
-    position: absolute;
+    inset:0;
 
-    z-index: 4;
+    margin:auto;
 
-    inset: 0;
+    opacity:0;
 
-    clip-path:
-        polygon(
-            0 100%,
-            50% 48%,
-            100% 100%
-        );
+    z-index:3;
 
-    background:
-        linear-gradient(
-            180deg,
-            #efe3d1,
-            #e1cfb5
-        );
+    transition:opacity .30s ease;
 
 }
 
 
-/* solapa superior */
+/* botón transparente sobre el sello */
 
-.flap {
+#botonSello{
 
-    position: absolute;
+    position:absolute;
 
-    z-index: 7;
+    z-index:10;
 
-    top: 0;
+    left:50%;
 
-    left: 0;
+    top:52%;
 
-    width: 100%;
+    transform:translate(-50%,-50%);
 
-    height: 57%;
+    width:125px;
 
-    transform-origin: top center;
+    height:125px;
 
-    transform-style: preserve-3d;
+    border:0;
 
-    transition:
-        transform 1s cubic-bezier(.25,.7,.2,1);
+    border-radius:50%;
 
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            50% 100%
-        );
+    background:transparent;
 
-    background:
-        linear-gradient(
-            180deg,
-            #fbf4e8,
-            #eadcc6
-        );
+    cursor:pointer;
 
-    border-top:
-        1px solid
-        rgba(99,78,53,.12);
+    padding:0;
 
 }
 
 
-.envelope-container.abierto .flap {
+/* pequeña indicación */
 
-    transform: rotateX(180deg);
+.abrir{
 
-    z-index: 1;
+    position:absolute;
+
+    z-index:10;
+
+    left:50%;
+
+    bottom:-42px;
+
+    transform:translateX(-50%);
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    color:#756957;
+
+    white-space:nowrap;
+
+    transition:opacity .3s ease;
 
 }
 
 
-.envelope-container.abierto .carta-interior {
+.animando .abrir{
 
-    transform:
-        translateY(-35%)
-        scale(1.02);
+    opacity:0;
+
+}
+
+
+.animando #botonSello{
+
+    pointer-events:none;
 
 }
 
 
 /* =========================================================
-   SELLO DE LACRE REALISTA
+   WEB PRINCIPAL
 ========================================================= */
 
-.sello-real {
+#web{
 
-    position: absolute;
+    display:none;
 
-    z-index: 15;
-
-    left: 50%;
-
-    top: 51%;
-
-    width: 105px;
-
-    height: 105px;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(-4deg);
-
-    transition:
-        transform .6s ease,
-        opacity .45s ease;
-
-    filter:
-        drop-shadow(
-            0 8px 7px
-            rgba(44, 15, 17, .34)
-        );
+    opacity:0;
 
 }
 
 
-/* pequeñas extensiones irregulares del lacre */
+#web.visible{
 
-.sello-real::before {
+    display:block;
 
-    content: "";
-
-    position: absolute;
-
-    inset: -5px;
-
-    border-radius:
-        46% 54% 48% 52%
-        /
-        51% 47% 53% 49%;
-
-    background: #762934;
-
-    transform: rotate(11deg);
-
-    box-shadow:
-
-        -6px 11px 0 -3px #6b2530,
-
-        8px 5px 0 -4px #772b35,
-
-        3px -6px 0 -4px #87343e,
-
-        -7px -3px 0 -5px #6d2530;
+    animation:mostrarWeb 1.2s ease forwards;
 
 }
 
 
-.sello-real svg {
+@keyframes mostrarWeb{
 
-    position: relative;
+    from{
+        opacity:0;
+    }
 
-    z-index: 2;
-
-    width: 100%;
-
-    height: 100%;
-
-    overflow: visible;
-
-}
-
-
-.envelope-container.abierto .sello-real {
-
-    opacity: 0;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(-14deg)
-        scale(.72);
-
-}
-
-
-/* texto abrir */
-
-.abrir-texto {
-
-    position: absolute;
-
-    top: calc(50% + min(220px, 34vw));
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    font-family:
-        'Montserrat',
-        sans-serif;
-
-    text-transform: uppercase;
-
-    letter-spacing: 4px;
-
-    font-size: 10px;
-
-    color: #746957;
-
-    white-space: nowrap;
-
-}
-
-
-/* =========================================================
-   WEB OCULTA
-========================================================= */
-
-#web {
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition:
-        opacity 1.1s ease;
-
-}
-
-
-#web.visible {
-
-    opacity: 1;
-
-    visibility: visible;
+    to{
+        opacity:1;
+    }
 
 }
 
@@ -559,243 +294,199 @@ body.no-scroll {
    PORTADA
 ========================================================= */
 
-.hero {
+.hero{
 
-    min-height: 100vh;
+    position:relative;
 
-    position: relative;
+    min-height:100vh;
 
-    overflow: hidden;
+    display:flex;
 
-    display: flex;
+    align-items:center;
 
-    align-items: center;
+    justify-content:center;
 
-    justify-content: center;
+    overflow:hidden;
 
-    padding: 30px;
+    padding:30px;
 
-    text-align: center;
+    color:white;
 
-    color: white;
+    text-align:center;
 
-    background-image:
+    background:
 
         linear-gradient(
-            rgba(24,30,22,.15),
-            rgba(21,25,19,.52)
+            rgba(20,25,18,.20),
+            rgba(20,25,18,.52)
         ),
 
         url('./fondo-cuenca.png');
 
-    background-size: cover;
+    background-size:cover;
 
-    background-position: center;
+    background-position:center;
 
-    background-repeat: no-repeat;
+    background-repeat:no-repeat;
 
 }
 
 
-/* ligera ampliación cinematográfica */
+/* viñeta suave */
 
-.hero::before {
+.hero::after{
 
-    content: "";
+    content:"";
 
-    position: absolute;
+    position:absolute;
 
-    inset: -2%;
-
-    pointer-events: none;
+    inset:0;
 
     background:
 
         radial-gradient(
-            circle at center,
-            transparent 40%,
-            rgba(20,20,15,.18) 100%
+            circle,
+            transparent 45%,
+            rgba(15,15,10,.22)
         );
 
+    pointer-events:none;
+
 }
 
 
-.hero-content {
+.hero-content{
 
-    position: relative;
+    position:relative;
 
-    z-index: 2;
+    z-index:2;
 
-    max-width: 900px;
+    max-width:950px;
 
     text-shadow:
-        0 3px 18px
-        rgba(0,0,0,.45);
-
-    animation:
-        aparecerHero
-        1.7s ease both;
+        0 3px 18px rgba(0,0,0,.45);
 
 }
 
 
-@keyframes aparecerHero {
+.nos-casamos{
 
-    from {
+    margin-bottom:25px;
 
-        opacity: 0;
+    font-size:11px;
 
-        transform:
-            translateY(18px);
+    letter-spacing:6px;
 
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
+    text-transform:uppercase;
 
 }
 
 
-.hero .nos-casamos {
+.hero h1{
 
-    font-size: 11px;
-
-    letter-spacing: 6px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 25px;
-
-}
-
-
-.hero h1 {
-
-    margin: 0;
+    margin:0;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
     font-size:
-        clamp(
-            72px,
-            12vw,
-            145px
-        );
+        clamp(72px,12vw,145px);
 
-    font-weight: 400;
+    font-weight:400;
 
-    line-height: .82;
+    line-height:.85;
 
 }
 
 
-.hero h1 .amp {
+.hero .amp{
 
-    display: inline-block;
+    display:inline-block;
 
-    margin: 0 8px;
+    margin:0 8px;
 
-    font-size: .7em;
+    font-style:italic;
 
-    font-style: italic;
+    font-size:.72em;
 
-    color: #e6d3ac;
-
-}
-
-
-.hero .fecha {
-
-    margin-top: 38px;
-
-    font-size: 13px;
-
-    letter-spacing: 6px;
-
-    text-transform: uppercase;
+    color:#ead9b7;
 
 }
 
 
-.hero .lugar-portada {
+.fecha{
 
-    margin-top: 15px;
+    margin-top:38px;
+
+    font-size:13px;
+
+    letter-spacing:6px;
+
+}
+
+
+.lugar-portada{
+
+    margin-top:15px;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size: 24px;
+    font-size:24px;
 
-    letter-spacing: 3px;
-
-}
-
-
-.scroll {
-
-    position: absolute;
-
-    z-index: 3;
-
-    bottom: 25px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    color: white;
-
-    text-decoration: none;
-
-    text-transform: uppercase;
-
-    letter-spacing: 3px;
-
-    font-size: 9px;
+    letter-spacing:3px;
 
 }
 
 
-.scroll span {
+.scroll{
 
-    display: block;
+    position:absolute;
 
-    margin-top: 7px;
+    z-index:5;
 
-    font-size: 22px;
+    bottom:25px;
 
-    animation:
-        bajar 1.8s
-        ease-in-out infinite;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:white;
+
+    text-decoration:none;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:9px;
 
 }
 
 
-@keyframes bajar {
+.scroll span{
 
-    0%,
-    100% {
+    display:block;
 
-        transform:
-            translateY(0);
+    margin-top:7px;
 
+    font-size:22px;
+
+    animation:bajar 1.8s ease-in-out infinite;
+
+}
+
+
+@keyframes bajar{
+
+    0%,100%{
+        transform:translateY(0);
     }
 
-    50% {
-
-        transform:
-            translateY(6px);
-
+    50%{
+        transform:translateY(6px);
     }
 
 }
@@ -805,108 +496,96 @@ body.no-scroll {
    SECCIONES
 ========================================================= */
 
-section {
+section{
 
-    padding:
-        105px 25px;
-
-}
-
-
-.contenedor {
-
-    width: 100%;
-
-    max-width: 1000px;
-
-    margin: auto;
-
-    text-align: center;
+    padding:105px 25px;
 
 }
 
 
-.subtitulo {
+.contenedor{
 
-    margin-bottom: 14px;
+    width:100%;
 
-    font-size: 10px;
+    max-width:1000px;
 
-    letter-spacing: 4px;
+    margin:auto;
 
-    text-transform: uppercase;
-
-    color: #8b765a;
+    text-align:center;
 
 }
 
 
-h2 {
+.subtitulo{
 
-    margin-bottom: 28px;
+    margin-bottom:14px;
+
+    color:#8b765a;
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+}
+
+
+h2{
+
+    margin-bottom:28px;
+
+    color:#3d4836;
 
     font-family:
         'Cormorant Garamond',
         serif;
-
-    font-weight: 400;
 
     font-size:
-        clamp(
-            42px,
-            7vw,
-            68px
-        );
+        clamp(42px,7vw,68px);
 
-    line-height: 1;
+    line-height:1;
 
-    color: #3d4836;
+    font-weight:400;
 
 }
 
 
-.texto {
+.texto{
 
-    max-width: 720px;
+    max-width:720px;
 
-    margin: auto;
+    margin:auto;
+
+    color:#625e53;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size: 23px;
+    font-size:23px;
 
-    line-height: 1.65;
-
-    color: #625e53;
+    line-height:1.65;
 
 }
 
 
-.ramita {
+.ramita{
 
-    margin: 25px 0;
+    margin:25px 0;
 
-    font-family:
-        'Cormorant Garamond',
-        serif;
+    color:#738064;
 
-    font-size: 37px;
-
-    color: #738064;
+    font-size:37px;
 
 }
 
 
-/* =========================================================
-   INTRODUCCIÓN
-========================================================= */
+/* INTRO */
 
-#historia {
+#historia{
 
-    background:
-        #f5f0e7;
+    background:#f5f0e7;
 
 }
 
@@ -915,76 +594,72 @@ h2 {
    CUENTA ATRÁS
 ========================================================= */
 
-.countdown-section {
+.countdown-section{
 
-    background:
-        #3d4837;
+    background:#3d4837;
 
-    color: white;
-
-}
-
-
-.countdown-section h2 {
-
-    color:
-        #f4eee2;
+    color:white;
 
 }
 
 
-.countdown-section .subtitulo {
+.countdown-section h2{
 
-    color:
-        #d5c6a7;
-
-}
-
-
-.countdown {
-
-    margin-top: 50px;
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 50px;
-
-    flex-wrap: wrap;
+    color:#f4eee2;
 
 }
 
 
-.numero {
+.countdown-section .subtitulo{
 
-    display: block;
+    color:#d5c6a7;
+
+}
+
+
+.countdown{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:50px;
+
+    flex-wrap:wrap;
+
+    margin-top:50px;
+
+}
+
+
+.numero{
+
+    display:block;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size: 58px;
+    font-size:58px;
 
-    line-height: 1;
+    line-height:1;
 
 }
 
 
-.unidad {
+.unidad{
 
-    display: block;
+    display:block;
 
-    margin-top: 10px;
+    margin-top:10px;
 
-    font-size: 9px;
+    color:#d3c8b1;
 
-    letter-spacing: 3px;
+    font-size:9px;
 
-    text-transform: uppercase;
+    letter-spacing:3px;
 
-    color:
-        #d3c8b1;
+    text-transform:uppercase;
 
 }
 
@@ -993,118 +668,75 @@ h2 {
    LUGAR
 ========================================================= */
 
-.lugar {
+.lugar{
 
-    background:
-        #e6dece;
-
-}
-
-
-.tarjeta {
-
-    max-width: 800px;
-
-    margin:
-        50px auto 0;
-
-    padding:
-        60px 35px;
-
-    background:
-        rgba(
-            252,
-            248,
-            239,
-            .88
-        );
-
-    border:
-        1px solid
-        #c9bda7;
+    background:#e6dece;
 
 }
 
 
-.tarjeta h3 {
+.tarjeta{
+
+    max-width:800px;
+
+    margin:50px auto 0;
+
+    padding:60px 35px;
+
+    background:rgba(252,248,239,.88);
+
+    border:1px solid #c9bda7;
+
+}
+
+
+.tarjeta h3{
+
+    margin-bottom:10px;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size: 40px;
+    font-size:40px;
 
-    font-weight: 500;
-
-    margin-bottom: 10px;
+    font-weight:500;
 
 }
 
 
-.hora {
+.hora{
 
-    margin:
-        25px 0;
+    margin:25px 0;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size: 25px;
+    font-size:25px;
 
 }
 
 
-/* =========================================================
-   BOTÓN
-========================================================= */
+.boton{
 
-.boton {
+    display:inline-block;
 
-    display:
-        inline-block;
+    margin-top:28px;
 
-    margin-top:
-        28px;
+    padding:14px 30px;
 
-    padding:
-        14px 30px;
+    color:#46503f;
 
-    border:
-        1px solid
-        #59644f;
+    border:1px solid #59644f;
 
-    color:
-        #46503f;
+    text-decoration:none;
 
-    text-decoration:
-        none;
+    text-transform:uppercase;
 
-    text-transform:
-        uppercase;
+    letter-spacing:2px;
 
-    letter-spacing:
-        2px;
-
-    font-size:
-        10px;
-
-    background:
-        transparent;
-
-    transition:
-        .3s ease;
-
-}
-
-
-.boton:hover {
-
-    color:
-        white;
-
-    background:
-        #46503f;
+    font-size:10px;
 
 }
 
@@ -1113,102 +745,83 @@ h2 {
    PROGRAMA
 ========================================================= */
 
-.programa {
+.programa{
 
-    background:
-        #f4f0e7;
-
-}
-
-
-.timeline {
-
-    max-width:
-        550px;
-
-    margin:
-        55px auto 0;
-
-    text-align:
-        left;
+    background:#f4f0e7;
 
 }
 
 
-.evento {
+.timeline{
 
-    position:
-        relative;
+    max-width:550px;
+
+    margin:55px auto 0;
+
+    text-align:left;
+
+}
+
+
+.evento{
+
+    position:relative;
 
     padding:
         0 0 46px 36px;
 
     border-left:
-        1px solid
-        #9c927d;
+        1px solid #9c927d;
 
 }
 
 
-.evento:last-child {
+.evento:last-child{
 
-    padding-bottom:
-        0;
-
-}
-
-
-.evento::before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    left:
-        -5px;
-
-    top:
-        9px;
-
-    width:
-        9px;
-
-    height:
-        9px;
-
-    border-radius:
-        50%;
-
-    background:
-        #64705a;
+    padding-bottom:0;
 
 }
 
 
-.evento h3 {
+.evento::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-5px;
+
+    top:9px;
+
+    width:9px;
+
+    height:9px;
+
+    border-radius:50%;
+
+    background:#64705a;
+
+}
+
+
+.evento h3{
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size:
-        29px;
+    font-size:29px;
 
-    font-weight:
-        500;
+    font-weight:500;
 
 }
 
 
-.evento p {
+.evento p{
 
-    color:
-        #777265;
+    color:#777265;
 
-    font-size:
-        13px;
+    font-size:13px;
 
 }
 
@@ -1217,99 +830,73 @@ h2 {
    REGALO
 ========================================================= */
 
-.regalo {
+.regalo{
 
-    background:
-        #3e4937;
+    background:#3e4937;
 
-    color:
-        #f5f0e5;
+    color:#f5f0e5;
 
 }
 
 
-.regalo h2 {
+.regalo h2{
 
-    color:
-        #f5f0e5;
-
-}
-
-
-.regalo .subtitulo {
-
-    color:
-        #d5c6a7;
+    color:#f5f0e5;
 
 }
 
 
-.regalo .texto {
+.regalo .subtitulo{
 
-    color:
-        #eee8dc;
+    color:#d5c6a7;
 
 }
 
 
-.cuenta {
+.regalo .texto{
 
-    max-width:
-        650px;
+    color:#eee8dc;
 
-    margin:
-        42px auto 0;
+}
 
-    padding:
-        35px 20px;
+
+.cuenta{
+
+    max-width:650px;
+
+    margin:42px auto 0;
+
+    padding:35px 20px;
 
     border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .35
-        );
+        1px solid rgba(255,255,255,.35);
 
 }
 
 
-.cuenta-titulo {
+.cuenta-titulo{
 
-    margin-bottom:
-        15px;
+    margin-bottom:15px;
 
-    text-transform:
-        uppercase;
+    font-size:9px;
 
-    font-size:
-        9px;
+    letter-spacing:3px;
 
-    letter-spacing:
-        3px;
+    text-transform:uppercase;
 
 }
 
 
-.iban {
+.iban{
 
     font-family:
         'Cormorant Garamond',
         serif;
 
     font-size:
-        clamp(
-            19px,
-            4vw,
-            28px
-        );
+        clamp(19px,4vw,28px);
 
-    letter-spacing:
-        2px;
-
-    word-break:
-        break-word;
+    letter-spacing:2px;
 
 }
 
@@ -1318,134 +905,97 @@ h2 {
    CONFIRMACIÓN
 ========================================================= */
 
-.confirmar {
+.confirmar{
 
-    background:
-        #ddd5c4;
-
-}
-
-
-.formulario {
-
-    max-width:
-        650px;
-
-    margin:
-        50px auto 0;
-
-    text-align:
-        left;
+    background:#ddd5c4;
 
 }
 
 
-.campo {
+.formulario{
 
-    margin-bottom:
-        23px;
+    max-width:650px;
+
+    margin:50px auto 0;
+
+    text-align:left;
 
 }
 
 
-.campo label {
+.campo{
 
-    display:
-        block;
+    margin-bottom:23px;
 
-    margin-bottom:
-        8px;
+}
 
-    font-size:
-        10px;
 
-    letter-spacing:
-        1.5px;
+.campo label{
 
-    text-transform:
-        uppercase;
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:10px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
 
 }
 
 
 input,
 select,
-textarea {
+textarea{
 
-    width:
-        100%;
+    width:100%;
 
-    padding:
-        14px;
+    padding:14px;
 
-    border:
-        1px solid
-        #b7ad99;
+    border:1px solid #b7ad99;
 
-    outline:
-        none;
+    background:rgba(255,255,255,.55);
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            .55
-        );
-
-    color:
-        #45493c;
+    color:#45493c;
 
     font-family:
         'Montserrat',
         sans-serif;
 
-    font-size:
-        15px;
+    font-size:15px;
 
 }
 
 
-textarea {
+textarea{
 
-    min-height:
-        110px;
+    min-height:110px;
 
-    resize:
-        vertical;
+    resize:vertical;
 
 }
 
 
-.boton-enviar {
+.boton-enviar{
 
-    display:
-        block;
+    display:block;
 
-    margin:
-        30px auto 0;
+    margin:30px auto 0;
 
-    padding:
-        17px 40px;
+    padding:17px 40px;
 
-    border:
-        1px solid
-        #44503d;
+    border:0;
 
-    background:
-        #44503d;
+    background:#44503d;
 
-    color:
-        white;
+    color:white;
 
-    text-transform:
-        uppercase;
+    text-transform:uppercase;
 
-    letter-spacing:
-        2px;
+    letter-spacing:2px;
 
-    cursor:
-        pointer;
+    cursor:pointer;
 
 }
 
@@ -1454,45 +1004,37 @@ textarea {
    FINAL
 ========================================================= */
 
-footer {
+footer{
 
-    padding:
-        75px 20px;
+    padding:75px 20px;
 
-    text-align:
-        center;
+    background:#30392b;
 
-    background:
-        #30392b;
+    color:#e9e3d6;
 
-    color:
-        #e9e3d6;
+    text-align:center;
 
 }
 
 
-footer .nombres {
+footer .nombres{
 
-    margin-bottom:
-        10px;
+    margin-bottom:10px;
 
     font-family:
         'Cormorant Garamond',
         serif;
 
-    font-size:
-        48px;
+    font-size:48px;
 
 }
 
 
-footer p {
+footer p{
 
-    font-size:
-        10px;
+    font-size:10px;
 
-    letter-spacing:
-        3px;
+    letter-spacing:3px;
 
 }
 
@@ -1501,105 +1043,78 @@ footer p {
    MÓVIL
 ========================================================= */
 
-@media(max-width: 600px) {
+@media(max-width:600px){
 
-    section {
+    section{
 
-        padding:
-            78px 20px;
-
-    }
-
-
-    .envelope-container {
-
-        width:
-            84vw;
+        padding:78px 20px;
 
     }
 
 
-    .sello-real {
+    .animacion-sobre{
 
-        width:
-            82px;
-
-        height:
-            82px;
+        width:96vw;
 
     }
 
 
-    .abrir-texto {
+    #botonSello{
 
-        top:
-            calc(
-                50% + 34vw
-            );
+        width:95px;
 
-    }
-
-
-    .hero {
-
-        background-position:
-            center center;
+        height:95px;
 
     }
 
 
-    .hero h1 {
+    .abrir{
 
-        font-size:
-            66px;
+        bottom:-28px;
 
-    }
-
-
-    .hero .fecha {
-
-        letter-spacing:
-            4px;
+        letter-spacing:3px;
 
     }
 
 
-    .hero .lugar-portada {
+    .hero h1{
 
-        font-size:
-            20px;
-
-    }
-
-
-    .countdown {
-
-        gap:
-            27px;
+        font-size:66px;
 
     }
 
 
-    .numero {
+    .hero{
 
-        font-size:
-            43px;
-
-    }
-
-
-    .tarjeta {
-
-        padding:
-            42px 22px;
+        background-position:center;
 
     }
 
 
-    .texto {
+    .countdown{
 
-        font-size:
-            21px;
+        gap:27px;
+
+    }
+
+
+    .numero{
+
+        font-size:43px;
+
+    }
+
+
+    .texto{
+
+        font-size:21px;
+
+    }
+
+
+    .tarjeta{
+
+        padding:42px 22px;
 
     }
 
@@ -1610,246 +1125,61 @@ footer p {
 </head>
 
 
-<body class="no-scroll">
+<body class="bloqueado">
+
 
 
 <!-- =====================================================
-     SOBRE
+     INTRO CON LOS FRAMES REALES
 ===================================================== -->
 
-<div id="pantallaSobre">
+<div id="introSobre">
 
 
-<div
-    class="envelope-container"
-    id="sobre"
-    onclick="abrirInvitacion()"
-    role="button"
-    tabindex="0"
-    aria-label="Abrir invitación">
+    <div
+        class="animacion-sobre"
+        id="animacionSobre">
 
 
-    <div class="envelope-back"></div>
+        <!-- FRAME INICIAL -->
+
+        <img
+            src="frame-01.png"
+            id="layerA"
+            class="frame-capa"
+            alt="Sobre de la invitación">
 
 
-    <div class="carta-interior">
+        <!-- SEGUNDA CAPA PARA HACER LOS FUNDIDOS -->
 
-        <span>
-            Sara & Nacho
-        </span>
+        <img
+            src="frame-02.png"
+            id="layerB"
+            class="frame-capa"
+            alt="">
+
+
+        <!--
+        Este botón es invisible.
+        Está colocado encima del sello
+        del propio frame real.
+        -->
+
+        <button
+            id="botonSello"
+            type="button"
+            aria-label="Abrir invitación">
+        </button>
+
+
+        <div class="abrir">
+
+            Abrir invitación
+
+        </div>
+
 
     </div>
-
-
-    <div class="envelope-front-left"></div>
-
-
-    <div class="envelope-front-right"></div>
-
-
-    <div class="envelope-front-bottom"></div>
-
-
-    <div class="flap"></div>
-
-
-    <!-- SELLO REALISTA -->
-
-    <div class="sello-real">
-
-        <svg
-            viewBox="0 0 120 120"
-            xmlns="http://www.w3.org/2000/svg">
-
-            <defs>
-
-                <!-- irregularidad del borde -->
-
-                <filter
-                    id="waxTexture"
-                    x="-30%"
-                    y="-30%"
-                    width="160%"
-                    height="160%">
-
-                    <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency=".025"
-                        numOctaves="3"
-                        seed="7"
-                        result="noise"/>
-
-                    <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="noise"
-                        scale="4"
-                        xChannelSelector="R"
-                        yChannelSelector="G"/>
-
-                </filter>
-
-
-                <radialGradient
-                    id="waxGradient"
-                    cx="34%"
-                    cy="26%"
-                    r="72%">
-
-                    <stop
-                        offset="0%"
-                        stop-color="#a64c57"/>
-
-                    <stop
-                        offset="25%"
-                        stop-color="#903944"/>
-
-                    <stop
-                        offset="68%"
-                        stop-color="#752833"/>
-
-                    <stop
-                        offset="100%"
-                        stop-color="#581d26"/>
-
-                </radialGradient>
-
-
-                <radialGradient
-                    id="highlight"
-                    cx="30%"
-                    cy="25%"
-                    r="60%">
-
-                    <stop
-                        offset="0%"
-                        stop-color="white"
-                        stop-opacity=".28"/>
-
-                    <stop
-                        offset="45%"
-                        stop-color="white"
-                        stop-opacity=".05"/>
-
-                    <stop
-                        offset="100%"
-                        stop-color="white"
-                        stop-opacity="0"/>
-
-                </radialGradient>
-
-
-                <filter
-                    id="innerShadow"
-                    x="-20%"
-                    y="-20%"
-                    width="140%"
-                    height="140%">
-
-                    <feGaussianBlur
-                        stdDeviation="2"
-                        result="blur"/>
-
-                    <feOffset
-                        dy="2"/>
-
-                </filter>
-
-            </defs>
-
-
-            <!-- masa de lacre -->
-
-            <path
-                d="
-                M59 5
-                C73 4 82 11 91 18
-                C104 28 111 40 109 53
-                C115 67 105 82 97 91
-                C88 104 73 112 59 110
-                C45 115 31 106 22 97
-                C10 89 5 75 9 62
-                C3 49 9 34 19 24
-                C29 12 43 6 59 5
-                Z"
-                fill="url(#waxGradient)"
-                filter="url(#waxTexture)"/>
-
-
-            <!-- luz -->
-
-            <circle
-                cx="59"
-                cy="57"
-                r="49"
-                fill="url(#highlight)"
-                opacity=".58"/>
-
-
-            <!-- aro hundido -->
-
-            <circle
-                cx="59"
-                cy="57"
-                r="37"
-                fill="none"
-                stroke="#4f1820"
-                stroke-opacity=".42"
-                stroke-width="3"/>
-
-
-            <circle
-                cx="59"
-                cy="57"
-                r="34"
-                fill="none"
-                stroke="#bd7078"
-                stroke-opacity=".25"
-                stroke-width="1.4"/>
-
-
-            <!-- iniciales grabadas -->
-
-            <text
-                x="59"
-                y="65"
-                text-anchor="middle"
-                font-family="Cormorant Garamond, Georgia, serif"
-                font-size="27"
-                font-style="italic"
-                font-weight="600"
-                fill="#4d1720"
-                opacity=".72">
-
-                S &amp; N
-
-            </text>
-
-
-            <!-- brillo superior -->
-
-            <path
-                d="
-                M28 40
-                C37 22 59 14 78 25"
-                fill="none"
-                stroke="white"
-                stroke-opacity=".18"
-                stroke-width="3"
-                stroke-linecap="round"/>
-
-        </svg>
-
-    </div>
-
-
-</div>
-
-
-<div class="abrir-texto">
-
-    Abrir invitación
-
-</div>
 
 
 </div>
@@ -1863,740 +1193,695 @@ footer p {
 <div id="web">
 
 
-<!-- PORTADA -->
 
 <header class="hero">
 
 
-<div class="hero-content">
+    <div class="hero-content">
 
 
-<div class="nos-casamos">
+        <div class="nos-casamos">
 
-Nos casamos
+            Nos casamos
 
-</div>
-
-
-<h1>
-
-Sara
-
-<span class="amp">
-&
-</span>
-
-Nacho
-
-</h1>
+        </div>
 
 
-<div class="fecha">
+        <h1>
 
-29 · 05 · 2027
+            Sara
 
-</div>
+            <span class="amp">
+                &
+            </span>
 
+            Nacho
 
-<div class="lugar-portada">
-
-Parador de Cuenca
-
-</div>
-
-
-</div>
+        </h1>
 
 
-<a
-    class="scroll"
-    href="#historia">
+        <div class="fecha">
 
-Descubre nuestro día
+            29 · 05 · 2027
 
-<span>⌄</span>
+        </div>
 
-</a>
+
+        <div class="lugar-portada">
+
+            Parador de Cuenca
+
+        </div>
+
+
+    </div>
+
+
+    <a
+        class="scroll"
+        href="#historia">
+
+        Descubre nuestro día
+
+        <span>
+            ⌄
+        </span>
+
+    </a>
 
 
 </header>
 
 
 
-<!-- =====================================================
-     INTRO
-===================================================== -->
+<!-- INTRODUCCIÓN -->
 
 <section id="historia">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-Nuestra boda
+            Nuestra boda
 
-</div>
-
-
-<h2>
-
-¡Nos casamos!
-
-</h2>
+        </div>
 
 
-<div class="ramita">
+        <h2>
 
-❦
+            ¡Nos casamos!
 
-</div>
-
-
-<p class="texto">
-
-Hay momentos que merecen ser compartidos
-con las personas que hacen nuestra vida especial.
-
-<br><br>
-
-Y no imaginamos este día sin vosotros.
-
-<br><br>
-
-Nos haría muchísima ilusión
-que nos acompañarais.
-
-</p>
+        </h2>
 
 
-</div>
+        <div class="ramita">
+
+            ❦
+
+        </div>
+
+
+        <p class="texto">
+
+            Hay momentos que merecen ser compartidos
+            con las personas que hacen nuestra vida especial.
+
+            <br><br>
+
+            Y no imaginamos este día sin vosotros.
+
+            <br><br>
+
+            Nos haría muchísima ilusión
+            que nos acompañarais.
+
+        </p>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     CUENTA ATRÁS
-===================================================== -->
+<!-- CUENTA ATRÁS -->
 
 <section class="countdown-section">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-Cada vez queda menos
+            Cada vez queda menos
 
-</div>
-
-
-<h2>
-
-Cuenta atrás
-
-</h2>
+        </div>
 
 
-<div class="countdown">
+        <h2>
+
+            Cuenta atrás
+
+        </h2>
 
 
-<div>
-
-<span
-    class="numero"
-    id="dias">
-
-00
-
-</span>
-
-<span class="unidad">
-
-Días
-
-</span>
-
-</div>
+        <div class="countdown">
 
 
-<div>
+            <div>
 
-<span
-    class="numero"
-    id="horas">
+                <span
+                    class="numero"
+                    id="dias">
 
-00
+                    00
 
-</span>
+                </span>
 
-<span class="unidad">
+                <span class="unidad">
 
-Horas
+                    Días
 
-</span>
+                </span>
 
-</div>
-
-
-<div>
-
-<span
-    class="numero"
-    id="minutos">
-
-00
-
-</span>
-
-<span class="unidad">
-
-Minutos
-
-</span>
-
-</div>
+            </div>
 
 
-<div>
+            <div>
 
-<span
-    class="numero"
-    id="segundos">
+                <span
+                    class="numero"
+                    id="horas">
 
-00
+                    00
 
-</span>
+                </span>
 
-<span class="unidad">
+                <span class="unidad">
 
-Segundos
+                    Horas
 
-</span>
+                </span>
 
-</div>
-
-
-</div>
+            </div>
 
 
-</div>
+            <div>
+
+                <span
+                    class="numero"
+                    id="minutos">
+
+                    00
+
+                </span>
+
+                <span class="unidad">
+
+                    Minutos
+
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <span
+                    class="numero"
+                    id="segundos">
+
+                    00
+
+                </span>
+
+                <span class="unidad">
+
+                    Segundos
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     LUGAR
-===================================================== -->
+<!-- LUGAR -->
 
 <section class="lugar">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-Dónde será
+            Dónde será
 
-</div>
-
-
-<h2>
-
-El lugar
-
-</h2>
+        </div>
 
 
-<p class="texto">
+        <h2>
 
-Hemos elegido uno de los rincones
-más especiales de Cuenca
-para celebrar juntos nuestro gran día.
+            El lugar
 
-</p>
+        </h2>
 
 
-<div class="tarjeta">
+        <p class="texto">
+
+            Hemos elegido uno de los rincones
+            más especiales de Cuenca
+            para celebrar juntos nuestro gran día.
+
+        </p>
 
 
-<div class="ramita">
-
-❦
-
-</div>
+        <div class="tarjeta">
 
 
-<h3>
+            <div class="ramita">
 
-Parador de Cuenca
+                ❦
 
-</h3>
-
-
-<p>
-
-Subida a San Pablo, s/n
-
-<br>
-
-Cuenca
-
-</p>
+            </div>
 
 
-<div class="hora">
+            <h3>
 
-29 de mayo de 2027
+                Parador de Cuenca
 
-</div>
-
-
-<p>
-
-La ceremonia y la celebración
-tendrán lugar en el propio Parador.
-
-</p>
+            </h3>
 
 
-<a
-    class="boton"
-    href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
-    target="_blank"
-    rel="noopener noreferrer">
+            <p>
 
-Cómo llegar
+                Subida a San Pablo, s/n
 
-</a>
+                <br>
 
+                Cuenca
 
-</div>
+            </p>
 
 
-</div>
+            <div class="hora">
+
+                29 de mayo de 2027
+
+            </div>
+
+
+            <p>
+
+                La ceremonia y la celebración
+                tendrán lugar en el propio Parador.
+
+            </p>
+
+
+            <a
+                class="boton"
+                href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
+                target="_blank">
+
+                Cómo llegar
+
+            </a>
+
+
+        </div>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     PROGRAMA
-===================================================== -->
+<!-- PROGRAMA -->
 
 <section class="programa">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-Nuestro día
+            Nuestro día
 
-</div>
-
-
-<h2>
-
-Programa
-
-</h2>
+        </div>
 
 
-<div class="timeline">
+        <h2>
+
+            Programa
+
+        </h2>
 
 
-<div class="evento">
-
-<h3>
-
-Bienvenida
-
-</h3>
-
-<p>
-
-Nos encontraremos
-en el Parador de Cuenca.
-
-</p>
-
-</div>
+        <div class="timeline">
 
 
-<div class="evento">
+            <div class="evento">
 
-<h3>
+                <h3>
+                    Bienvenida
+                </h3>
 
-Ceremonia
+                <p>
+                    Nos encontraremos en el Parador de Cuenca.
+                </p>
 
-</h3>
-
-<p>
-
-El momento de decir
-sí, quiero.
-
-</p>
-
-</div>
+            </div>
 
 
-<div class="evento">
+            <div class="evento">
 
-<h3>
+                <h3>
+                    Ceremonia
+                </h3>
 
-Cóctel
+                <p>
+                    El momento de decir sí, quiero.
+                </p>
 
-</h3>
-
-<p>
-
-Brindaremos juntos
-mientras empieza la celebración.
-
-</p>
-
-</div>
+            </div>
 
 
-<div class="evento">
+            <div class="evento">
 
-<h3>
+                <h3>
+                    Cóctel
+                </h3>
 
-Banquete
+                <p>
+                    Brindaremos juntos mientras empieza la celebración.
+                </p>
 
-</h3>
-
-<p>
-
-Comer, beber,
-brindar y disfrutar.
-
-</p>
-
-</div>
+            </div>
 
 
-<div class="evento">
+            <div class="evento">
 
-<h3>
+                <h3>
+                    Banquete
+                </h3>
 
-Fiesta
+                <p>
+                    Comer, beber, brindar y disfrutar.
+                </p>
 
-</h3>
-
-<p>
-
-Y después...
-¡a celebrarlo como se merece!
-
-</p>
-
-</div>
+            </div>
 
 
-</div>
+            <div class="evento">
+
+                <h3>
+                    Fiesta
+                </h3>
+
+                <p>
+                    Y después... ¡a celebrarlo como se merece!
+                </p>
+
+            </div>
 
 
-</div>
+        </div>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     REGALO
-===================================================== -->
+<!-- REGALO -->
 
 <section class="regalo">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-El mejor regalo
-es compartirlo con vosotros
+            El mejor regalo es compartirlo con vosotros
 
-</div>
-
-
-<h2>
-
-Si queréis ayudarnos
-
-</h2>
+        </div>
 
 
-<div class="ramita">
+        <h2>
 
-❦
+            Si queréis ayudarnos
 
-</div>
-
-
-<p class="texto">
-
-Vuestra presencia en nuestro día
-es lo más importante para nosotros.
-
-<br><br>
-
-Pero si además queréis ayudarnos
-a comenzar esta nueva etapa,
-os dejamos por aquí
-una forma de hacerlo.
-
-<br><br>
-
-Gracias por formar parte
-de nuestra historia.
-
-</p>
+        </h2>
 
 
-<div class="cuenta">
+        <div class="ramita">
+
+            ❦
+
+        </div>
 
 
-<div class="cuenta-titulo">
+        <p class="texto">
 
-Número de cuenta
+            Vuestra presencia en nuestro día
+            es lo más importante para nosotros.
 
-</div>
+            <br><br>
+
+            Pero si además queréis ayudarnos
+            a comenzar esta nueva etapa,
+            os dejamos por aquí una forma de hacerlo.
+
+            <br><br>
+
+            Gracias por formar parte de nuestra historia.
+
+        </p>
 
 
-<div class="iban">
-
-ES00 0000 0000 0000 0000 0000
-
-</div>
+        <div class="cuenta">
 
 
-</div>
+            <div class="cuenta-titulo">
+
+                Número de cuenta
+
+            </div>
 
 
-</div>
+            <div class="iban">
+
+                ES00 0000 0000 0000 0000 0000
+
+            </div>
+
+
+        </div>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     CONFIRMAR
-===================================================== -->
+<!-- CONFIRMACIÓN -->
 
 <section
     class="confirmar"
     id="confirmar">
 
 
-<div class="contenedor">
+    <div class="contenedor">
 
 
-<div class="subtitulo">
+        <div class="subtitulo">
 
-Queremos contar contigo
+            Queremos contar contigo
 
-</div>
+        </div>
 
 
-<h2>
+        <h2>
 
-¿Nos acompañas?
+            ¿Nos acompañas?
 
-</h2>
+        </h2>
 
 
-<div class="ramita">
+        <div class="ramita">
 
-❦
+            ❦
 
-</div>
+        </div>
 
 
-<p class="texto">
+        <p class="texto">
 
-Nos hará muchísima ilusión
-compartir este día contigo.
+            Nos hará muchísima ilusión
+            compartir este día contigo.
 
-<br><br>
+            <br><br>
 
-Confírmanos tu asistencia
-rellenando este pequeño formulario.
+            Confírmanos tu asistencia
+            rellenando este pequeño formulario.
 
-</p>
+        </p>
 
 
-<form
-    class="formulario"
-    action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
-    method="POST">
+        <form
+            class="formulario"
+            action="https://formspree.io/f/TU-CODIGO-FORMSPREE"
+            method="POST">
 
 
-<input
-    type="hidden"
-    name="_subject"
-    value="Nueva confirmación - Boda Sara y Nacho">
+            <div class="campo">
 
+                <label for="nombre">
 
-<div class="campo">
+                    Nombre y apellidos
 
-<label for="name">
+                </label>
 
-Nombre y apellidos
 
-</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    required>
 
-<input
-    id="name"
-    type="text"
-    name="name"
-    placeholder="Tu nombre y apellidos"
-    required>
+            </div>
 
-</div>
 
+            <div class="campo">
 
-<div class="campo">
+                <label for="asistencia">
 
-<label for="asistencia">
+                    ¿Podrás acompañarnos?
 
-¿Podrás acompañarnos?
+                </label>
 
-</label>
 
-<select
-    id="asistencia"
-    name="asistencia"
-    required>
+                <select
+                    id="asistencia"
+                    name="asistencia"
+                    required>
 
-<option value="">
 
-Selecciona una opción
+                    <option value="">
 
-</option>
+                        Selecciona una opción
 
-<option value="Sí">
+                    </option>
 
-Sí, ¡allí estaré!
 
-</option>
+                    <option value="Sí">
 
-<option value="No">
+                        Sí, ¡allí estaré!
 
-Lo siento, no podré asistir
+                    </option>
 
-</option>
 
-</select>
+                    <option value="No">
 
-</div>
+                        Lo siento, no podré asistir
 
+                    </option>
 
-<div class="campo">
 
-<label for="personas">
+                </select>
 
-¿Cuántas personas asistiréis?
 
-</label>
+            </div>
 
-<input
-    id="personas"
-    type="number"
-    name="numero_personas"
-    min="1"
-    max="10"
-    placeholder="Ejemplo: 2">
 
-</div>
+            <div class="campo">
 
+                <label for="personas">
 
-<div class="campo">
+                    ¿Cuántas personas asistiréis?
 
-<label for="alimentacion">
+                </label>
 
-Alergias, intolerancias
-o alimentación especial
 
-</label>
+                <input
+                    id="personas"
+                    type="number"
+                    name="personas"
+                    min="1"
+                    max="10">
 
-<input
-    id="alimentacion"
-    type="text"
-    name="alimentacion"
-    placeholder="Vegetariano, celíaco, alergias...">
+            </div>
 
-</div>
 
+            <div class="campo">
 
-<div class="campo">
+                <label for="alimentacion">
 
-<label for="mensaje">
+                    Alergias o alimentación especial
 
-¿Quieres contarnos algo?
+                </label>
 
-</label>
 
-<textarea
-    id="mensaje"
-    name="message"
-    placeholder="Déjanos un mensaje si quieres"></textarea>
+                <input
+                    id="alimentacion"
+                    type="text"
+                    name="alimentacion">
 
-</div>
+            </div>
 
 
-<button
-    class="boton-enviar"
-    type="submit">
+            <div class="campo">
 
-Confirmar asistencia
+                <label for="mensaje">
 
-</button>
+                    ¿Quieres contarnos algo?
 
+                </label>
 
-</form>
 
+                <textarea
+                    id="mensaje"
+                    name="mensaje"></textarea>
 
-</div>
+            </div>
+
+
+            <button
+                class="boton-enviar"
+                type="submit">
+
+                Confirmar asistencia
+
+            </button>
+
+
+        </form>
+
+
+    </div>
 
 
 </section>
 
 
 
-<!-- =====================================================
-     FINAL
-===================================================== -->
-
 <footer>
 
 
-<div class="nombres">
+    <div class="nombres">
 
-Sara & Nacho
+        Sara & Nacho
 
-</div>
+    </div>
 
 
-<p>
+    <p>
 
-29 · MAYO · 2027 — CUENCA
+        29 · MAYO · 2027 — CUENCA
 
-</p>
+    </p>
 
 
 </footer>
@@ -2609,138 +1894,335 @@ Sara & Nacho
 <script>
 
 
-/* =====================================================
-   APERTURA
-===================================================== */
-
-let invitacionAbierta = false;
+/* =========================================================
+   FRAMES DEL SOBRE
+========================================================= */
 
 
-function abrirInvitacion() {
+const nombresFrames = [
+
+    "frame-01.png",
+
+    "frame-02.png",
+
+    "frame-03.png",
+
+    "frame-04.png",
+
+    "frame-05.png"
+
+];
 
 
-    if (invitacionAbierta) {
+/*
+Estos son los tiempos que habíamos
+utilizado para que no desaparecieran
+todos los fotogramas a la misma velocidad.
+*/
+
+const tiemposFrames = [
+
+    500,
+
+    500,
+
+    650,
+
+    650,
+
+    750
+
+];
+
+
+const intro =
+    document.getElementById("introSobre");
+
+
+const contenedorAnimacion =
+    document.getElementById("animacionSobre");
+
+
+const layerA =
+    document.getElementById("layerA");
+
+
+const layerB =
+    document.getElementById("layerB");
+
+
+const botonSello =
+    document.getElementById("botonSello");
+
+
+const web =
+    document.getElementById("web");
+
+
+let animacionIniciada = false;
+
+
+/* =========================================================
+   PRECARGAR TODOS LOS FRAMES
+========================================================= */
+
+
+nombresFrames.forEach(function(nombre){
+
+    const imagen =
+        new Image();
+
+    imagen.src =
+        nombre;
+
+});
+
+
+
+/* =========================================================
+   INICIAR ANIMACIÓN
+========================================================= */
+
+
+botonSello.addEventListener(
+    "click",
+    iniciarAnimacion
+);
+
+
+function iniciarAnimacion(){
+
+
+    if(animacionIniciada){
 
         return;
 
     }
 
 
-    invitacionAbierta = true;
+    animacionIniciada = true;
 
 
-    const sobre =
-        document.getElementById(
-            "sobre"
-        );
-
-
-    const pantalla =
-        document.getElementById(
-            "pantallaSobre"
-        );
-
-
-    const web =
-        document.getElementById(
-            "web"
-        );
-
-
-    sobre.classList.add(
-        "abierto"
-    );
-
-
-    /* primero abre físicamente el sobre */
-
-
-    setTimeout(function() {
-
-
-        web.classList.add(
-            "visible"
-        );
-
-
-        document.body.classList.remove(
-            "no-scroll"
-        );
-
-
-        pantalla.classList.add(
-            "oculto"
-        );
-
-
-        window.scrollTo(
-            0,
-            0
-        );
-
-
-    }, 1050);
+    contenedorAnimacion
+        .classList
+        .add("animando");
 
 
     /*
-    IMPORTANTE:
-
-    Después de la transición
-    eliminamos completamente
-    la pantalla del sobre.
-
-    Así nunca puede quedarse
-    bloqueada encima de la web.
+    Empezamos por el frame 2,
+    porque el frame 1 ya se está viendo.
     */
 
 
-    setTimeout(function() {
-
-
-        pantalla.style.display =
-            "none";
-
-
-    }, 2050);
+    cambiarFrame(1);
 
 
 }
 
 
 
-/* Enter y barra espaciadora */
-
-document
-.getElementById("sobre")
-.addEventListener(
-    "keydown",
-    function(event) {
+/* =========================================================
+   CAMBIAR FRAME CON FUNDIDO
+========================================================= */
 
 
-        if (
-            event.key === "Enter"
-            ||
-            event.key === " "
-        ) {
+function cambiarFrame(indice){
 
 
-            event.preventDefault();
+    /*
+    Si ya hemos mostrado todos
+    los fotogramas, termina.
+    */
 
 
-            abrirInvitacion();
+    if(indice >= nombresFrames.length){
 
 
-        }
+        terminarAnimacion();
 
+
+        return;
 
     }
-);
+
+
+    /*
+    Cargamos la imagen siguiente
+    sobre la imagen actual.
+    */
+
+
+    layerB.src =
+        nombresFrames[indice];
+
+
+    /*
+    Forzamos al navegador a preparar
+    la imagen antes del fundido.
+    */
+
+
+    layerB.onload =
+        function(){
+
+
+            requestAnimationFrame(
+                function(){
+
+
+                    /*
+                    Aparece la capa superior
+                    suavemente.
+                    */
+
+
+                    layerB.style.opacity =
+                        "1";
+
+
+                    setTimeout(
+                        function(){
+
+
+                            /*
+                            La capa A pasa a tener
+                            el nuevo fotograma.
+                            */
+
+
+                            layerA.src =
+                                nombresFrames[indice];
+
+
+                            /*
+                            Quitamos la capa B.
+                            */
+
+
+                            layerB.style.opacity =
+                                "0";
+
+
+                            /*
+                            Esperamos el tiempo
+                            correspondiente antes
+                            del siguiente frame.
+                            */
+
+
+                            setTimeout(
+                                function(){
+
+
+                                    cambiarFrame(
+                                        indice + 1
+                                    );
+
+
+                                },
+
+                                tiemposFrames[indice]
+
+                            );
+
+
+                        },
+
+                        320
+
+                    );
+
+
+                }
+            );
+
+
+        };
+
+
+}
 
 
 
-/* =====================================================
+/* =========================================================
+   TERMINAR Y MOSTRAR LA PORTADA
+========================================================= */
+
+
+function terminarAnimacion(){
+
+
+    /*
+    Aquí sigue sin verse la foto
+    de Cuenca hasta que ya ha
+    terminado el último frame.
+    */
+
+
+    setTimeout(
+        function(){
+
+
+            web.classList.add(
+                "visible"
+            );
+
+
+            document.body.classList.remove(
+                "bloqueado"
+            );
+
+
+            intro.classList.add(
+                "desaparecer"
+            );
+
+
+            window.scrollTo(
+                0,
+                0
+            );
+
+
+        },
+
+        350
+
+    );
+
+
+    /*
+    Eliminamos completamente
+    la introducción después.
+
+    Así solucionamos el problema
+    de que el sobre pudiera quedarse
+    bloqueando la página.
+    */
+
+
+    setTimeout(
+        function(){
+
+
+            intro.style.display =
+                "none";
+
+
+        },
+
+        1400
+
+    );
+
+
+}
+
+
+
+/* =========================================================
    CUENTA ATRÁS
-===================================================== */
+========================================================= */
 
 
 const fechaBoda =
@@ -2751,150 +2233,89 @@ const fechaBoda =
 
 
 
-function actualizarCuenta() {
+function actualizarCuenta(){
 
 
     const ahora =
-        new Date().getTime();
+        Date.now();
 
 
     const distancia =
         fechaBoda - ahora;
 
 
-    if (distancia <= 0) {
-
-
-        document
-        .querySelector(
-            ".countdown"
-        )
-        .innerHTML =
-        "<span class='numero'>¡Hoy es el gran día!</span>";
-
+    if(distancia <= 0){
 
         return;
-
 
     }
 
 
     const dias =
-
         Math.floor(
-
             distancia /
-            (
-                1000 *
-                60 *
-                60 *
-                24
-            )
-
+            86400000
         );
 
 
     const horas =
-
         Math.floor(
-
             (
                 distancia %
-                (
-                    1000 *
-                    60 *
-                    60 *
-                    24
-                )
+                86400000
             )
-
             /
-
-            (
-                1000 *
-                60 *
-                60
-            )
-
+            3600000
         );
 
 
     const minutos =
-
         Math.floor(
-
             (
                 distancia %
-                (
-                    1000 *
-                    60 *
-                    60
-                )
+                3600000
             )
-
             /
-
-            (
-                1000 *
-                60
-            )
-
+            60000
         );
 
 
     const segundos =
-
         Math.floor(
-
             (
                 distancia %
-                (
-                    1000 *
-                    60
-                )
+                60000
             )
-
             /
-
             1000
-
         );
 
 
     document
-    .getElementById("dias")
-    .textContent =
+        .getElementById("dias")
+        .textContent =
         dias;
 
 
     document
-    .getElementById("horas")
-    .textContent =
+        .getElementById("horas")
+        .textContent =
         String(horas)
-        .padStart(
-            2,
-            "0"
-        );
+        .padStart(2,"0");
 
 
     document
-    .getElementById("minutos")
-    .textContent =
+        .getElementById("minutos")
+        .textContent =
         String(minutos)
-        .padStart(
-            2,
-            "0"
-        );
+        .padStart(2,"0");
 
 
     document
-    .getElementById("segundos")
-    .textContent =
+        .getElementById("segundos")
+        .textContent =
         String(segundos)
-        .padStart(
-            2,
-            "0"
-        );
+        .padStart(2,"0");
 
 
 }
