@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sara & Nacho | 29.05.2027</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+rel="stylesheet">
 
 <style>
+
+/* =========================================================
+   GENERAL
+========================================================= */
 
 *{
     margin:0;
@@ -29,9 +32,9 @@ html{
 
 body{
     margin:0;
-    background:#f4efe6;
-    color:#45493c;
     font-family:'Montserrat',sans-serif;
+    background:#f4f0e7;
+    color:#45493c;
     line-height:1.7;
 }
 
@@ -41,147 +44,168 @@ body.bloqueado{
 
 
 /* =========================================================
-   INTRO - ANIMACIÓN POR FRAMES
+   INTRO DEL SOBRE
 ========================================================= */
 
 #introSobre{
 
     position:fixed;
-
     inset:0;
 
     z-index:99999;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    background:#f0e7d8;
 
     overflow:hidden;
 
-    opacity:1;
+    background:
+        radial-gradient(
+            circle at center,
+            #eadbc6 0%,
+            #d8c2a5 100%
+        );
 
+    opacity:1;
     visibility:visible;
 
     transition:
-        opacity .8s ease,
-        visibility .8s ease;
-
+        opacity 1s ease,
+        visibility 1s ease;
 }
 
-
-#introSobre.desaparecer{
-
-    opacity:0;
-
-    visibility:hidden;
-
-    pointer-events:none;
-
-}
-
-
-/* textura de fondo */
 
 #introSobre::before{
 
     content:"";
 
     position:absolute;
-
     inset:0;
 
     pointer-events:none;
 
-    opacity:.18;
+    opacity:.13;
 
-    background:
-
+    background-image:
         repeating-linear-gradient(
             35deg,
-            rgba(80,60,40,.05) 0,
-            rgba(80,60,40,.05) 1px,
+            rgba(75,54,35,.08) 0,
+            rgba(75,54,35,.08) 1px,
             transparent 1px,
-            transparent 6px
+            transparent 5px
         );
-
 }
 
 
-/* contenedor de los frames */
+#introSobre.oculto{
 
-.animacion-sobre{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL SOBRE
+========================================================= */
+
+.sobre-contenedor{
 
     position:relative;
 
-    width:min(760px,94vw);
+    width:min(850px,94vw);
+
+    aspect-ratio:4 / 3;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
+    background:
+        radial-gradient(
+            ellipse at center,
+            #513326 0%,
+            #221612 70%,
+            #140d0b 100%
+        );
+
+    overflow:hidden;
+
+    box-shadow:
+        0 28px 55px rgba(65,42,25,.23);
 }
 
 
-/*
-Las dos imágenes están exactamente
-una encima de la otra.
+/* Imagen original */
 
-Así podemos hacer fundidos suaves
-entre un frame y el siguiente.
-*/
-
-.frame-capa{
-
-    width:100%;
-
-    height:auto;
-
-    display:block;
-
-    object-fit:contain;
-
-    position:relative;
-
-    user-select:none;
-
-    -webkit-user-drag:none;
-
-}
-
-
-#layerA{
-
-    opacity:1;
-
-    z-index:2;
-
-}
-
-
-#layerB{
+#sobreOriginal{
 
     position:absolute;
 
     inset:0;
 
-    margin:auto;
+    width:100%;
+    height:100%;
 
-    opacity:0;
+    object-fit:cover;
 
-    z-index:3;
+    z-index:2;
 
-    transition:opacity .30s ease;
+    opacity:1;
 
+    transition:opacity .12s linear;
+
+    user-select:none;
+    -webkit-user-drag:none;
 }
 
 
-/* botón transparente sobre el sello */
+/* Canvas donde se genera el quemado */
+
+#canvasQuemado{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    z-index:3;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:opacity .12s linear;
+}
+
+
+#canvasQuemado.activo{
+
+    opacity:1;
+}
+
+
+/* Vídeo oculto: solo lo usamos como fuente */
+
+#videoQuemado{
+
+    position:absolute;
+
+    width:1px;
+    height:1px;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   ZONA PULSABLE DEL SELLO
+========================================================= */
 
 #botonSello{
 
@@ -191,67 +215,88 @@ entre un frame y el siguiente.
 
     left:50%;
 
-    top:52%;
+    top:59.5%;
 
     transform:translate(-50%,-50%);
 
-    width:125px;
+    width:13%;
 
-    height:125px;
+    aspect-ratio:1;
 
     border:0;
 
     border-radius:50%;
 
+    padding:0;
+
     background:transparent;
 
     cursor:pointer;
 
-    padding:0;
-
+    -webkit-tap-highlight-color:transparent;
 }
 
 
-/* pequeña indicación */
+#botonSello::after{
 
-.abrir{
+    content:"";
+
+    position:absolute;
+    inset:-10%;
+
+    border-radius:50%;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+#botonSello:hover::after{
+
+    background:
+        rgba(255,255,255,.04);
+
+    transform:scale(1.05);
+}
+
+
+#botonSello.animando{
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   OSCURECIMIENTO DURANTE EL QUEMADO
+========================================================= */
+
+.resplandor{
 
     position:absolute;
 
-    z-index:10;
+    inset:0;
 
-    left:50%;
-
-    bottom:-42px;
-
-    transform:translateX(-50%);
-
-    font-size:10px;
-
-    text-transform:uppercase;
-
-    letter-spacing:4px;
-
-    color:#756957;
-
-    white-space:nowrap;
-
-    transition:opacity .3s ease;
-
-}
-
-
-.animando .abrir{
-
-    opacity:0;
-
-}
-
-
-.animando #botonSello{
+    z-index:1;
 
     pointer-events:none;
 
+    opacity:0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 30%,
+            rgba(255,119,28,.22),
+            transparent 52%
+        );
+
+    transition:opacity .8s ease;
+}
+
+
+.sobre-contenedor.quemandose .resplandor{
+
+    opacity:1;
 }
 
 
@@ -261,32 +306,18 @@ entre un frame y el siguiente.
 
 #web{
 
-    display:none;
-
     opacity:0;
+    visibility:hidden;
 
+    transition:
+        opacity 1.25s ease;
 }
 
 
 #web.visible{
 
-    display:block;
-
-    animation:mostrarWeb 1.2s ease forwards;
-
-}
-
-
-@keyframes mostrarWeb{
-
-    from{
-        opacity:0;
-    }
-
-    to{
-        opacity:1;
-    }
-
+    opacity:1;
+    visibility:visible;
 }
 
 
@@ -296,14 +327,12 @@ entre un frame y el siguiente.
 
 .hero{
 
-    position:relative;
-
     min-height:100vh;
 
+    position:relative;
+
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     overflow:hidden;
@@ -314,44 +343,38 @@ entre un frame y el siguiente.
 
     text-align:center;
 
-    background:
+    background-image:
 
         linear-gradient(
-            rgba(20,25,18,.20),
-            rgba(20,25,18,.52)
+            rgba(22,27,19,.16),
+            rgba(19,23,17,.53)
         ),
 
         url('./fondo-cuenca.png');
 
     background-size:cover;
 
-    background-position:center;
+    background-position:center center;
 
     background-repeat:no-repeat;
-
 }
 
-
-/* viñeta suave */
 
 .hero::after{
 
     content:"";
 
     position:absolute;
-
     inset:0;
-
-    background:
-
-        radial-gradient(
-            circle,
-            transparent 45%,
-            rgba(15,15,10,.22)
-        );
 
     pointer-events:none;
 
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 40%,
+            rgba(16,16,11,.24) 100%
+        );
 }
 
 
@@ -364,8 +387,33 @@ entre un frame y el siguiente.
     max-width:950px;
 
     text-shadow:
-        0 3px 18px rgba(0,0,0,.45);
+        0 3px 20px rgba(0,0,0,.5);
 
+    opacity:0;
+
+    transform:translateY(20px);
+}
+
+
+#web.visible .hero-content{
+
+    animation:
+        aparecerPortada
+        1.7s .35s ease forwards;
+}
+
+
+@keyframes aparecerPortada{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 
@@ -378,7 +426,6 @@ entre un frame y el siguiente.
     letter-spacing:6px;
 
     text-transform:uppercase;
-
 }
 
 
@@ -396,7 +443,6 @@ entre un frame y el siguiente.
     font-weight:400;
 
     line-height:.85;
-
 }
 
 
@@ -406,12 +452,11 @@ entre un frame y el siguiente.
 
     margin:0 8px;
 
-    font-style:italic;
-
     font-size:.72em;
 
-    color:#ead9b7;
+    font-style:italic;
 
+    color:#ead9b7;
 }
 
 
@@ -422,7 +467,6 @@ entre un frame y el siguiente.
     font-size:13px;
 
     letter-spacing:6px;
-
 }
 
 
@@ -437,7 +481,6 @@ entre un frame y el siguiente.
     font-size:24px;
 
     letter-spacing:3px;
-
 }
 
 
@@ -447,9 +490,8 @@ entre un frame y el siguiente.
 
     z-index:5;
 
-    bottom:25px;
-
     left:50%;
+    bottom:25px;
 
     transform:translateX(-50%);
 
@@ -462,7 +504,6 @@ entre un frame y el siguiente.
     letter-spacing:3px;
 
     font-size:9px;
-
 }
 
 
@@ -470,12 +511,12 @@ entre un frame y el siguiente.
 
     display:block;
 
-    margin-top:7px;
+    margin-top:6px;
 
-    font-size:22px;
+    font-size:23px;
 
-    animation:bajar 1.8s ease-in-out infinite;
-
+    animation:
+        bajar 1.8s ease-in-out infinite;
 }
 
 
@@ -486,20 +527,18 @@ entre un frame y el siguiente.
     }
 
     50%{
-        transform:translateY(6px);
+        transform:translateY(7px);
     }
-
 }
 
 
 /* =========================================================
-   SECCIONES
+   ELEMENTOS GENERALES
 ========================================================= */
 
 section{
 
     padding:105px 25px;
-
 }
 
 
@@ -512,7 +551,6 @@ section{
     margin:auto;
 
     text-align:center;
-
 }
 
 
@@ -527,7 +565,6 @@ section{
     letter-spacing:4px;
 
     text-transform:uppercase;
-
 }
 
 
@@ -544,10 +581,9 @@ h2{
     font-size:
         clamp(42px,7vw,68px);
 
-    line-height:1;
-
     font-weight:400;
 
+    line-height:1;
 }
 
 
@@ -566,7 +602,6 @@ h2{
     font-size:23px;
 
     line-height:1.65;
-
 }
 
 
@@ -577,16 +612,16 @@ h2{
     color:#738064;
 
     font-size:37px;
-
 }
 
 
-/* INTRO */
+/* =========================================================
+   INTRODUCCIÓN
+========================================================= */
 
 #historia{
 
     background:#f5f0e7;
-
 }
 
 
@@ -599,21 +634,18 @@ h2{
     background:#3d4837;
 
     color:white;
-
 }
 
 
 .countdown-section h2{
 
     color:#f4eee2;
-
 }
 
 
 .countdown-section .subtitulo{
 
     color:#d5c6a7;
-
 }
 
 
@@ -623,12 +655,11 @@ h2{
 
     justify-content:center;
 
-    gap:50px;
-
     flex-wrap:wrap;
 
-    margin-top:50px;
+    gap:50px;
 
+    margin-top:50px;
 }
 
 
@@ -643,7 +674,6 @@ h2{
     font-size:58px;
 
     line-height:1;
-
 }
 
 
@@ -660,7 +690,6 @@ h2{
     letter-spacing:3px;
 
     text-transform:uppercase;
-
 }
 
 
@@ -671,7 +700,6 @@ h2{
 .lugar{
 
     background:#e6dece;
-
 }
 
 
@@ -683,10 +711,11 @@ h2{
 
     padding:60px 35px;
 
-    background:rgba(252,248,239,.88);
+    background:
+        rgba(252,248,239,.88);
 
-    border:1px solid #c9bda7;
-
+    border:
+        1px solid #c9bda7;
 }
 
 
@@ -701,7 +730,6 @@ h2{
     font-size:40px;
 
     font-weight:500;
-
 }
 
 
@@ -714,7 +742,6 @@ h2{
         serif;
 
     font-size:25px;
-
 }
 
 
@@ -726,9 +753,12 @@ h2{
 
     padding:14px 30px;
 
+    border:
+        1px solid #59644f;
+
     color:#46503f;
 
-    border:1px solid #59644f;
+    background:transparent;
 
     text-decoration:none;
 
@@ -738,6 +768,15 @@ h2{
 
     font-size:10px;
 
+    transition:.3s ease;
+}
+
+
+.boton:hover{
+
+    background:#46503f;
+
+    color:white;
 }
 
 
@@ -748,7 +787,6 @@ h2{
 .programa{
 
     background:#f4f0e7;
-
 }
 
 
@@ -759,7 +797,6 @@ h2{
     margin:55px auto 0;
 
     text-align:left;
-
 }
 
 
@@ -772,14 +809,12 @@ h2{
 
     border-left:
         1px solid #9c927d;
-
 }
 
 
 .evento:last-child{
 
     padding-bottom:0;
-
 }
 
 
@@ -790,17 +825,14 @@ h2{
     position:absolute;
 
     left:-5px;
-
     top:9px;
 
     width:9px;
-
     height:9px;
 
     border-radius:50%;
 
     background:#64705a;
-
 }
 
 
@@ -813,7 +845,6 @@ h2{
     font-size:29px;
 
     font-weight:500;
-
 }
 
 
@@ -822,7 +853,6 @@ h2{
     color:#777265;
 
     font-size:13px;
-
 }
 
 
@@ -835,28 +865,24 @@ h2{
     background:#3e4937;
 
     color:#f5f0e5;
-
 }
 
 
 .regalo h2{
 
     color:#f5f0e5;
-
 }
 
 
 .regalo .subtitulo{
 
     color:#d5c6a7;
-
 }
 
 
 .regalo .texto{
 
     color:#eee8dc;
-
 }
 
 
@@ -870,7 +896,6 @@ h2{
 
     border:
         1px solid rgba(255,255,255,.35);
-
 }
 
 
@@ -883,7 +908,6 @@ h2{
     letter-spacing:3px;
 
     text-transform:uppercase;
-
 }
 
 
@@ -898,6 +922,7 @@ h2{
 
     letter-spacing:2px;
 
+    word-break:break-word;
 }
 
 
@@ -908,7 +933,6 @@ h2{
 .confirmar{
 
     background:#ddd5c4;
-
 }
 
 
@@ -919,14 +943,12 @@ h2{
     margin:50px auto 0;
 
     text-align:left;
-
 }
 
 
 .campo{
 
     margin-bottom:23px;
-
 }
 
 
@@ -941,7 +963,6 @@ h2{
     letter-spacing:1.5px;
 
     text-transform:uppercase;
-
 }
 
 
@@ -953,9 +974,13 @@ textarea{
 
     padding:14px;
 
-    border:1px solid #b7ad99;
+    border:
+        1px solid #b7ad99;
 
-    background:rgba(255,255,255,.55);
+    outline:none;
+
+    background:
+        rgba(255,255,255,.55);
 
     color:#45493c;
 
@@ -964,7 +989,6 @@ textarea{
         sans-serif;
 
     font-size:15px;
-
 }
 
 
@@ -973,7 +997,6 @@ textarea{
     min-height:110px;
 
     resize:vertical;
-
 }
 
 
@@ -996,12 +1019,11 @@ textarea{
     letter-spacing:2px;
 
     cursor:pointer;
-
 }
 
 
 /* =========================================================
-   FINAL
+   PIE
 ========================================================= */
 
 footer{
@@ -1013,7 +1035,6 @@ footer{
     color:#e9e3d6;
 
     text-align:center;
-
 }
 
 
@@ -1026,7 +1047,6 @@ footer .nombres{
         serif;
 
     font-size:48px;
-
 }
 
 
@@ -1035,7 +1055,6 @@ footer p{
     font-size:10px;
 
     letter-spacing:3px;
-
 }
 
 
@@ -1048,74 +1067,66 @@ footer p{
     section{
 
         padding:78px 20px;
-
     }
 
 
-    .animacion-sobre{
+    .sobre-contenedor{
 
         width:96vw;
-
     }
 
 
     #botonSello{
 
-        width:95px;
-
-        height:95px;
-
-    }
-
-
-    .abrir{
-
-        bottom:-28px;
-
-        letter-spacing:3px;
-
+        width:15%;
     }
 
 
     .hero h1{
 
         font-size:66px;
-
     }
 
 
     .hero{
 
         background-position:center;
+    }
 
+
+    .hero .fecha{
+
+        letter-spacing:4px;
+    }
+
+
+    .hero .lugar-portada{
+
+        font-size:20px;
     }
 
 
     .countdown{
 
         gap:27px;
-
     }
 
 
     .numero{
 
         font-size:43px;
-
     }
 
 
     .texto{
 
         font-size:21px;
-
     }
 
 
     .tarjeta{
 
         padding:42px 22px;
-
     }
 
 }
@@ -1128,41 +1139,55 @@ footer p{
 <body class="bloqueado">
 
 
-
-<!-- =====================================================
-     INTRO CON LOS FRAMES REALES
-===================================================== -->
+<!-- ======================================================
+     SOBRE
+====================================================== -->
 
 <div id="introSobre">
 
 
     <div
-        class="animacion-sobre"
-        id="animacionSobre">
+        class="sobre-contenedor"
+        id="sobreContenedor">
 
 
-        <!-- FRAME INICIAL -->
-
-        <img
-            src="frame-01.png"
-            id="layerA"
-            class="frame-capa"
-            alt="Sobre de la invitación">
+        <div class="resplandor"></div>
 
 
-        <!-- SEGUNDA CAPA PARA HACER LOS FUNDIDOS -->
+        <!-- SOBRE ORIGINAL -->
 
         <img
-            src="frame-02.png"
-            id="layerB"
-            class="frame-capa"
-            alt="">
+            id="sobreOriginal"
+            src="./frame-01.png"
+            alt="Invitación de boda de Sara y Nacho">
 
 
         <!--
-        Este botón es invisible.
-        Está colocado encima del sello
-        del propio frame real.
+        Aquí dibujaremos el sobre quemándose.
+        No necesitas crear ningún archivo adicional.
+        -->
+
+        <canvas
+            id="canvasQuemado"
+            width="720"
+            height="540">
+        </canvas>
+
+
+        <!-- VÍDEO QUE HAS SUBIDO -->
+
+        <video
+            id="videoQuemado"
+            src="./video quemandose.mp4"
+            muted
+            playsinline
+            preload="auto">
+        </video>
+
+
+        <!--
+        Botón invisible situado sobre
+        el sello S&N de frame-01.png
         -->
 
         <button
@@ -1172,13 +1197,6 @@ footer p{
         </button>
 
 
-        <div class="abrir">
-
-            Abrir invitación
-
-        </div>
-
-
     </div>
 
 
@@ -1186,13 +1204,14 @@ footer p{
 
 
 
-<!-- =====================================================
+<!-- ======================================================
      WEB
-===================================================== -->
+====================================================== -->
 
 <div id="web">
 
 
+<!-- PORTADA -->
 
 <header class="hero">
 
@@ -1243,9 +1262,7 @@ footer p{
 
         Descubre nuestro día
 
-        <span>
-            ⌄
-        </span>
+        <span>⌄</span>
 
     </a>
 
@@ -1254,7 +1271,9 @@ footer p{
 
 
 
-<!-- INTRODUCCIÓN -->
+<!-- ======================================================
+     INTRODUCCIÓN
+====================================================== -->
 
 <section id="historia">
 
@@ -1307,7 +1326,9 @@ footer p{
 
 
 
-<!-- CUENTA ATRÁS -->
+<!-- ======================================================
+     CUENTA ATRÁS
+====================================================== -->
 
 <section class="countdown-section">
 
@@ -1337,15 +1358,11 @@ footer p{
                 <span
                     class="numero"
                     id="dias">
-
                     00
-
                 </span>
 
                 <span class="unidad">
-
                     Días
-
                 </span>
 
             </div>
@@ -1356,15 +1373,11 @@ footer p{
                 <span
                     class="numero"
                     id="horas">
-
                     00
-
                 </span>
 
                 <span class="unidad">
-
                     Horas
-
                 </span>
 
             </div>
@@ -1375,15 +1388,11 @@ footer p{
                 <span
                     class="numero"
                     id="minutos">
-
                     00
-
                 </span>
 
                 <span class="unidad">
-
                     Minutos
-
                 </span>
 
             </div>
@@ -1394,15 +1403,11 @@ footer p{
                 <span
                     class="numero"
                     id="segundos">
-
                     00
-
                 </span>
 
                 <span class="unidad">
-
                     Segundos
-
                 </span>
 
             </div>
@@ -1418,7 +1423,9 @@ footer p{
 
 
 
-<!-- LUGAR -->
+<!-- ======================================================
+     LUGAR
+====================================================== -->
 
 <section class="lugar">
 
@@ -1495,7 +1502,8 @@ footer p{
             <a
                 class="boton"
                 href="https://www.google.com/maps/search/?api=1&query=Parador+de+Cuenca"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
 
                 Cómo llegar
 
@@ -1512,7 +1520,9 @@ footer p{
 
 
 
-<!-- PROGRAMA -->
+<!-- ======================================================
+     PROGRAMA
+====================================================== -->
 
 <section class="programa">
 
@@ -1612,7 +1622,9 @@ footer p{
 
 
 
-<!-- REGALO -->
+<!-- ======================================================
+     REGALO
+====================================================== -->
 
 <section class="regalo">
 
@@ -1686,7 +1698,9 @@ footer p{
 
 
 
-<!-- CONFIRMACIÓN -->
+<!-- ======================================================
+     CONFIRMACIÓN
+====================================================== -->
 
 <section
     class="confirmar"
@@ -1744,10 +1758,9 @@ footer p{
 
                 </label>
 
-
                 <input
-                    type="text"
                     id="nombre"
+                    type="text"
                     name="nombre"
                     required>
 
@@ -1762,36 +1775,24 @@ footer p{
 
                 </label>
 
-
                 <select
                     id="asistencia"
                     name="asistencia"
                     required>
 
-
                     <option value="">
-
                         Selecciona una opción
-
                     </option>
-
 
                     <option value="Sí">
-
                         Sí, ¡allí estaré!
-
                     </option>
-
 
                     <option value="No">
-
                         Lo siento, no podré asistir
-
                     </option>
 
-
                 </select>
-
 
             </div>
 
@@ -1803,7 +1804,6 @@ footer p{
                     ¿Cuántas personas asistiréis?
 
                 </label>
-
 
                 <input
                     id="personas"
@@ -1819,10 +1819,10 @@ footer p{
 
                 <label for="alimentacion">
 
-                    Alergias o alimentación especial
+                    Alergias, intolerancias
+                    o alimentación especial
 
                 </label>
-
 
                 <input
                     id="alimentacion"
@@ -1839,7 +1839,6 @@ footer p{
                     ¿Quieres contarnos algo?
 
                 </label>
-
 
                 <textarea
                     id="mensaje"
@@ -1867,6 +1866,10 @@ footer p{
 
 
 
+<!-- ======================================================
+     FINAL
+====================================================== -->
+
 <footer>
 
 
@@ -1893,104 +1896,167 @@ footer p{
 
 <script>
 
-
 /* =========================================================
-   FRAMES DEL SOBRE
+   ELEMENTOS
 ========================================================= */
-
-
-const nombresFrames = [
-
-    "frame-01.png",
-
-    "frame-02.png",
-
-    "frame-03.png",
-
-    "frame-04.png",
-
-    "frame-05.png"
-
-];
-
-
-/*
-Estos son los tiempos que habíamos
-utilizado para que no desaparecieran
-todos los fotogramas a la misma velocidad.
-*/
-
-const tiemposFrames = [
-
-    500,
-
-    500,
-
-    650,
-
-    650,
-
-    750
-
-];
-
 
 const intro =
     document.getElementById("introSobre");
 
+const sobreContenedor =
+    document.getElementById("sobreContenedor");
 
-const contenedorAnimacion =
-    document.getElementById("animacionSobre");
-
-
-const layerA =
-    document.getElementById("layerA");
-
-
-const layerB =
-    document.getElementById("layerB");
-
+const sobreOriginal =
+    document.getElementById("sobreOriginal");
 
 const botonSello =
     document.getElementById("botonSello");
 
+const video =
+    document.getElementById("videoQuemado");
+
+const canvas =
+    document.getElementById("canvasQuemado");
+
+const ctx =
+    canvas.getContext(
+        "2d",
+        {
+            willReadFrequently:true
+        }
+    );
 
 const web =
     document.getElementById("web");
 
 
-let animacionIniciada = false;
+/* =========================================================
+   CANVAS AUXILIARES
+========================================================= */
+
+const ancho =
+    canvas.width;
+
+const alto =
+    canvas.height;
+
+
+/* Canvas con el sobre original */
+
+const canvasSobre =
+    document.createElement("canvas");
+
+canvasSobre.width =
+    ancho;
+
+canvasSobre.height =
+    alto;
+
+const ctxSobre =
+    canvasSobre.getContext(
+        "2d",
+        {
+            willReadFrequently:true
+        }
+    );
+
+
+/* Canvas para leer el vídeo */
+
+const canvasVideo =
+    document.createElement("canvas");
+
+canvasVideo.width =
+    ancho;
+
+canvasVideo.height =
+    alto;
+
+const ctxVideo =
+    canvasVideo.getContext(
+        "2d",
+        {
+            willReadFrequently:true
+        }
+    );
 
 
 /* =========================================================
-   PRECARGAR TODOS LOS FRAMES
+   PREPARAMOS FRAME-01
 ========================================================= */
 
+const imagenSobre =
+    new Image();
 
-nombresFrames.forEach(function(nombre){
+imagenSobre.src =
+    "./frame-01.png";
 
-    const imagen =
-        new Image();
 
-    imagen.src =
-        nombre;
+let pixelesSobre = null;
 
-});
 
+imagenSobre.onload =
+    function(){
+
+
+        ctxSobre.drawImage(
+            imagenSobre,
+            0,
+            0,
+            ancho,
+            alto
+        );
+
+
+        pixelesSobre =
+            ctxSobre.getImageData(
+                0,
+                0,
+                ancho,
+                alto
+            );
+
+
+        /*
+        También ponemos inicialmente
+        el sobre en el canvas.
+
+        De esta manera el cambio
+        al comenzar la animación
+        no da ningún salto.
+        */
+
+        ctx.putImageData(
+            pixelesSobre,
+            0,
+            0
+        );
+
+    };
 
 
 /* =========================================================
-   INICIAR ANIMACIÓN
+   CONTROL
 ========================================================= */
 
+let animacionIniciada =
+    false;
+
+let animacionTerminada =
+    false;
+
+
+/* =========================================================
+   CLICK EN SELLO
+========================================================= */
 
 botonSello.addEventListener(
     "click",
-    iniciarAnimacion
+    iniciarQuemado
 );
 
 
-function iniciarAnimacion(){
+function iniciarQuemado(){
 
 
     if(animacionIniciada){
@@ -2000,46 +2066,172 @@ function iniciarAnimacion(){
     }
 
 
-    animacionIniciada = true;
+    animacionIniciada =
+        true;
 
 
-    contenedorAnimacion
-        .classList
-        .add("animando");
+    botonSello.classList.add(
+        "animando"
+    );
+
+
+    sobreContenedor.classList.add(
+        "quemandose"
+    );
 
 
     /*
-    Empezamos por el frame 2,
-    porque el frame 1 ya se está viendo.
+    Mostramos el canvas encima
+    de frame-01.
     */
 
+    canvas.classList.add(
+        "activo"
+    );
 
-    cambiarFrame(1);
 
+    /*
+    Ahora podemos ocultar la imagen
+    original porque el canvas contiene
+    exactamente el mismo sobre.
+    */
+
+    setTimeout(
+        function(){
+
+            sobreOriginal.style.opacity =
+                "0";
+
+        },
+        80
+    );
+
+
+    video.currentTime =
+        0;
+
+
+    const promesa =
+        video.play();
+
+
+    if(promesa !== undefined){
+
+
+        promesa
+        .then(function(){
+
+            comenzarRenderizado();
+
+        })
+        .catch(function(){
+
+            /*
+            Si por cualquier razón
+            el navegador bloquea el vídeo,
+            mostramos directamente la web.
+            */
+
+            terminarQuemado();
+
+        });
+
+    }
+    else{
+
+        comenzarRenderizado();
+
+    }
 
 }
 
 
-
 /* =========================================================
-   CAMBIAR FRAME CON FUNDIDO
+   RENDER DEL VÍDEO
 ========================================================= */
 
-
-function cambiarFrame(indice){
-
-
-    /*
-    Si ya hemos mostrado todos
-    los fotogramas, termina.
-    */
+function comenzarRenderizado(){
 
 
-    if(indice >= nombresFrames.length){
+    if(
+        "requestVideoFrameCallback"
+        in HTMLVideoElement.prototype
+    ){
+
+        video.requestVideoFrameCallback(
+            procesarFrameVideo
+        );
+
+    }
+    else{
+
+        requestAnimationFrame(
+            procesarFrameNormal
+        );
+
+    }
+
+}
 
 
-        terminarAnimacion();
+/* Navegadores modernos */
 
+function procesarFrameVideo(){
+
+    if(
+        video.ended
+        ||
+        animacionTerminada
+    ){
+
+        return;
+
+    }
+
+
+    dibujarQuemado();
+
+
+    video.requestVideoFrameCallback(
+        procesarFrameVideo
+    );
+
+}
+
+
+/* Compatibilidad alternativa */
+
+function procesarFrameNormal(){
+
+    if(
+        video.ended
+        ||
+        animacionTerminada
+    ){
+
+        return;
+
+    }
+
+
+    dibujarQuemado();
+
+
+    requestAnimationFrame(
+        procesarFrameNormal
+    );
+
+}
+
+
+/* =========================================================
+   AQUÍ OCURRE EL EFECTO DE QUEMADO
+========================================================= */
+
+function dibujarQuemado(){
+
+
+    if(!pixelesSobre){
 
         return;
 
@@ -2047,190 +2239,392 @@ function cambiarFrame(indice){
 
 
     /*
-    Cargamos la imagen siguiente
-    sobre la imagen actual.
+    Ponemos el fotograma del vídeo
+    a la misma medida que el sobre.
+
+    Aunque el vídeo sea 16:9,
+    el efecto de fuego funciona bien
+    adaptado al formato del sobre.
     */
 
+    ctxVideo.drawImage(
+        video,
+        0,
+        0,
+        ancho,
+        alto
+    );
 
-    layerB.src =
-        nombresFrames[indice];
+
+    const frameVideo =
+        ctxVideo.getImageData(
+            0,
+            0,
+            ancho,
+            alto
+        );
+
+
+    const videoData =
+        frameVideo.data;
+
+
+    const sobreData =
+        pixelesSobre.data;
+
+
+    const resultado =
+        ctx.createImageData(
+            ancho,
+            alto
+        );
+
+
+    const salida =
+        resultado.data;
 
 
     /*
-    Forzamos al navegador a preparar
-    la imagen antes del fundido.
+    Recorremos la imagen.
+
+    El vídeo usa VERDE para indicar
+    la parte que ya se ha quemado.
+
+    Esa zona se vuelve transparente.
+
+    Las llamas y bordes negros
+    se conservan y se mezclan
+    con nuestro sobre.
     */
 
-
-    layerB.onload =
-        function(){
-
-
-            requestAnimationFrame(
-                function(){
+    for(
+        let i = 0;
+        i < videoData.length;
+        i += 4
+    ){
 
 
-                    /*
-                    Aparece la capa superior
-                    suavemente.
-                    */
+        const r =
+            videoData[i];
+
+        const g =
+            videoData[i + 1];
+
+        const b =
+            videoData[i + 2];
 
 
-                    layerB.style.opacity =
-                        "1";
+        /*
+        Color original de
+        nuestro sobre.
+        */
+
+        let sr =
+            sobreData[i];
+
+        let sg =
+            sobreData[i + 1];
+
+        let sb =
+            sobreData[i + 2];
 
 
-                    setTimeout(
-                        function(){
+        /*
+        DETECCIÓN DEL VERDE.
+
+        No es un corte brusco:
+        calculamos intensidad
+        para suavizar los bordes.
+        */
+
+        const diferenciaVerde =
+            g - Math.max(r,b);
 
 
-                            /*
-                            La capa A pasa a tener
-                            el nuevo fotograma.
-                            */
+        let cantidadVerde =
+            0;
 
 
-                            layerA.src =
-                                nombresFrames[indice];
+        if(
+            g > 105
+            &&
+            diferenciaVerde > 28
+        ){
+
+            cantidadVerde =
+                Math.min(
+                    1,
+                    (
+                        diferenciaVerde
+                        - 28
+                    )
+                    /
+                    80
+                );
+
+        }
 
 
-                            /*
-                            Quitamos la capa B.
-                            */
+        /*
+        LUMINOSIDAD Y SATURACIÓN
+        DEL VÍDEO.
+        */
+
+        const maximo =
+            Math.max(r,g,b);
+
+        const minimo =
+            Math.min(r,g,b);
+
+        const saturacion =
+            maximo - minimo;
 
 
-                            layerB.style.opacity =
-                                "0";
-
-
-                            /*
-                            Esperamos el tiempo
-                            correspondiente antes
-                            del siguiente frame.
-                            */
-
-
-                            setTimeout(
-                                function(){
-
-
-                                    cambiarFrame(
-                                        indice + 1
-                                    );
-
-
-                                },
-
-                                tiemposFrames[indice]
-
-                            );
-
-
-                        },
-
-                        320
-
-                    );
-
-
-                }
+        const luminosidad =
+            (
+                r * .299
+                +
+                g * .587
+                +
+                b * .114
             );
 
 
-        };
+        /*
+        Detectamos la llama
+        naranja/amarilla.
+        */
 
+        const esLlama =
+
+            r > 145
+            &&
+            r > b * 1.25
+            &&
+            g > 55
+            &&
+            saturacion > 38
+            &&
+            cantidadVerde < .5;
+
+
+        /*
+        Detectamos carbón y
+        bordes negros.
+        */
+
+        const esCarbon =
+
+            luminosidad < 100
+            &&
+            cantidadVerde < .45;
+
+
+        /*
+        Si estamos justo en la llama,
+        mezclamos el vídeo con
+        el sobre original.
+        */
+
+        if(esLlama){
+
+
+            const mezcla =
+                .72;
+
+
+            sr =
+                sr * (1 - mezcla)
+                +
+                r * mezcla;
+
+
+            sg =
+                sg * (1 - mezcla)
+                +
+                g * mezcla;
+
+
+            sb =
+                sb * (1 - mezcla)
+                +
+                b * mezcla;
+
+        }
+
+
+        /*
+        El borde negro carbonizado
+        también se mezcla.
+        */
+
+        if(esCarbon){
+
+
+            const mezclaCarbon =
+                .70;
+
+
+            sr =
+                sr * (1 - mezclaCarbon)
+                +
+                r * mezclaCarbon;
+
+
+            sg =
+                sg * (1 - mezclaCarbon)
+                +
+                g * mezclaCarbon;
+
+
+            sb =
+                sb * (1 - mezclaCarbon)
+                +
+                b * mezclaCarbon;
+
+        }
+
+
+        salida[i] =
+            sr;
+
+        salida[i + 1] =
+            sg;
+
+        salida[i + 2] =
+            sb;
+
+
+        /*
+        El verde se convierte
+        progresivamente en transparencia.
+
+        Debajo hay un fondo oscuro,
+        como si el papel hubiese
+        desaparecido.
+        */
+
+        salida[i + 3] =
+
+            Math.round(
+                255
+                *
+                (
+                    1
+                    -
+                    cantidadVerde
+                )
+            );
+
+    }
+
+
+    ctx.putImageData(
+        resultado,
+        0,
+        0
+    );
 
 }
 
 
-
 /* =========================================================
-   TERMINAR Y MOSTRAR LA PORTADA
+   CUANDO TERMINA EL VÍDEO
 ========================================================= */
 
+video.addEventListener(
+    "ended",
+    terminarQuemado
+);
 
-function terminarAnimacion(){
+
+function terminarQuemado(){
+
+
+    if(animacionTerminada){
+
+        return;
+
+    }
+
+
+    animacionTerminada =
+        true;
 
 
     /*
-    Aquí sigue sin verse la foto
-    de Cuenca hasta que ya ha
-    terminado el último frame.
+    AHORA SÍ:
+
+    aparece fondo-cuenca.png.
+
+    Hasta este momento la portada
+    estaba completamente oculta
+    por la pantalla del sobre.
     */
 
 
-    setTimeout(
-        function(){
+    web.classList.add(
+        "visible"
+    );
 
 
-            web.classList.add(
-                "visible"
-            );
+    document.body.classList.remove(
+        "bloqueado"
+    );
 
 
-            document.body.classList.remove(
-                "bloqueado"
-            );
+    intro.classList.add(
+        "oculto"
+    );
 
 
-            intro.classList.add(
-                "desaparecer"
-            );
-
-
-            window.scrollTo(
-                0,
-                0
-            );
-
-
-        },
-
-        350
-
+    window.scrollTo(
+        0,
+        0
     );
 
 
     /*
     Eliminamos completamente
-    la introducción después.
-
-    Así solucionamos el problema
-    de que el sobre pudiera quedarse
-    bloqueando la página.
+    la introducción después del fundido.
     */
-
 
     setTimeout(
         function(){
 
-
             intro.style.display =
                 "none";
 
-
         },
-
-        1400
-
+        1200
     );
-
 
 }
 
+
+/* =========================================================
+   SI EL VÍDEO DA ERROR
+========================================================= */
+
+video.addEventListener(
+    "error",
+    function(){
+
+        terminarQuemado();
+
+    }
+);
 
 
 /* =========================================================
    CUENTA ATRÁS
 ========================================================= */
 
-
 const fechaBoda =
 
     new Date(
         "2027-05-29T12:00:00+02:00"
     ).getTime();
-
 
 
 function actualizarCuenta(){
@@ -2245,6 +2639,21 @@ function actualizarCuenta(){
 
 
     if(distancia <= 0){
+
+
+        const cuenta =
+            document.querySelector(
+                ".countdown"
+            );
+
+
+        if(cuenta){
+
+            cuenta.innerHTML =
+                "<span class='numero'>¡Hoy es el gran día!</span>";
+
+        }
+
 
         return;
 
@@ -2292,31 +2701,30 @@ function actualizarCuenta(){
 
 
     document
-        .getElementById("dias")
-        .textContent =
+    .getElementById("dias")
+    .textContent =
         dias;
 
 
     document
-        .getElementById("horas")
-        .textContent =
+    .getElementById("horas")
+    .textContent =
         String(horas)
         .padStart(2,"0");
 
 
     document
-        .getElementById("minutos")
-        .textContent =
+    .getElementById("minutos")
+    .textContent =
         String(minutos)
         .padStart(2,"0");
 
 
     document
-        .getElementById("segundos")
-        .textContent =
+    .getElementById("segundos")
+    .textContent =
         String(segundos)
         .padStart(2,"0");
-
 
 }
 
@@ -2329,10 +2737,8 @@ setInterval(
     1000
 );
 
-
 </script>
 
 
 </body>
-
 </html>
